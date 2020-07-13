@@ -1,10 +1,9 @@
 import React from 'react'
-import SideBar from '../SideBar/sidebar'
 
 function App() {
   return (
     <div className="App">
-       <SideBar/>
+      
     </div>
   );
 }
