@@ -1,0 +1,36 @@
+.events-image{
+    position: absolute;
+width: 232px;
+height: 199px;
+left: 39px;
+top: 260px;
+}
+.events-text{
+    position: absolute;
+    width: 350px;
+    height: 199px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    top: 260px;
+    left: 271px;
+}
+.events-text h3{
+    position: absolute;
+    width: 284px;
+    height: 32px;
+    margin-left: 10px;
+    top: 30px; 
+    left:24px;
+}
+.events-text p{
+    position: absolute;
+width: 284px;
+height: 72px;
+left: 24px;
+top: 63px;
+}
+.avatar{
+    position:absolute;
+    top:90px;
+    
+}
