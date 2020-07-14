@@ -1,28 +1,20 @@
 .button{
-/* square_main-button */
 
-
-/* Auto Layout */
 
 display: flex;
 flex-direction: column;
 padding: 16px;
-
 position: absolute;
 width: 177px;
 height: 46px;
 left: 1007px;
 top: 154px;
-
-/* dark-gray */
-
 background: #1A1A1A;
 border-radius: 8px;
-
 position: static;
 width: 141px;
 height: 14px;
-left: 16px;
+left: 200px;
 top: 16px;
 
 /* inter/button */
@@ -33,17 +25,9 @@ font-weight: bold;
 font-size: 12px;
 line-height: 2px;
 margin: 0px 0px 0px 10px;
-/* identical to box height, or 117% */
-
 letter-spacing: 0.06em;
 text-transform: uppercase;
-
-/* Accent */
-
 color: #44DABD;
-
-/* Inside Auto Layout */
-
 flex: none;
 order: 0;
 align-self: center;
@@ -55,17 +39,12 @@ margin: 0px 10px;
 
 .searchBar{
 display: inline-flex;
-height: 46px;
+height: 30px;
 left: 0%;
 right: 0%;
 top: 0%;
 bottom: 0%;
-
-/* white */
-
 background: #FFFFFF;
-/* gray 03 */
-
 border: 1px solid #8E9296;
 box-sizing: border-box;
 border-radius: 8px;

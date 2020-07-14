@@ -2,8 +2,13 @@ import React from 'react';
 
 const EventsComponent=(props) =>{
     return(
-        <div>
-           
+        <div className="events">
+           <div className="events-image">
+             
+           </div>
+           <div className="events-text">
+               
+           </div>
         </div>
     )
 }
