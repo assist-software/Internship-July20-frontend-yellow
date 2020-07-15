@@ -11,7 +11,7 @@ const ClubThumbnail = (props) => {
             <h5>MEMBERS</h5>
             <GroupAvatars/>
             <h5>Coach</h5>
-            <h5>{props.coach}</h5>
+            <p>{props.coach}</p>
         </div>
     )
 }
