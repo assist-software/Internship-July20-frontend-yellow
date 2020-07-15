@@ -6,21 +6,17 @@ import GroupAvatars from '../../Avatar';
 
 const EventsComponent=(props) =>{
     return(
-        <div className="events">
-           <div className="events-image">
-             <Card>
-             <Image src={Logo} />
+        <div className="events"  >
+         
+             <Card style={{ width: '560px' }} className="card-events">
+                        <Image  className="events-image" src={Logo} />
+                        <div className="events-text">
+                           <h3>Some text</h3>
+                            <p>Here will be some paragraph</p>
+                            <h4>Participants</h4>
+                            <GroupAvatars></GroupAvatars>
+                         </div>
              </Card>
-           </div>
-           <div className="events-text">
-               <div>
-                    <h3>Some text</h3>
-                    <p>Here will be some paragraph</p>
-                   <GroupAvatars className="avatar"></GroupAvatars>
-                   
-               </div>
-              
-           </div>
         </div>
     )
 }

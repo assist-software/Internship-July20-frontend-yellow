@@ -21,8 +21,9 @@ line-height: 42px;
 }
 
 .but{
-position: static;
-left:20px;
+position: relative;
+left:40px;
+top:200px;
 padding:2px 20px 2px 20px;
 text-align:center;
 border-radius: 5px;
@@ -42,6 +43,33 @@ background-color: white;
 .but:hover{
     background-color: black;
     color:white;
+}
+.but:focus{
+    background-color: black;
+    color:white;
+}
+.grid{
+
+    position:absolute;
+    left:24px;
+    top:120px;
+    
+}
+.events-component{
+    display:flex;
+    flex-wrap: wrap;
+    
+}
+.but-new{
+    background-color: #1A1A1A;
+    text-align: center;
+    color: #44DABD;
+    padding: 5px ;
+    margin: 16px;
+    border-radius: 8px;
+    width: 177px;
+    height: 46px;
+   
 }
 
 
