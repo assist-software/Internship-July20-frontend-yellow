@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useState} from "react";
 import {
   Button,
   Checkbox,
@@ -11,7 +11,23 @@ import {
 
 import "./ModalForm.css";
 
-const InputForm = (props) => (
+const InputForm = (props) =>{
+   const [clicked , setClicked] = useState(false);
+
+const Results = () => (
+  <div className="club-invite">
+    <h3> Email address</h3> 
+    <input type = "email"/>
+    <Icon color = 'grey' name= 'plus'/>
+    <label> Add another</label>
+  </div>
+)
+
+const addClickedHandler = () =>{
+  props.hideAddConfirm();
+}
+
+   return(
   <Modal
     open={props.showModal}
     onClose={props.hideModal}
@@ -38,7 +54,12 @@ const InputForm = (props) => (
               <option value="Chinese" />
               <option value="Dutch" />
             </datalist>
-            <br />
+            <label onClick = {() => setClicked (!clicked)}>Invite members </label>
+            <div>
+            {clicked ? <Results/> : null }
+            </div>
+            
+             <br />
             <br />
             <div className="modal-form-buttons">
               <hr className="second-line"></hr>
@@ -46,13 +67,14 @@ const InputForm = (props) => (
                 {" "}
                 Cancel
               </button>
-              <button className="button">Add</button>
+              <button className="button" onClick = {addClickedHandler} >Add</button>
             </div>
           </div>
         </div>
       </Form>
     </Modal.Content>
   </Modal>
-);
+)
+}
 
 export default InputForm;

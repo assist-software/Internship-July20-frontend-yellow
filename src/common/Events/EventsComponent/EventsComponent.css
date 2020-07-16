@@ -54,12 +54,9 @@
     letter-spacing: 0.06em;
     text-transform: uppercase;
 }
-.MuiAvatarGroup-root{
-    position:relative;
-    top:100px;
-    left:0px
+
     
-}
+
 .events{
     position:relative;
     top:200px;

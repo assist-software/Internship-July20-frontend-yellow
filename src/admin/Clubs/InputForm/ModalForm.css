@@ -2,7 +2,7 @@
   position: relative;
   display: block;
   width: 100px;
-  height: 600px;
+  
   background: #ffffff;
   border: 1px solid #8e9296;
   box-sizing: border-box;
@@ -68,6 +68,11 @@
 }
 
 .modal-form-buttons {
-  margin-top: 190px;
+ 
   text-align: right;
 }
+
+.club-invite{
+  margin-top:20px;
+}
+

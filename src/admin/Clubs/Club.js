@@ -7,21 +7,36 @@ import SideBar from "../../common/SideBar";
 import ClubThumbnail from "./ClubThumbnail";
 import { Grid, GridRow, Button } from "semantic-ui-react";
 import { GridColumn } from "semantic-ui-react";
+import ModalAdded from '../../common/Modals/ModalAdded';
 
 import "./Club.css";
 
 class Club extends Component {
-  state = { show: false };
+  state = { show: false,
+            showAdd : false};
 
   showModal = () => {
     this.setState({ show: true });
   };
 
   hideModal = () => {
-    this.setState({ show: false });
+    this.setState({ show: false,
+                    showAdd:false});
   };
 
+  hideAddConfirm = () =>
+  { 
+    this.setState({
+      show: false,
+      showAdd: true});
+    
+  }
+
+  
+ 
+
   render() {
+    
     return (
       <div className="main-div">
         <div className="club-main">
@@ -44,9 +59,10 @@ class Club extends Component {
                 </GridColumn>
               </GridRow>
             </Grid>
-            <InputForm showModal={this.state.show} hideModal={this.hideModal} />
+            <InputForm showModal={this.state.show} hideModal={this.hideModal} hideAddConfirm = {this.hideAddConfirm} />
+            <ModalAdded hideAddConfirm={this.state.showAdd} hideModal = {this.hideModal}  />
             <div className="grid-container">
-              <ClubThumbnail
+              <ClubThumbnail 
                 className="grid-item"
                 name="Bike Club"
                 coach="naem"

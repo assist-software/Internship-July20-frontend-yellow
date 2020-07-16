@@ -1,0 +1,18 @@
+.selected-club-main{
+    background: #f9f9f9;
+  position: absolute;
+  height: 100%;
+  left: 216px;
+  width: 85%;
+  
+}
+
+.second-label{
+    margin-left:15px;
+}
+
+.person-club-card{
+    margin:16px;
+    
+}
+

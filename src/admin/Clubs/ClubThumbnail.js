@@ -5,6 +5,8 @@ import './Club.css';
 import GroupAvatars from '../../common/Avatar';
 
 const ClubThumbnail = (props) => {
+
+    
     return(
         <div className = 'ClubCards'>
             <h3>{props.name}</h3>
