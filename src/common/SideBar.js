@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Image } from "semantic-ui-react";
+import {Link} from 'react-router-dom';
+
 
 import "../Components.css";
 import events_logo from "../assets/Events.svg";
@@ -18,6 +20,10 @@ class SideBar extends Component {
     clubsspressed: false,
     eventpressed: false,
   };
+
+  clickedHandlerClubs = () =>{
+    
+  }
 
   pressedHandlerClubs = () => {
     this.setState({
@@ -69,6 +75,7 @@ class SideBar extends Component {
         </div>
         <div className="button-zone">
           <div></div>
+          
           <button
             className="sidebar-buttons"
             onFocus={this.pressedHandlerCoaches}
@@ -81,6 +88,8 @@ class SideBar extends Component {
             />
             Coaches
           </button>
+          
+          <Link to="/Events">
           <button
             className="sidebar-buttons"
             onFocus={this.pressedHandlerEvents}
@@ -91,16 +100,21 @@ class SideBar extends Component {
             />
             Events
           </button>
+          </Link>
+           <Link to="/Clubs">
           <button
             className="sidebar-buttons"
             onFocus={this.pressedHandlerClubs}
+            onClick = {this.clickedHandlerClubs}
           >
             <img
               src={this.state.clubsspressed ? club_logo_white : club_logo}
               className="button-icon"
             />
+           
             Clubs
           </button>
+          </Link>
           <button
             className="sidebar-buttons"
             onFocus={this.pressedHandlerAthletes}
