@@ -10,6 +10,9 @@ export default function GroupAvatars() {
       <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
       <Avatar alt="Agnes Walker" src="/static/images/avatar/4.jpg" />
       <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
+      <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
+      <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
+      <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
     </AvatarGroup>
   );
 }

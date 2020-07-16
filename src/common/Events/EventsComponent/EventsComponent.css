@@ -1,0 +1,73 @@
+
+.card-events{
+    position: absolute;
+    width: 560px;
+    height: 299px;
+    border-radius: 12px;
+    
+  
+}
+
+.events-image{
+    left:0;
+    position:absolute;
+    width: 232px;
+    height: 299px;
+   
+}
+.events-text{
+    position:absolute;
+    width: 300px;
+    height: 299px;
+    background: #FFFFFF;
+    top:0;
+    left:250px;
+   
+}
+.events-text h3{
+    position: relative;
+    width: 284px;
+    height: 32px;
+    margin-left: 10px;
+    top: 30px; 
+    left:0px;
+}
+.events-text p{
+    position: relative;
+    width: 284px;
+    height: 42px;
+    left: 12px;
+    top: 10px;
+}
+.events-text h4 {
+    position:relative;
+    left:10px;
+    top:110px;
+    color:#8E9296;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+.MuiAvatarGroup-root{
+    position:relative;
+    top:100px;
+    left:0px
+    
+}
+.events{
+    position:relative;
+    top:200px;
+    left:0px;
+    margin:30px;
+    flex-grow: 1;
+    width: 33%;
+    
+   
+}
+
