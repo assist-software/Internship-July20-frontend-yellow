@@ -30,7 +30,7 @@ class ModalEvents extends  Component{
    
    
     <Form.Select fluid label='Location' placeholder='Input placeholder'  />
-    <Form.Input className="description-input" style={{height: '144px'}} fluid label='Description' placeholder='Input placeholder'  />
+    <Form.Input className="description-input" style={{height: '144px'}} fluid label='Description' placeholder='Input placeholder'   />
     
     </div>
     <div className='bottom-add-edit'>
