@@ -1,71 +1,74 @@
 .modal-events {
-  position: relative;
+  position: absolute;
   width: 518px;
-  height: 895px;
+  height: 800px;
   background: #ffffff;
   border: 1px solid #8e9296;
   box-sizing: border-box;
   border-radius: 8px;
+  max-width: 500px !important;
+}
+
+.modal-content-div {
+  position: relative;
+  width: 500px;
+  height: 650px;
 }
 .modal-events h2 {
   position: absolute;
   width: 176px;
   height: 42px;
-  left: 39px;
-  top: 56px;
+  left: 44px;
+  top: 45px;
   font-family: Inter;
   font-style: normal;
   font-weight: normal;
-  font-size: 36px;
-  line-height: 42px;
+  font-size: 32px;
   text-transform: capitalize;
   color: #000000;
 }
 .modal-events hr {
   position: absolute;
   height: 0px;
-  left: 39px;
-  right: 39px;
-  top: 112px;
+  left: 44px;
+  right: 44px;
+  top: 90px;
   border: 1px solid #cad2e2;
 }
 .form-events {
-  position: relative;
+  position: absolute;
   top: 140px;
-  left: 39px;
-  right: 39px;
+  left: 44px;
+  right: 44px;
 }
 .button1 {
   position: absolute;
-  top: 700px;
+  top: 500px;
   left: 300px;
   margin: 10px;
   background: #f5f5f7;
   color: black;
 }
 .input-time-date {
-  left: 39px;
-  right: 39px;
-  display: flex;
-  margin: 20px;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  bottom: 8px;
 }
-.input-t-d {
-  width: 346px;
-  margin: 10px;
-  display: flex;
+.input-content-time {
+  display: inline-flex;
+  width: 190px;
+}
+.input-content-calendar {
+  display: inline-flex;
+  width: 190px;
+  left: 20px;
 }
 .events-component {
   display: flex;
   margin: 30px;
 }
 
-.modal-events.ui {
-  max-width: 518px;
-}
-.description-input {
-  height: 50px;
-  text-align: initial;
-}
 .button-add-events {
   display: flex;
   position: absolute;
@@ -97,7 +100,7 @@
 
 .bottom-add-edit {
   position: absolute;
-  top: 770px;
+  top: 600px;
   margin: 10px;
   left: 220px;
 }
@@ -109,4 +112,18 @@
   right: 39px;
   top: 112px;
   border: 1px solid #cad2e2;
+}
+.container-event {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 5px;
+
+  height: 100px;
+  background-color: #fafafa;
+  color: #a8a0a0;
+  outline: none;
+  border: dotted 1px grey;
 }
