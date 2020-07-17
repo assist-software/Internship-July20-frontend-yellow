@@ -6,11 +6,15 @@ import "./Components.css";
 import Button from "./common/Button";
 import SideBar from "./common/SideBar";
 import { BrowserRouter, Route } from "react-router-dom";
+import Login from "./Login/login";
+import Events from "./common/Events/Events";
+import SelectedEvents from "./common/Events/SelectedEvents/SelectedEvents";
 
 function App() {
   return (
     <div>
-      <Route path="/" component={Club} />
+      <SideBar />
+      <SelectedEvents />
     </div>
   );
 }

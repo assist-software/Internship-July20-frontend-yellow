@@ -1,121 +1,112 @@
-.modal-events{
-    position: relative;
-width: 518px;
-height: 895px;
-background: #FFFFFF;
-border: 1px solid #8E9296;
-box-sizing: border-box;
-border-radius: 8px;
-
+.modal-events {
+  position: relative;
+  width: 518px;
+  height: 895px;
+  background: #ffffff;
+  border: 1px solid #8e9296;
+  box-sizing: border-box;
+  border-radius: 8px;
 }
-.modal-events h2{
-    position: absolute;
-width: 176px;
-height: 42px;
-left: 39px;
-top: 56px;
-font-family: Inter;
-font-style: normal;
-font-weight: normal;
-font-size: 36px;
-line-height: 42px;
-text-transform: capitalize;
-color: #000000;
-
+.modal-events h2 {
+  position: absolute;
+  width: 176px;
+  height: 42px;
+  left: 39px;
+  top: 56px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 42px;
+  text-transform: capitalize;
+  color: #000000;
 }
-.modal-events hr{
-position: absolute;
-height: 0px;
-left: 39px;
-right: 39px;
-top: 112px;
-border: 1px solid #CAD2E2;
+.modal-events hr {
+  position: absolute;
+  height: 0px;
+  left: 39px;
+  right: 39px;
+  top: 112px;
+  border: 1px solid #cad2e2;
 }
-.form-events{
-    position:absolute;
-    top:140px;
-    left:39px;
-    right: 39px;
+.form-events {
+  position: relative;
+  top: 140px;
+  left: 39px;
+  right: 39px;
 }
-.button1{
-    position:absolute;
-    top:700px;
-    left:300px;
-    margin:10px;
-    background: #F5F5F7;
-    color:black;
+.button1 {
+  position: absolute;
+  top: 700px;
+  left: 300px;
+  margin: 10px;
+  background: #f5f5f7;
+  color: black;
 }
-.input-time-date{
-    position:absolute;
-    left:39px;
-    right: 39px;
-    display:flex;
-    margin:20px;
+.input-time-date {
+  left: 39px;
+  right: 39px;
+  display: flex;
+  margin: 20px;
 }
-.input-t-d{
-    position:absolute;
-    width:50%;
-   margin:10px;
-   display:flex;
-
+.input-t-d {
+  width: 346px;
+  margin: 10px;
+  display: flex;
 }
-.events-component{
-     
-    display:flex;
-    margin:30px;
+.events-component {
+  display: flex;
+  margin: 30px;
 }
 
-.modal-events.ui{
-    max-width: 518px;
+.modal-events.ui {
+  max-width: 518px;
 }
-.description-input{
-    height: 50px;
+.description-input {
+  height: 50px;
+  text-align: initial;
 }
-.button-add-events{
-    display:flex;
-    position: absolute;
-    margin:10px;
-    left:39px;
-}
-
-.button-close{
-    
-padding: 16px;
-text-align: center;
-position: absolute;
-width: 86px;
-height: 46px;
-right: 195px;
-bottom: 39px;
-background: #F5F5F7;
-border-radius: 8px;
-border:none;
-top:19px;
-font-family: Inter;
-font-style: normal;
-font-weight: bold;
-font-size: 12px;
-line-height: 14px;
-text-align: center;
-letter-spacing: 0.06em;
-text-transform: uppercase;
-
+.button-add-events {
+  display: flex;
+  position: absolute;
+  margin: 10px;
+  left: 39px;
 }
 
-
-.bottom-add-edit{
-    position: absolute;
-   top:770px;
-   margin:10px;
-   left:220px;
+.button-close {
+  padding: 16px;
+  text-align: center;
+  position: absolute;
+  width: 86px;
+  height: 46px;
+  right: 195px;
+  bottom: 39px;
+  background: #f5f5f7;
+  border-radius: 8px;
+  border: none;
+  top: 19px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
-.bottom-add-edit hr{
-    
-    position: absolute;
-    height: 0px;
-    left: 39px;
-    right: 39px;
-    top: 112px;
-    border: 1px solid #CAD2E2;
+.bottom-add-edit {
+  position: absolute;
+  top: 770px;
+  margin: 10px;
+  left: 220px;
+}
+
+.bottom-add-edit hr {
+  position: absolute;
+  height: 0px;
+  left: 39px;
+  right: 39px;
+  top: 112px;
+  border: 1px solid #cad2e2;
 }
