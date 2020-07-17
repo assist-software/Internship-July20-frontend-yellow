@@ -1,27 +1,9 @@
 import React, { useState } from "react";
-import {
-  Button,
-  Checkbox,
-  Form,
-  Input,
-  Modal,
-  Header,
-  Icon,
-} from "semantic-ui-react";
+import { Form, Input, Modal } from "semantic-ui-react";
 
-import "./ModalForm.css";
+import "../Clubs/ModalAddClub/ModalAddClub.css";
 
-const InputForm = (props) => {
-  const [clicked, setClicked] = useState(false);
-  const Results = () => (
-    <div className="club-invite">
-      <h3> Email address</h3>
-      <input type="email" />
-      <Icon color="grey" name="plus" />
-      <label> Add another</label>
-    </div>
-  );
-
+const ModalAddCoach = (props) => {
   const Edit = () => {
     return (
       <button className="delete-button-club" onClick={deleteClickedHandler}>
@@ -54,25 +36,31 @@ const InputForm = (props) => {
             <div className="modal-form-inputs">
               <Form.Input
                 fluid
-                label="Name"
+                label="First Name"
                 placeholder="Input placeholder"
                 width="17"
               />
-              <label>Assign a Coach</label>
-              <br />
-              <Input list="Coach" placeholder="Input placeholder" fluid />
-              <datalist id="Coach">
+
+              <Form.Input
+                fluid
+                label="Last Name"
+                placeholder="Input placeholder"
+                width="17"
+              />
+
+              <Form.Input
+                fluid
+                label="Email Addres"
+                placeholder="Input placeholder"
+                width="17"
+              />
+              <label>Club Assign</label>
+              <Input list="Club" placeholder="Input placeholder" fluid />
+              <datalist id="Club">
                 <option value="English" />
                 <option value="Chinese" />
                 <option value="Dutch" />
               </datalist>
-              <p
-                className="label-invite-members"
-                onClick={() => setClicked(!clicked)}
-              >
-                Invite members{" "}
-              </p>
-              <div>{clicked ? <Results /> : null}</div>
 
               <br />
               <br />
@@ -95,4 +83,4 @@ const InputForm = (props) => {
   );
 };
 
-export default InputForm;
+export default ModalAddCoach;

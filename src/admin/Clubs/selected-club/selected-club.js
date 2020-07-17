@@ -7,7 +7,7 @@ import InputSearch from "../../../common/InputSearch";
 import "./selected-club.css";
 import PersonClubThumbnail from "./person-in-club-card";
 import header_icon from "../../../assets/edit.svg";
-import InputForm from "../InputForm/InputForm";
+import InputForm from "../ModalAddClub/ModalAddClub";
 import ModalDeleted from "../../../common/Modals/ModalDeleted";
 import ModalAdded from "../../../common/Modals/ModalAdded";
 

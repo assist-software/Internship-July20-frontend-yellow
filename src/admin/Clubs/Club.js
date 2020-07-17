@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import InputSearch from "../../common/InputSearch";
-import InputForm from "./InputForm/InputForm";
+import InputForm from "./ModalAddClub/ModalAddClub";
 import SideBar from "../../common/SideBar";
 
 import ClubThumbnail from "./ClubThumbnail";

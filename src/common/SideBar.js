@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Image } from "semantic-ui-react";
-import {Link} from 'react-router-dom';
-
+import { Link } from "react-router-dom";
 
 import "../Components.css";
 import events_logo from "../assets/Events.svg";
@@ -21,9 +20,7 @@ class SideBar extends Component {
     eventpressed: false,
   };
 
-  clickedHandlerClubs = () =>{
-    
-  }
+  clickedHandlerClubs = () => {};
 
   pressedHandlerClubs = () => {
     this.setState({
@@ -75,45 +72,45 @@ class SideBar extends Component {
         </div>
         <div className="button-zone">
           <div></div>
-          
-          <button
-            className="sidebar-buttons"
-            onFocus={this.pressedHandlerCoaches}
-          >
-            <img
-              src={
-                this.state.coachespressed ? coaches_logo_white : coaches_logo
-              }
-              className="button-icon"
-            />
-            Coaches
-          </button>
-          
-          <Link to="/Events">
-          <button
-            className="sidebar-buttons"
-            onFocus={this.pressedHandlerEvents}
-          >
-            <img
-              src={this.state.eventpressed ? events_logo_white : events_logo}
-              className="button-icon"
-            />
-            Events
-          </button>
+          <Link to="/coach">
+            <button
+              className="sidebar-buttons"
+              onFocus={this.pressedHandlerCoaches}
+            >
+              <img
+                src={
+                  this.state.coachespressed ? coaches_logo_white : coaches_logo
+                }
+                className="button-icon"
+              />
+              Coaches
+            </button>
           </Link>
-           <Link to="/Clubs">
-          <button
-            className="sidebar-buttons"
-            onFocus={this.pressedHandlerClubs}
-            onClick = {this.clickedHandlerClubs}
-          >
-            <img
-              src={this.state.clubsspressed ? club_logo_white : club_logo}
-              className="button-icon"
-            />
-           
-            Clubs
-          </button>
+
+          <Link to="/events">
+            <button
+              className="sidebar-buttons"
+              onFocus={this.pressedHandlerEvents}
+            >
+              <img
+                src={this.state.eventpressed ? events_logo_white : events_logo}
+                className="button-icon"
+              />
+              Events
+            </button>
+          </Link>
+          <Link to="/clubs">
+            <button
+              className="sidebar-buttons"
+              onFocus={this.pressedHandlerClubs}
+              onClick={this.clickedHandlerClubs}
+            >
+              <img
+                src={this.state.clubsspressed ? club_logo_white : club_logo}
+                className="button-icon"
+              />
+              Clubs
+            </button>
           </Link>
           <button
             className="sidebar-buttons"

@@ -1,0 +1,45 @@
+.coach-main-page {
+  position: absolute;
+  background: #f9f9f9;
+  display: block;
+  height: 100%;
+  width: 82%;
+  left: 216px;
+}
+
+.icon-table {
+  margin-right: 10px;
+}
+
+.table-coach {
+  margin: 16px;
+}
+
+.page-title-coach {
+  margin-left: 16px;
+  margin-top: 30px;
+  top: 30px;
+}
+
+.MuiTableCell-head {
+  color: white !important;
+  font-weight: 500;
+  line-height: 1.5rem;
+  background-color: black !important;
+}
+
+span.MuiButtonBase-root.MuiTableSortLabel-root.MuiTableSortLabel-active {
+  color: white !important;
+}
+
+span.MuiButtonBase-root.MuiTableSortLabel-root:hover {
+  color: white !important;
+}
+
+svg.MuiSvgIcon-root.MuiTableSortLabel-icon.MuiTableSortLabel-iconDirectionAsc {
+  color: white !important;
+}
+
+svg.MuiSvgIcon-root.MuiTableSortLabel-icon.MuiTableSortLabel-iconDirectionDesc {
+  color: white !important;
+}
