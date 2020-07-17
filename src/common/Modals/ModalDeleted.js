@@ -1,34 +1,38 @@
-import React, { Component } from 'react'
-import { Button, Modal } from 'semantic-ui-react'
-import checked_icon from '../../assets/checked_icon.svg';
+import React, { Component } from "react";
+import { Button, Modal } from "semantic-ui-react";
+import checked_icon from "../../assets/checked_icon.svg";
 
-class ModalAdded extends Component {
-  state = { open: false }
-
-  show = () => this.setState({open: true })
-  close = () => this.setState({ open: false })
-
+class ModalDeleted extends Component {
   render() {
-    const { open} = this.state.open
-
     return (
       <div>
-        <Modal size= 'tiny' open={this.props.showModal} onClose={this.close}>
+        <Modal
+          size="tiny"
+          open={this.props.hideAddConfirm}
+          onClose={this.props.hideModal}
+        >
           <Modal.Header>
-            
+            <h2> Delete Club </h2>
           </Modal.Header>
           <Modal.Content>
-            <h2> Club added </h2>
-            <p>Are you sure you want to delete your account</p>
+            <p>
+              Are you sure you want to delete club “ASSIST Running Club”? If you
+              delete this club, all data associated with it will be permanently
+              deleted, including events and athletes.
+            </p>
           </Modal.Content>
           <Modal.Actions>
-            <button className = 'button' onClick = {this.close}>Close</button>
-            
+            <button className="cancel-button" onClick={this.props.hideModal}>
+              Cancel
+            </button>
+            <button className="button" onClick={this.props.hideModal}>
+              Delete
+            </button>
           </Modal.Actions>
         </Modal>
       </div>
-    )
+    );
   }
 }
 
-export default ModalAdded;
+export default ModalDeleted;

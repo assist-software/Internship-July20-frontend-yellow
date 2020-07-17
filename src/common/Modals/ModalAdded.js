@@ -1,27 +1,32 @@
-import React, { Component } from 'react'
-import { Button, Modal } from 'semantic-ui-react'
-import checked_icon from '../../assets/checked_icon.svg';
+import React, { Component } from "react";
+import { Image, Modal } from "semantic-ui-react";
+import checked_icon from "../../assets/checkmark-circle.svg";
+
+import "./Modals.css";
 
 class ModalAdded extends Component {
   render() {
-    
     return (
       <div>
-        <Modal size= 'tiny' open={this.props.hideAddConfirm} onClose={this.props.hideModal}>
-          <Modal.Header>
-            
-          </Modal.Header>
+        <Modal
+          size="tiny"
+          open={this.props.hideAddConfirm}
+          onClose={this.props.hideModal}
+        >
           <Modal.Content>
-            <h2> Club added </h2>
-            <p>Are you sure you want to delete your account</p>
+            <Image src={checked_icon} centered size="tiny" />
+            <h2 className="modal-add-title"> {this.props.name} </h2>
+            <p className="modal-add-description">{this.props.description}</p>
+            <button
+              className="button-modal-added"
+              onClick={this.props.hideModal}
+            >
+              Close
+            </button>
           </Modal.Content>
-          <Modal.Actions>
-            <button className = 'button' onClick = {this.props.hideModal}>Close</button>
-            
-          </Modal.Actions>
         </Modal>
       </div>
-    )
+    );
   }
 }
 
