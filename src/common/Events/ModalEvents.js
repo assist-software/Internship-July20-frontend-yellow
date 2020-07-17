@@ -58,38 +58,45 @@ class ModalEvents extends Component {
                 label="Description"
                 placeholder="Input placeholder"
               />
+              <div>
+                <p className="invite-members">Invite memebers</p>
+                <p className="invite-members-optional">(Optional)</p>
+              </div>
+
+              <p className="event-cover">Event cover</p>
               <Dropzone onDrop={(files) => console.log(files)}>
                 {({ getRootProps, getInputProps }) => (
                   <div className="container-event">
                     <div
                       {...getRootProps({
-                        className: "dropzone",
+                        className: "dropzone-event",
                         onDrop: (event) => event.stopPropagation(),
                       })}
                     >
                       <input {...getInputProps()} />
-                      <p>
-                        Drag 'n' drop some files here, or click to select files
-                      </p>
+                      <div className="upload-file-event">
+                        <Icon name="cloud upload" color="black" />
+                        <p>Upload File </p>
+                      </div>
                     </div>
+                    <p className="drag-drop-event">or drag&drop here</p>
                   </div>
                 )}
               </Dropzone>
             </div>
-            <div className="bottom-add-edit">
-              <hr />
-              <div className="button-add-events">
-                <button
-                  className="button-close"
-                  onClick={this.props.handleCloseModal}
-                  inverted
-                >
-                  Close
-                </button>
-                <Button name="Add"></Button>
-              </div>
-            </div>
           </Form>
+
+          <div className="button-add-events">
+            <hr></hr>
+            <button
+              className="button-close-event"
+              onClick={this.props.handleCloseModal}
+              inverted
+            >
+              Close
+            </button>
+            <button className="button-add-event">ADD</button>
+          </div>
         </div>
       </Modal>
     );
