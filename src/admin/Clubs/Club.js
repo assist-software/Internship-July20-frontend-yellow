@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import InputSearch from "../../common/InputSearch";
 import InputForm from "./ModalAddClub/ModalAddClub";
 import SideBar from "../../common/SideBar";
@@ -74,6 +73,7 @@ class Club extends Component {
                 name="Bike Club"
                 coach="naem"
               />
+
               <ClubThumbnail
                 className="grid-item"
                 name="Bike Club"

@@ -32,19 +32,21 @@
   height: 100vh;
   background-color: #1a1a1a;
 }
-
-.sidebar-icon {
-  top: 60px;
-  size: 96px;
+img.ui.image.sidebar-icon {
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
+  display: block;
+  margin: 0 auto;
+  margin-top: 40px;
 }
 
 .sidebar-user-name {
   color: #ffffff;
-  margin: 3px auto;
-  margin-top: 70px;
-
-  width: 152px;
+  margin-bottom: 2px;
+  margin-top: 10px;
+  text-align: center;
+  display: block;
   height: 32px;
 
   /* inter/h3 */
@@ -57,30 +59,17 @@
 
 .sidebar-user-role {
   color: #8e9296;
-  margin: 10px auto;
-  width: 128px;
+  display: block !important;
+  text-align: center !important;
   height: 14px;
-  font-family: Inter;
-  font-style: normal;
-  font-weight: normal;
+  font-family: Inter !important;
+  font-style: normal !important;
+  font-weight: normal !important;
   font-size: 12px;
   line-height: 14px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   /* inter/subtitle */
-
-  font-family: Inter;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 14px;
-  /* identical to box height, or 117% */
-
-  display: flex;
-  align-items: center;
-  text-align: center;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
 }
 
 .sidebar-buttons {

@@ -15,8 +15,10 @@ import SideBar from "./common/SideBar";
 function App() {
   return (
     <div>
-      <SideBar />
-      <SelectedEvents />
+      <Route path="/events" component={Events} />
+      <Route path="/clubs" component={Club} />
+      <Route path="/coach" component={Coach} />
+      <Route path="/selected-club" component={SelectedClub} />
     </div>
   );
 }

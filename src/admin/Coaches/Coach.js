@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import CoachTable1 from "./CoachTable1";
+import CoachTable from "./CoachTable";
 import { Grid, GridRow, GridColumn } from "semantic-ui-react";
 import InputSearch from "../../common/InputSearch";
 
@@ -45,7 +45,7 @@ class Coach extends Component {
           showModal={this.state.show}
           hideModal={this.hideModal}
           hideAddConfirm={this.hideAddConfirm}
-          name={"Add Club"}
+          name={"Add Coach"}
           action={"Add"}
           editForm={false}
         />
@@ -56,7 +56,7 @@ class Coach extends Component {
           description={"Coach name was added"}
         />
         <div className="table-coach">
-          <CoachTable1 />
+          <CoachTable />
         </div>
       </div>
     );

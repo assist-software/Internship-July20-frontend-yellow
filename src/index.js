@@ -11,8 +11,8 @@ require("typeface-inter");
 
 const app = (
   <BrowserRouter>
-    <div className>
-      
+    <div className="rendered">
+      <SideBar />
       <Layout />
     </div>
   </BrowserRouter>

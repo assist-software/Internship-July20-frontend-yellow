@@ -12,6 +12,7 @@ import club_logo_white from "../assets/Clubs-White.svg";
 import coaches_logo_white from "../assets/Coaches-white.svg";
 import athletes_logo_white from "../assets/Athletes-white.svg";
 import logout from "../assets/log-out.svg";
+import avatar from "../assets/person.jpg";
 
 class SideBar extends Component {
   state = {
@@ -62,14 +63,9 @@ class SideBar extends Component {
     return (
       <div className="sidebar">
         <div className="sidebar-user">
-          <Image
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSAsgWQl01__WeqVIirDDmNPnSx0Ts_-rwgww&usqp=CAU"
-            size="tiny"
-            centered
-            className="sidebar-icon"
-          />
-          <h4 className="sidebar-user-name">Connie Web</h4>
-          <h6 className="sidebar-user-role">Administrator</h6>
+          <Image src={avatar} className="sidebar-icon" />
+          <p className="sidebar-user-name">Connie Web</p>
+          <p className="sidebar-user-role">Administrator</p>
         </div>
         <div className="button-zone">
           <div></div>
