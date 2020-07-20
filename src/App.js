@@ -10,13 +10,17 @@ import SelectedEvents from "./common/Events/SelectedEvents/SelectedEvents";
 import EventsComponent from "./common/Events/EventsComponent/EventsComponent";
 import SelectedClub from "./admin/Clubs/selected-club/selected-club";
 import Coach from "./admin/Coaches/Coach";
+import Athletes from "./common/Athletes/Athletes";
 import SideBar from "./common/SideBar";
 
 function App() {
   return (
     <div>
       <SideBar />
-      <SelectedEvents />
+      <Route path="/events" component={Events} />
+      <Route path="/clubs" component={Club} />
+      <Route path="/coach" component={Coach} />
+      <Route path="/athletes" component={Athletes} />
     </div>
   );
 }

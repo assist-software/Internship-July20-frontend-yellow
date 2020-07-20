@@ -1,0 +1,35 @@
+.modal-athletes {
+  position: relative;
+  display: block;
+  width: 100px;
+  background: #ffffff;
+  border: 1px solid #8e9296;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+.modal-athletes-div {
+  position: relative;
+  width: 500px;
+  height: 800px;
+}
+.modal-athletes h2 {
+  position: relative;
+  top: 40px;
+  left: 50px;
+}
+.modal-athletes hr {
+  position: relative;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  border: 1px solid #cad2e2;
+}
+.modal-athletes p {
+  position: relative;
+  margin-top: 120px;
+  left: 50px;
+}
+.modal-form-inputs-athletes {
+  position: relative;
+  top: 150px;
+}

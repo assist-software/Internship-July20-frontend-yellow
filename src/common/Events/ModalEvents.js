@@ -18,7 +18,6 @@ class ModalEvents extends Component {
   render() {
     return (
       <Modal
-        size="large"
         className="modal-events"
         open={this.props.handleOpenModal}
         close={this.props.handleCloseModal}
