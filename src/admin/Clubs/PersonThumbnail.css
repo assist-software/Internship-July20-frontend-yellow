@@ -1,0 +1,18 @@
+.person-image {
+  border-radius: 50%;
+  width: 120px;
+  margin: 0 auto;
+  height: 120px;
+  display: block;
+}
+
+.person-sport {
+  display: grid;
+  grid-template-columns: auto auto;
+  width: 200px;
+  margin: 0 auto;
+}
+
+.vertical-line {
+  border-left: 10px solid black;
+}

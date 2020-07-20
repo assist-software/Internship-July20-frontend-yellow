@@ -1,0 +1,80 @@
+.selected-club-main {
+  background: #f9f9f9;
+  position: absolute;
+  height: 100%;
+  left: 216px;
+  width: 85%;
+}
+
+.icon-header {
+  display: block;
+  block-size: 20px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.card-width {
+  min-width: 305px;
+}
+
+.header-selected-club {
+  display: flex;
+  margin-left: 16px;
+  margin-top: 30px;
+}
+
+.header-details {
+  margin-left: 16px;
+  font-family: "Times New Roman", Times, serif;
+  text-transform: uppercase;
+}
+
+.person-club-card {
+  margin-left: 16px;
+  margin-top: 16px;
+}
+
+.grid-sports {
+  display: grid;
+  grid-template-columns: 145px 145px;
+}
+
+.persons-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card-first-line-label {
+  text-transform: uppercase;
+}
+
+.button-club {
+  text-align: center;
+  border-radius: 8px;
+  border: solid 1px;
+  margin: 16px 5px;
+  padding: 16px 32px;
+  height: 46px;
+  font-weight: 500;
+  color: black;
+  background-color: white;
+}
+.button-club:hover {
+  background-color: black;
+  color: white;
+}
+.button-club:focus {
+  background-color: black;
+  color: white;
+  outline: none;
+}
+
+.selector-buttons {
+  margin-left: 11px;
+}
+
+.pagination-numbers {
+  margin-left: 16px;
+  text-align: center;
+  margin-top: 30px;
+}
