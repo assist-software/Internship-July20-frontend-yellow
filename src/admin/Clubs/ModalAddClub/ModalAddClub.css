@@ -92,3 +92,7 @@
   text-decoration: underline;
   font-weight: 600;
 }
+
+.close-icon {
+  float: right;
+}

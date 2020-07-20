@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Image } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 import "../Components.css";
 import events_logo from "../assets/Events.svg";
@@ -11,6 +11,7 @@ import events_logo_white from "../assets/Events-white.svg";
 import club_logo_white from "../assets/Clubs-White.svg";
 import coaches_logo_white from "../assets/Coaches-white.svg";
 import athletes_logo_white from "../assets/Athletes-white.svg";
+import logout from "../assets/log-out.svg";
 
 class SideBar extends Component {
   state = {
@@ -67,15 +68,15 @@ class SideBar extends Component {
             centered
             className="sidebar-icon"
           />
-          <h4 className="sidebar-user-name">Name</h4>
-          <h6 className="sidebar-user-role">Role</h6>
+          <h4 className="sidebar-user-name">Connie Web</h4>
+          <h6 className="sidebar-user-role">Administrator</h6>
         </div>
         <div className="button-zone">
           <div></div>
-          <Link to="/coach">
+          <NavLink to="/coach" activeClassName="active">
             <button
               className="sidebar-buttons"
-              onFocus={this.pressedHandlerCoaches}
+              onClick={this.pressedHandlerCoaches}
             >
               <img
                 src={
@@ -85,12 +86,12 @@ class SideBar extends Component {
               />
               Coaches
             </button>
-          </Link>
+          </NavLink>
 
-          <Link to="/events">
+          <NavLink to="/events" activeClassName="active">
             <button
               className="sidebar-buttons"
-              onFocus={this.pressedHandlerEvents}
+              onClick={this.pressedHandlerEvents}
             >
               <img
                 src={this.state.eventpressed ? events_logo_white : events_logo}
@@ -98,12 +99,11 @@ class SideBar extends Component {
               />
               Events
             </button>
-          </Link>
-          <Link to="/clubs">
+          </NavLink>
+          <NavLink to="/clubs" activeClassName="active">
             <button
               className="sidebar-buttons"
-              onFocus={this.pressedHandlerClubs}
-              onClick={this.clickedHandlerClubs}
+              onClick={this.pressedHandlerClubs}
             >
               <img
                 src={this.state.clubsspressed ? club_logo_white : club_logo}
@@ -111,10 +111,10 @@ class SideBar extends Component {
               />
               Clubs
             </button>
-          </Link>
+          </NavLink>
           <button
             className="sidebar-buttons"
-            onFocus={this.pressedHandlerAthletes}
+            onClick={this.pressedHandlerAthletes}
           >
             <img
               src={
@@ -124,6 +124,10 @@ class SideBar extends Component {
             />
             Athletes
           </button>
+        </div>
+        <div className="logout-div">
+          <img src={logout} />
+          <button className="logout-button">Logout</button>
         </div>
       </div>
     );

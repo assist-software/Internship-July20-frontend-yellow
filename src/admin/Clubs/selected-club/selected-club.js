@@ -13,6 +13,7 @@ import ModalAdded from "../../../common/Modals/ModalAdded";
 
 class SelectedClub extends Component {
   state = {
+    membersClicked: false,
     show: false,
     showDelete: false,
     showAdd: false,
@@ -57,16 +58,23 @@ class SelectedClub extends Component {
         <label className="header-details">Coach name</label>
         <div>
           <div className="selector-buttons">
-            <button className="button-club">Members</button>
+            <button className="button-club" onClick={this.membersClickHandler}>
+              Members
+            </button>
             <button className="button-club">Requests</button>
           </div>
 
           <Grid>
             <GridRow>
-              <GridColumn floated="left" align="left" computer="8" tablet="8">
+              <GridColumn floated="left" align="left" computer="8" tablet="16">
                 <InputSearch />
               </GridColumn>
-              <GridColumn floated="right" align="right" computer="8" tablet="8">
+              <GridColumn
+                floated="right"
+                align="right"
+                computer="8"
+                tablet="16"
+              >
                 <button className="button">Add new</button>
               </GridColumn>
             </GridRow>

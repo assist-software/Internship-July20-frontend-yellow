@@ -9,6 +9,7 @@ import {
   Icon,
 } from "semantic-ui-react";
 
+import close_icon from "../../../assets/close.svg";
 import "./ModalAddClub.css";
 
 const InputForm = (props) => {
@@ -47,6 +48,13 @@ const InputForm = (props) => {
     >
       <Modal.Content>
         <Form>
+          <div>
+            <img
+              src={close_icon}
+              className="close-icon"
+              onClick={props.hideModal}
+            />
+          </div>
           <div>
             <h2>{props.name}</h2>
             <hr></hr>

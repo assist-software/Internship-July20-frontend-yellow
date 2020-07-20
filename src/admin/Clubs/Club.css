@@ -47,8 +47,8 @@
 }
 
 .grid-container {
-  display: grid;
-  grid-template-columns: 285px 285px 285px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .grid-item {
@@ -67,5 +67,3 @@
   font-weight: normal;
   font-size: 36px;
 }
-
-

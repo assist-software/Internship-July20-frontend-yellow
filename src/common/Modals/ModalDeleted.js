@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Modal } from "semantic-ui-react";
 import checked_icon from "../../assets/checked_icon.svg";
+import close_icon from "../../assets/close.svg";
 
 class ModalDeleted extends Component {
   render() {
@@ -12,6 +13,13 @@ class ModalDeleted extends Component {
           onClose={this.props.hideModal}
         >
           <Modal.Header>
+            <div>
+              <img
+                src={close_icon}
+                className="close-icon"
+                onClick={this.props.hideModal}
+              />
+            </div>
             <h2> Delete Club </h2>
           </Modal.Header>
           <Modal.Content>

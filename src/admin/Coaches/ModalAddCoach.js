@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Input, Modal } from "semantic-ui-react";
-
+import close_icon from "../../assets/close.svg";
 import "../Clubs/ModalAddClub/ModalAddClub.css";
 
 const ModalAddCoach = (props) => {
@@ -29,6 +29,13 @@ const ModalAddCoach = (props) => {
     >
       <Modal.Content>
         <Form>
+          <div>
+            <img
+              src={close_icon}
+              className="close-icon"
+              onClick={props.hideModal}
+            />
+          </div>
           <div>
             <h2>{props.name}</h2>
             <hr></hr>

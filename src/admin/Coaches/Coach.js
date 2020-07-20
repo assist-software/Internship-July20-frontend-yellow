@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import CoachTable from "./CoachTable";
+import CoachTable1 from "./CoachTable1";
 import { Grid, GridRow, GridColumn } from "semantic-ui-react";
 import InputSearch from "../../common/InputSearch";
 
@@ -56,7 +56,7 @@ class Coach extends Component {
           description={"Coach name was added"}
         />
         <div className="table-coach">
-          <CoachTable />
+          <CoachTable1 />
         </div>
       </div>
     );
