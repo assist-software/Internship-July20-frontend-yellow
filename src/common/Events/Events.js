@@ -3,7 +3,7 @@ import EventsComponent from "./EventsComponent/EventsComponent";
 import "./Events.css";
 import Button from "../Button";
 import InputSearch from "../InputSearch";
-import { Grid, GridColumn, GridRow } from "semantic-ui-react";
+import { Grid, GridColumn, GridRow, Pagination, Icon } from "semantic-ui-react";
 import ModalEvents from "./ModalEvents";
 
 class Events extends Component {
@@ -20,8 +20,8 @@ class Events extends Component {
     return (
       <div className="ContentArea">
         <h2>Events</h2>
-        <div>
-          <Grid className="grid">
+        <div className="grid-events">
+          <Grid>
             <GridRow>
               <GridColumn floated="left" align="left" computer="8" tablet="8">
                 <InputSearch />
@@ -33,16 +33,17 @@ class Events extends Component {
               </GridColumn>
             </GridRow>
           </Grid>
-          <ModalEvents
-            NameModalEvents="Add Event"
-            handleOpenModal={this.state.show}
-            handleCloseModal={this.handleCloseModal}
-          />
         </div>
-
-        <button className="but">Ongoing</button>
-        <button className="but">Future</button>
-        <button className="but">Past</button>
+        <ModalEvents
+          NameModalEvents="Add Event"
+          handleOpenModal={this.state.show}
+          handleCloseModal={this.handleCloseModal}
+        />
+        <div className="buttons-events">
+          <button className="but">Ongoing</button>
+          <button className="but">Future</button>
+          <button className="but">Past</button>
+        </div>
         <div className="events-component">
           <EventsComponent />
           <EventsComponent />
@@ -50,6 +51,26 @@ class Events extends Component {
           <EventsComponent />
           <EventsComponent />
           <EventsComponent />
+        </div>
+        <div className="pagination-events">
+          <Pagination
+            defaultActivePage={5}
+            ellipsisItem={{
+              content: <Icon name="ellipsis horizontal" />,
+              icon: true,
+            }}
+            firstItem={{
+              content: <Icon name="angle double left" />,
+              icon: true,
+            }}
+            lastItem={{
+              content: <Icon name="angle double right" />,
+              icon: true,
+            }}
+            prevItem={{ content: <Icon name="angle left" />, icon: true }}
+            nextItem={{ content: <Icon name="angle right" />, icon: true }}
+            totalPages={10}
+          />
         </div>
       </div>
     );

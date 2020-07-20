@@ -9,12 +9,13 @@ import { BrowserRouter, Route } from "react-router-dom";
 import Login from "./Login/login";
 import Events from "./common/Events/Events";
 import SelectedEvents from "./common/Events/SelectedEvents/SelectedEvents";
+import EventsComponent from "./common/Events/EventsComponent/EventsComponent";
 
 function App() {
   return (
     <div>
       <SideBar />
-      <SelectedEvents />
+      <Events />
     </div>
   );
 }

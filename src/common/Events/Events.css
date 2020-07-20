@@ -1,71 +1,73 @@
-.ContentArea{
-    position: absolute;
-    width: 1320px;
-    height: 100%;
-    left: 216px;
-    top: 0px;
-    background: #F9F9F9;
+.ContentArea {
+  position: absolute;
+  height: 100%;
+  left: 216px;
+  width: 1310px;
+  background: #f9f9f9;
 }
-.ContentArea h2{
-    position: absolute;
-width: 177px;
-height: 42px;
-left: 40px;
-top: 60px;
-    font-family: Inter;
-font-style: normal;
-font-weight: normal;
-font-size: 36px;
-line-height: 42px;
-
+.ContentArea h2 {
+  position: absolute;
+  width: 177px;
+  height: 42px;
+  left: 80px;
+  top: 60px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 42px;
 }
-
-.but{
-position: relative;
-left:40px;
-top:200px;
-padding:2px 20px 2px 20px;
-text-align:center;
-border-radius: 5px;
-border:solid 1px;
-flex-direction: row;
-margin:2px;
-height: 46px;
-font-size: 14px;
-font-style: inherit;
-font-weight: 600;
-line-height: 16px;
-color: #8E9296;
-background-color: white;
-
-
+.buttons-events {
+  margin-left: 80px;
 }
-.but:hover{
-    background-color: black;
-    color:white;
+.but {
+  margin: 2px;
+  padding: 2px 20px 2px 20px;
+  text-align: center;
+  border-radius: 5px;
+  border: solid 1px;
+  flex-direction: row;
+  height: 46px;
+  font-size: 14px;
+  font-style: inherit;
+  font-weight: 600;
+  line-height: 16px;
+  color: #8e9296;
+  background-color: white;
 }
-.but:focus{
-    background-color: black;
-    color:white;
+.but:hover {
+  background-color: black;
+  color: white;
+}
+.but:focus {
+  background-color: black;
+  color: white;
 }
 
-.events-component{
-    display:flex;
-    flex-wrap: wrap;
-    
+.events-component {
+  flex-wrap: wrap;
+  display: flex;
+  margin-left: 70px;
+  margin-top: 15px;
 }
-.but-new{
-    background-color: #1A1A1A;
-    text-align: center;
-    color: #44DABD;
-    padding: 5px ;
-    margin: 16px;
-    border-radius: 8px;
-    width: 177px;
-    height: 46px;
-   
+.but-new {
+  background-color: #1a1a1a;
+  text-align: center;
+  color: #44dabd;
+  padding: 5px;
+  margin: 16px;
+  border-radius: 8px;
+  width: 177px;
+  height: 46px;
 }
-
-
-
-  
+.grid-events {
+  margin-top: 120px;
+  margin-left: 26px;
+  margin-right: 30px;
+  margin-left: 66px;
+}
+.pagination-events {
+  margin-left: 50px;
+  margin-bottom: 80px;
+  margin-top: 50px;
+}
