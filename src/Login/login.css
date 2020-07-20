@@ -1,11 +1,101 @@
-.form-box{
-    position:relative;
-    margin:auto 0;
-
+.form-box-login {
+  position: relative;
+  background: white;
+  align-self: center;
 }
-.image-login{
-    position:absolut;
-    left: 613px;
-    top: 0px;
-   
+.image-login {
+  position: absolut;
+  left: 613px;
+  top: 0px;
+}
+.form-box-login-h3 {
+  position: absolute;
+  width: 265px;
+  height: 14px;
+  left: 155px;
+  top: 140px;
+  color: #000000;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.form-box-login-h2 {
+  position: absolute;
+  width: 265px;
+  height: 84px;
+  left: 155px;
+  top: 141px;
+  font-size: 36px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 42px;
+  text-transform: capitalize;
+}
+.inputs-login {
+  position: absolute;
+  top: 320px;
+  left: 155px;
+  margin: 6% auto;
+  align-self: center;
+}
+.label-login {
+  width: 91px;
+  height: 16px;
+  margin: 6px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  text-transform: capitalize;
+  color: #000000;
+}
+.input-login {
+  background: #ffffff;
+  margin: 0px 0px 20px 6px;
+  border: 1px solid #8e9296;
+  box-sizing: border-box;
+  height: 40px;
+  width: 326px;
+  border-radius: 5px;
+  top: 20px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.button-login {
+  height: 40px;
+  width: 326px;
+  background-color: #1a1a1a;
+  text-align: center;
+  color: #44dabd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin: 20px 0px 0px 6px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.img-login {
+  height: 100vh;
+  margin: 0px;
+  width: 100%;
+  overflow-y: hidden;
+}
+
+.grid-row-login {
+  padding-bottom: 0px;
 }

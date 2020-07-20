@@ -1,0 +1,189 @@
+.cards-event {
+  position: relative;
+  height: 200vh;
+  width: 86%;
+  left: 216px;
+  align-self: flex-end;
+  background: #f9f9f9;
+}
+
+.card-event {
+  position: absolute;
+  left: 340px;
+  right: 340px;
+  top: 170px;
+  max-height: 700;
+  border-radius: 20px;
+}
+.card-content-event {
+  position: relative;
+  height: 300px;
+  min-height: 180px;
+  max-height: 397px;
+  background: white;
+}
+.first-paragraph {
+  position: absolute;
+  word-wrap: break-word;
+  width: 550px;
+  padding: 0px;
+  margin: 10px;
+}
+.first-paragraph h3 {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 22px;
+  line-height: 32px;
+}
+.second-paragraph {
+  position: absolute;
+  word-wrap: break-word;
+  width: 550px;
+  padding: 0px;
+  margin: 10px;
+}
+
+.show-person-parent {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  top: 1000px;
+  width: 660px;
+  left: 340px;
+  margin: 8px;
+}
+
+.label-event {
+  position: absolute;
+  display: inline-block;
+  left: 340px;
+  top: 53px;
+}
+.label-event h3 {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  display: inline-flex;
+  align-items: center;
+  text-transform: capitalize;
+  color: #8e9296;
+}
+
+.label-event h4 {
+  margin: 3px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  display: inline-flex;
+  align-items: center;
+  text-transform: capitalize;
+  color: #000000;
+}
+.event-bar {
+  position: absolute;
+  display: inline-block;
+  left: 340px;
+  top: 130px;
+}
+.event-bar p {
+  display: inline-flex;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+}
+.time-event {
+  position: relative;
+  display: inline-flex;
+  left: 20px;
+  margin: 2px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+.location-event {
+  position: relative;
+  display: inline-flex;
+  left: 40px;
+  margin: 2px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+}
+.div-event-button-edit {
+  position: absolute;
+  top: 85px;
+  right: 340px;
+}
+.event-button-edit {
+  width: 170px;
+  height: 40px;
+  left: 813px;
+  top: 114px;
+  background: #1a1a1a;
+  border-radius: 8px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #44dabd;
+  border: none;
+}
+.event-button-edit:focus {
+  border-radius: 8px;
+  outline: 0;
+}
+
+.cards-features {
+  position: absolute;
+  top: 900px;
+  display: inline-block;
+  left: 340px;
+  right: 340px;
+  margin: 5px;
+}
+
+.cards-features h3 {
+  display: inline-flex;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+}
+.event-button-compare {
+  width: 190px;
+  height: 40px;
+  right: 8px;
+  background: #1a1a1a;
+  border-radius: 8px;
+  font-family: Inter;
+  text-align: center;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #44dabd;
+  border: none;
+  float: right;
+}
+.event-button-compare:focus {
+  border-radius: 8px;
+  outline: 0;
+  border: solid 2px #44dabd;
+}
+.event-button-compare:hover {
+  border-radius: 8px;
+  outline: 0;
+  border: solid 2px #44dabd;
+}
