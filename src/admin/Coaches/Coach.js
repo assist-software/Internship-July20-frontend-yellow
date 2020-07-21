@@ -18,7 +18,7 @@ class Coach extends Component {
     this.setState({ show: false, showAdd: false });
   };
 
-  hideAddConfirm = () => {
+  hideAddConfirm = (firstName) => {
     this.setState({
       show: false,
       showAdd: true,
@@ -53,7 +53,7 @@ class Coach extends Component {
           hideAddConfirm={this.state.showAdd}
           hideModal={this.hideModal}
           name={"Coach added"}
-          description={"Coach name was added"}
+          description={this.hideAddConfirm.firstName}
         />
         <div className="table-coach">
           <CoachTable />

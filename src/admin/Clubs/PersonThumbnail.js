@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, Modal, Table, Header, TableCell } from "semantic-ui-react";
+import { Modal } from "semantic-ui-react";
 import checked_icon from "../../assets/checkmark-circle.svg";
 import personImage from "../../assets/person.jpg";
 

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const ClubThumbnail = (props) => {
   return (
-    <Link to="selected-club" className="linkStyle">
+    <Link to="clubs + id" className="linkStyle">
       <div className="ClubCards">
         <h3>{props.name}</h3>
         <h5>MEMBERS</h5>

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 
-import { Grid, GridRow, Button, Pagination } from "semantic-ui-react";
+import { Grid, GridRow, Pagination } from "semantic-ui-react";
 import { GridColumn } from "semantic-ui-react";
-import { Icon } from "semantic-ui-react";
 import InputSearch from "../../../common/InputSearch";
 import "./selected-club.css";
 import PersonClubThumbnail from "./person-in-club-card";
@@ -43,6 +42,7 @@ class SelectedClub extends Component {
     });
   };
   render() {
+    console.log(this.props);
     return (
       <div className="selected-club-main">
         <div className="header-selected-club">
