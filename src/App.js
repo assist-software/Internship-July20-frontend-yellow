@@ -10,9 +10,15 @@ import Events from "./common/Events/Events";
 import SelectedClub from "./admin/Clubs/selected-club/selected-club";
 import Coach from "./admin/Coaches/Coach";
 
+import Athletes from "./common/Athletes/Athletes";
+
+
 function App() {
   return (
     <div>
+
+      <Route path="/athletes" component={Athletes} />
+
       <Route exact path="/">
         <Redirect to="/login" />
       </Route>
@@ -22,6 +28,7 @@ function App() {
       <Route path="/clubs/:id" component={SelectedClub} />
       <Route path="/coach" component={Coach} />
       <Route path="/events" component={Events} />
+
     </div>
   );
 }

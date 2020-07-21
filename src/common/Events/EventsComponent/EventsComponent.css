@@ -12,20 +12,23 @@
 }
 .events-text {
   position: absolute;
-  width: 300px;
+  width: 260px;
   height: 299px;
   background: #ffffff;
   left: 250px;
 }
 .events-text h3 {
-  margin: 10px;
+  margin-left: 10px;
+  margin-top: 20px !important;
+  margin-bottom: 5px;
 }
 .events-text p {
-  left: 10px;
+  margin-left: 10px;
   word-wrap: break-word;
+  margin-top: 0px;
 }
 .events-text h4 {
-  left: 10px;
+  margin-left: 14px;
   color: #8e9296;
   font-family: Inter;
   font-style: normal;
@@ -36,6 +39,7 @@
   align-items: center;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  margin-top: 20px !important;
 }
 
 .events {
@@ -45,20 +49,38 @@
 .events-card-details {
   display: flex;
   left: 14px;
+  margin-top: 20px;
 }
 .events-calendar {
   display: flex;
-  margin-right: 10px;
-  margin-bottom: 5px;
+  margin-left: 10px;
+  margin-right: 20px;
+  margin-bottom: 0px;
 }
 .events-calendar p {
   display: inline-flex;
+  margin-left: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 .events-time {
   display: flex;
 }
+.events-time p {
+  display: flex;
+  margin-left: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
 .events-location {
   display: flex;
-  margin-top: 5px;
+  margin-top: 5px !important;
+  margin-left: 10px;
+}
+
+.events-location p {
+  display: flex;
+  margin-left: 0px !important;
+  margin-top: 0px !important;
 }

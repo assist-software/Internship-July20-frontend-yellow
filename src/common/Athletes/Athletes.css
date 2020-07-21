@@ -1,0 +1,31 @@
+.athletes-page {
+  position: absolute;
+  height: 100%;
+  width: 1320px;
+  margin-left: 216px;
+  background: #f9f9f9;
+}
+.athletes-paragraph {
+  margin-top: 70px;
+  margin-left: 50px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 42px;
+}
+.persons-atheltes {
+  margin-left: 30px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.grid-athletes {
+  margin-left: 30px;
+  margin-top: 20px;
+}
+
+.pagination-athletes {
+  margin-left: 50px;
+  margin-bottom: 50px;
+  margin-top: 20px;
+}

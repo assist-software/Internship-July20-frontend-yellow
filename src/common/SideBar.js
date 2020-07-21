@@ -108,18 +108,22 @@ class SideBar extends Component {
               Clubs
             </button>
           </NavLink>
-          <button
-            className="sidebar-buttons"
-            onClick={this.pressedHandlerAthletes}
-          >
-            <img
-              src={
-                this.state.athletespressed ? athletes_logo_white : athletes_logo
-              }
-              className="button-icon"
-            />
-            Athletes
-          </button>
+          <NavLink to="/athletes" activeClassName="active">
+            <button
+              className="sidebar-buttons"
+              onClick={this.pressedHandlerAthletes}
+            >
+              <img
+                src={
+                  this.state.athletespressed
+                    ? athletes_logo_white
+                    : athletes_logo
+                }
+                className="button-icon"
+              />
+              Athletes
+            </button>
+          </NavLink>
         </div>
         <div className="logout-div">
           <img src={logout} />

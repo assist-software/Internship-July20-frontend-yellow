@@ -5,9 +5,40 @@ import Button from "../Button";
 import InputSearch from "../InputSearch";
 import { Grid, GridColumn, GridRow, Pagination, Icon } from "semantic-ui-react";
 import ModalEvents from "./ModalEvents";
+import ModalAdded from "../Modals/ModalAdded";
+import ModalDeleted from "../Modals/ModalDeleted";
 
 class Events extends Component {
-  state = { show: false };
+  state = {
+    membersClicked: false,
+    show: false,
+    showDelete: false,
+    showAdd: false,
+  };
+  showModal = () => {
+    this.setState({ show: true });
+  };
+  hideModal = () => {
+    this.setState({
+      show: false,
+      showDelete: false,
+      showAdd: false,
+    });
+  };
+
+  hideAddConfirm = () => {
+    this.setState({
+      show: false,
+      showAdd: true,
+    });
+  };
+
+  hideDeleteConfirm = () => {
+    this.setState({
+      show: false,
+      showDelete: true,
+    });
+  };
 
   handleOpenModal = () => {
     this.setState({ show: true });
@@ -38,6 +69,20 @@ class Events extends Component {
           NameModalEvents="Add Event"
           handleOpenModal={this.state.show}
           handleCloseModal={this.handleCloseModal}
+          showModal={this.state.show}
+          hideModal={this.hideModal}
+          hideAddConfirm={this.hideAddConfirm}
+        />
+
+        <ModalDeleted
+          hideAddConfirm={this.state.showDelete}
+          hideModal={this.hideModal}
+        />
+        <ModalAdded
+          hideAddConfirm={this.state.showAdd}
+          hideModal={this.hideModal}
+          name={"Event Added"}
+          description={"Athlete {this.name} was added on {this.clubName}"}
         />
         <div className="buttons-events">
           <button className="but">Ongoing</button>

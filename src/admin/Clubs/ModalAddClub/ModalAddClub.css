@@ -2,7 +2,6 @@
   position: relative;
   display: block;
   width: 100px;
-
   background: #ffffff;
   border: 1px solid #8e9296;
   box-sizing: border-box;
@@ -37,7 +36,6 @@
   height: 0px;
   left: 0px;
   right: 0px;
-
   border: 1px solid #cad2e2;
 }
 
