@@ -2,12 +2,26 @@ import React, { Component } from "react";
 import "./Athletes.css";
 import InputSearch from "../InputSearch";
 import Button from "../Button";
-import { Grid, GridColumn, GridRow, Icon, Pagination } from "semantic-ui-react";
+import {
+  Grid,
+  GridColumn,
+  GridRow,
+  Icon,
+  Pagination,
+  InputForm,
+} from "semantic-ui-react";
 import PersonClubThumbnail from "../../admin/Clubs/selected-club/person-in-club-card";
 import ModalAthletes from "./ModalAthletes/ModalAthletes";
+import ModalAdded from "../Modals/ModalAdded";
+import ModalDeleted from "../Modals/ModalDeleted";
 
 class Athletes extends Component {
-  state = { show: false };
+  state = {
+    membersClicked: false,
+    show: false,
+    showDelete: false,
+    showAdd: false,
+  };
 
   handleOpenModal = () => {
     this.setState({ show: true });
@@ -15,6 +29,31 @@ class Athletes extends Component {
 
   handleCloseModal = () => {
     this.setState({ show: false });
+  };
+
+  showModal = () => {
+    this.setState({ show: true });
+  };
+  hideModal = () => {
+    this.setState({
+      show: false,
+      showDelete: false,
+      showAdd: false,
+    });
+  };
+
+  hideAddConfirm = () => {
+    this.setState({
+      show: false,
+      showAdd: true,
+    });
+  };
+
+  hideDeleteConfirm = () => {
+    this.setState({
+      show: false,
+      showDelete: true,
+    });
   };
   render() {
     return (
@@ -41,6 +80,20 @@ class Athletes extends Component {
           NameModalAthletes="Add Athlete"
           handleOpenModal={this.state.show}
           handleCloseModal={this.handleCloseModal}
+          showModal={this.state.show}
+          hideModal={this.hideModal}
+          hideAddConfirm={this.hideAddConfirm}
+        />
+
+        <ModalDeleted
+          hideAddConfirm={this.state.showDelete}
+          hideModal={this.hideModal}
+        />
+        <ModalAdded
+          hideAddConfirm={this.state.showAdd}
+          hideModal={this.hideModal}
+          name={"Athlete Added"}
+          description={"Athlete {this.name} was added on {this.clubName}"}
         />
         <div className="persons-atheltes">
           <PersonClubThumbnail />
@@ -74,6 +127,18 @@ class Athletes extends Component {
             totalPages={10}
           />
         </div>
+        <ModalDeleted
+          hideAddConfirm={this.state.showDelete}
+          hideModal={this.hideModal}
+        />
+        <ModalAdded
+          hideAddConfirm={this.state.showAdd}
+          hideModal={this.hideModal}
+          name={"Athlete Added"}
+          description={
+            "Athlete {props.NameAthlete} was added on {props.ClubName}."
+          }
+        />
       </div>
     );
   }

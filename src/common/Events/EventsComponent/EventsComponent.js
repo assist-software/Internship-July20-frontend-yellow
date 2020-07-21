@@ -13,7 +13,10 @@ const EventsComponent = (props) => {
 
         <div className="events-text">
           <h3>Some text</h3>
-          <p>Here will be some paragraph</p>
+          <p>
+            Here will be some paragraph
+            fhsdfyusdkgfdsfuilofgyadsukihsdtyukyagukhfcvdyfsvsiuhsafncyufsaiugkchsudtbivykl
+          </p>
           <div className="events-card-details">
             <div className="events-calendar">
               <Icon name="calendar alternate outline" />

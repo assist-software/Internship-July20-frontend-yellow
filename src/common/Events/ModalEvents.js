@@ -13,11 +13,37 @@ import {
 } from "semantic-ui-react";
 import "./ModalEvents.css";
 import Button from "../Button";
+import DatePicker from "react-datepicker";
+import TimePicker from "react-time-picker";
 
 class ModalEvents extends Component {
+  state = {
+    startdate: new Date(),
+  };
+
+  onChange = (date) => this.setState({ date });
+  onChange = (startdate) => this.setState({ startdate });
+
+  state = { clicked: false };
+  Results = () => (
+    <div className="event-invite">
+      <h3> Email address</h3>
+      <input type="email" />
+      <Icon color="grey" name="plus" />
+      <label> Add another</label>
+    </div>
+  );
+  addClickedHandler = () => {
+    this.props.hideAddConfirm();
+  };
+
+  deleteClickedHandler = () => {
+    this.props.hideDeleteConfirm();
+  };
   render() {
     return (
       <Modal
+        style={{ maxWidth: "600px" }}
         className="modal-events"
         open={this.props.handleOpenModal}
         close={this.props.handleCloseModal}
@@ -30,21 +56,21 @@ class ModalEvents extends Component {
             <div className="form-events">
               <Form.Input label="Name" placeholder="Input placeholder" />
 
-              <div className="input-time-date">
-                <FormGroup inline="true">
-                  <Form.Input
-                    label="Time"
-                    icon="clock outline"
-                    placeholder="Input placeholder"
-                  />
+              <Form.Group widths="equal">
+                <TimePicker
+                  selected={this.state.date}
+                  onChange={this.handleChange}
+                  name="startDate"
+                  dateFormat="MM/dd/yyyy"
+                />
+                <DatePicker
+                  selected={this.state.startDate}
+                  onChange={this.handleChange}
+                  name="startDate"
+                  dateFormat="MM/dd/yyyy"
+                />
+              </Form.Group>
 
-                  <Form.Input
-                    label="Date"
-                    icon="calendar alternate outline"
-                    placeholder="Search..."
-                  />
-                </FormGroup>
-              </div>
               <Form.Select
                 className="input-description"
                 label="Location"
@@ -57,10 +83,19 @@ class ModalEvents extends Component {
                 label="Description"
                 placeholder="Input placeholder"
               />
-              <div>
-                <p className="invite-members">Invite memebers</p>
-                <p className="invite-members-optional">(Optional)</p>
+              <div className="invite-optional">
+                <p
+                  className="invite-members"
+                  onClick={() =>
+                    this.setState({ clicked: !this.state.clicked })
+                  }
+                >
+                  Invite members
+                </p>
               </div>
+
+              <p className="invite-members-optional">(Optional)</p>
+              <div>{this.state.clicked ? this.Results() : null}</div>
 
               <p className="event-cover">Event cover</p>
               <Dropzone onDrop={(files) => console.log(files)}>
@@ -74,7 +109,11 @@ class ModalEvents extends Component {
                     >
                       <input {...getInputProps()} />
                       <div className="upload-file-event">
-                        <Icon name="cloud upload" color="black" />
+                        <Icon
+                          style={{ margin: "3px" }}
+                          name="cloud upload"
+                          color="black"
+                        />
                         <p>Upload File </p>
                       </div>
                     </div>
@@ -82,20 +121,25 @@ class ModalEvents extends Component {
                   </div>
                 )}
               </Dropzone>
+              <div className="second-line-events"></div>
+
+              <div className="button-add-events">
+                <button
+                  className="button-close-event"
+                  onClick={this.props.handleCloseModal}
+                  inverted
+                >
+                  Close
+                </button>
+                <button
+                  className="button-add-event"
+                  onClick={this.addClickedHandler}
+                >
+                  ADD
+                </button>
+              </div>
             </div>
           </Form>
-
-          <div className="button-add-events">
-            <hr></hr>
-            <button
-              className="button-close-event"
-              onClick={this.props.handleCloseModal}
-              inverted
-            >
-              Close
-            </button>
-            <button className="button-add-event">ADD</button>
-          </div>
         </div>
       </Modal>
     );

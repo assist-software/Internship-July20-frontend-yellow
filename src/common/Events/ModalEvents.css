@@ -1,7 +1,7 @@
 .modal-events {
   position: absolute;
-  width: 518px;
-  height: 800px;
+  width: 600px;
+  height: 900px;
   background: #ffffff;
   border: 1px solid #8e9296;
   box-sizing: border-box;
@@ -59,14 +59,15 @@
 }
 
 .button-add-events {
-  position: absolute;
-  top: 700px;
-  left: 220px;
+  margin-top: 50px;
+  float: right;
+  display: inline-block;
+}
+.second-line-events {
+  top: 500px !important;
 }
 
 .button-close-event {
-  position: relative;
-  top: 12px;
   margin: 5px;
   width: 90px;
   height: 40px;
@@ -84,8 +85,6 @@
 }
 
 .button-add-event {
-  position: relative;
-  top: 12px;
   width: 130px;
   height: 40px;
   background: #1a1a1a;
@@ -115,32 +114,32 @@
   position: relative;
   flex: 1;
   display: flex;
-  flex-direction: column;
   padding: 20px;
   border-radius: 5px;
   height: 100px;
-  background-color: #fafafa;
+  background-color: #f5efef;
   color: #a8a0a0;
   outline: none;
   border: dashed 1px grey;
   top: 20px;
 }
 .upload-file-event {
-  display: inline-block;
-  top: 55px;
-  left: 100px;
+  display: inline-flex;
+  top: 57px;
+  cursor: pointer;
 }
 .upload-file-event p {
-  display: inline-flex;
+  display: flex;
   color: black;
   border-bottom: double 2px;
-  margin: 8px;
+  font-family: Inter;
+  font-style: normal;
 }
 .dropzone-event {
   position: relative;
-  left: 100px;
-  width: 120px;
-  top: 14px;
+  left: 75px;
+  top: 18px;
+  height: 30px;
 }
 .event-cover {
   position: relative;
@@ -165,8 +164,9 @@
   color: #000000;
   border-bottom: solid 2px #c3c7cc;
   width: 126px;
-  display: inline-flex;
   margin: 2px;
+  cursor: pointer;
+  display: flex;
 }
 .invite-members-optional {
   display: inline-flex;
@@ -177,7 +177,21 @@
   font-size: 14px;
   color: #8e9296;
 }
-.drag-drop-even {
-  left: 160px;
-  width: 30px;
+.drag-drop-event {
+  margin-left: 85px !important;
+  margin-top: 18px !important;
+}
+
+.event-invite {
+  margin-top: 20px;
+}
+.invite-optional {
+  display: inline-block;
+}
+
+.event-invite h3 {
+  font-size: 0.92857143em;
+  font-weight: 700;
+  text-transform: none;
+  margin-bottom: 5px;
 }
