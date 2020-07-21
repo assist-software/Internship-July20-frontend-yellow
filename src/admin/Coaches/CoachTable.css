@@ -10,3 +10,8 @@
 .ui.table thead tr:first-child > th:last-child {
   width: 100px;
 }
+
+.ui.checkbox.table-checkbox {
+  margin-right: 10px;
+  top: 3px;
+}

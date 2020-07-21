@@ -96,3 +96,8 @@
 .close-icon {
   float: right;
 }
+
+.error-fields {
+  border-bottom: red;
+  border-bottom-style: inset;
+}
