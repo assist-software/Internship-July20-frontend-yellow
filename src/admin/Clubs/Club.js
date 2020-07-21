@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-
 import InputSearch from "../../common/InputSearch";
 import InputForm from "./ModalAddClub/ModalAddClub";
-import SideBar from "../../common/SideBar";
 
 import ClubThumbnail from "./ClubThumbnail";
-import { Grid, GridRow, Button } from "semantic-ui-react";
+import { Grid, GridRow } from "semantic-ui-react";
 import { GridColumn } from "semantic-ui-react";
 import ModalAdded from "../../common/Modals/ModalAdded";
 
@@ -74,6 +72,7 @@ class Club extends Component {
                 name="Bike Club"
                 coach="naem"
               />
+
               <ClubThumbnail
                 className="grid-item"
                 name="Bike Club"

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, Modal, Table, Header, TableCell } from "semantic-ui-react";
+import { Modal } from "semantic-ui-react";
 import checked_icon from "../../assets/checkmark-circle.svg";
 import personImage from "../../assets/person.jpg";
 
@@ -16,22 +16,22 @@ class PersonThumbnail extends Component {
         >
           <Modal.Content>
             <img src={personImage} className="person-image" />
-            <div>
-              <p>Lily Jones</p>
-              <p>Female 28 years</p>
+            <div className="person-info">
+              <label className="person-name">Lily Jones</label>
+              <p className="person-details">Female - 28 years</p>
             </div>
-            <div>
-              <hr />
-              <div className="vertical-line"></div>
+            <div className="person-sports-div">
+              <hr className="person-hr" />
+
               <div className="person-sport">
                 <label>Primary sport</label>
                 <label>Secondary sport</label>
               </div>
               <div className="person-sport">
-                <label>king</label>
+                <label>biking</label>
                 <label>Swimming</label>
               </div>
-              <hr />
+              <hr className="person-hr" />
             </div>
             <button
               className="button-modal-added"

@@ -67,3 +67,11 @@
   font-weight: normal;
   font-size: 36px;
 }
+
+a.linkStyle {
+  color: black;
+}
+
+a.linkStyle :hover {
+  transform: scale(1.05);
+}
