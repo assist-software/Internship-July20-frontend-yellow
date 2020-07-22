@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Athletes.css";
 import InputSearch from "../InputSearch";
-import Button from "../Button";
+import axios from "axios";
 import {
   Grid,
   GridColumn,
@@ -21,6 +21,7 @@ class Athletes extends Component {
     show: false,
     showDelete: false,
     showAdd: false,
+    athletes: [],
   };
 
   handleOpenModal = () => {
@@ -55,6 +56,12 @@ class Athletes extends Component {
       showDelete: true,
     });
   };
+  componentDidMount() {
+    let url = "http://localhost:3001/MEMBERS";
+    axios.get(url).then((response) => {
+      this.setState({ athletes: response.data });
+    });
+  }
   render() {
     return (
       <div className="athletes-page">
@@ -96,16 +103,16 @@ class Athletes extends Component {
           description={"Athlete {this.name} was added on {this.clubName}"}
         />
         <div className="persons-atheltes">
-          <PersonClubThumbnail />
-          <PersonClubThumbnail />
-          <PersonClubThumbnail />
-          <PersonClubThumbnail />
-          <PersonClubThumbnail />
-          <PersonClubThumbnail />
-          <PersonClubThumbnail />
-          <PersonClubThumbnail />
-          <PersonClubThumbnail />
-          <PersonClubThumbnail />
+          {this.state.athletes &&
+            this.state.athletes.map((athlete, index) => (
+              <PersonClubThumbnail
+                name={athlete.name}
+                gender={athlete.gender}
+                age={athlete.age}
+                primary={athlete.primary}
+                secondary={athlete.secondary}
+              />
+            ))}
         </div>
         <div className="pagination-athletes">
           <Pagination

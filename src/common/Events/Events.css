@@ -55,7 +55,8 @@
   text-align: center;
   color: #44dabd;
   padding: 5px;
-  margin: 16px;
+  margin-top: 16px;
+  margin-right: 70px;
   border-radius: 8px;
   width: 177px;
   height: 46px;
@@ -70,4 +71,11 @@
   margin-left: 50px;
   margin-bottom: 80px;
   margin-top: 50px;
+}
+a.style-card-events-link {
+  color: black;
+}
+a.style-card-events-link:hover {
+  transform: scale(1.05);
+  color: black;
 }

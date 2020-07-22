@@ -13,17 +13,28 @@ import {
 } from "semantic-ui-react";
 import "./ModalEvents.css";
 import Button from "../Button";
-import DatePicker from "react-datepicker";
-import TimePicker from "react-time-picker";
+import TimePicker from "rc-time-picker";
+import SingleDatePicker from "react-datepicker";
+import moment from "moment";
+import CalendarContainer from "rc-time-picker";
 
 class ModalEvents extends Component {
   state = {
+    dt: moment(),
     startdate: new Date(),
   };
-
-  onChange = (date) => this.setState({ date });
-  onChange = (startdate) => this.setState({ startdate });
-
+  MyContainer = ({ className, children }) => {
+    return (
+      <div style={{ padding: "16px", background: "#216ba5", color: "#fff" }}>
+        <CalendarContainer className={className}>
+          <div style={{ background: "#f0f0f0" }}>
+            What is your favorite day?
+          </div>
+          <div style={{ position: "relative" }}>{children}</div>
+        </CalendarContainer>
+      </div>
+    );
+  };
   state = { clicked: false };
   Results = () => (
     <div className="event-invite">
@@ -57,17 +68,15 @@ class ModalEvents extends Component {
               <Form.Input label="Name" placeholder="Input placeholder" />
 
               <Form.Group widths="equal">
-                <TimePicker
-                  selected={this.state.date}
-                  onChange={this.handleChange}
-                  name="startDate"
-                  dateFormat="MM/dd/yyyy"
+                <Form.Input
+                  fluid
+                  label="Time"
+                  placeholder="Input Placeholder"
                 />
-                <DatePicker
-                  selected={this.state.startDate}
-                  onChange={this.handleChange}
-                  name="startDate"
-                  dateFormat="MM/dd/yyyy"
+                <Form.Input
+                  fluid
+                  label="Date"
+                  placeholder="Input Placeholder"
                 />
               </Form.Group>
 

@@ -74,4 +74,5 @@ a.linkStyle {
 
 a.linkStyle :hover {
   transform: scale(1.05);
+  color: black;
 }

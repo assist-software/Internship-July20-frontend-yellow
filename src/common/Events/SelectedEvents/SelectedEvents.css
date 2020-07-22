@@ -1,5 +1,5 @@
 .cards-event {
-  position: relative;
+  position: absolute;
   height: 200vh;
   width: 86%;
   left: 216px;
@@ -186,4 +186,11 @@
   border-radius: 8px;
   outline: 0;
   border: solid 2px #44dabd;
+}
+
+@media screen and (max-width: 1000px) {
+  card-event {
+    left: 180px;
+    right: 180px;
+  }
 }

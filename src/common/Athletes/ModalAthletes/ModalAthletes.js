@@ -12,15 +12,112 @@ import {
   FormGroup,
 } from "semantic-ui-react";
 import "./ModalAthletes.css";
-
+import axios from "axios";
+import close_icon from "../../../assets/close.svg";
 class ModalAthletes extends Component {
+  state = {
+    namevalid: true,
+    emailvalid: true,
+    psportvalid: true,
+    ssportvalid: true,
+    gendervalid: true,
+    agevalid: true,
+    heightvalid: false,
+    wightvalid: false,
+    locationvalid: false,
+    name: "",
+    email: "",
+    psport: "",
+    ssport: "",
+    gender: "",
+    age: "",
+  };
+
+  NameHandler = (data) => {
+    if (/^[a-zA-Z ]+$/.test(data.target.value)) {
+      this.setState({ namevalid: true });
+      this.setState({ name: data.target.value });
+    } else {
+      this.setState({ namevalid: false });
+    }
+  };
+  AgeHandler = (data) => {
+    if (/([1-9 ][0-9 ])/.test(data.target.value)) {
+      this.setState({ agevalid: true });
+      this.setState({ age: data.target.value });
+    } else {
+      this.setState({ agevalid: false });
+    }
+  };
+
+  EmailHandler = (data) => {
+    if (
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.target.value)
+    ) {
+      this.setState({ emailvalid: true });
+      this.setState({ email: data.target.value });
+    } else {
+      this.setState({ emailvalid: false });
+    }
+  };
+
+  PsportHandler = (data) => {
+    if (/^[a-zA-Z ]+$/.test(data.target.value)) {
+      this.setState({ psportvalid: true });
+      this.setState({ psport: data.target.value });
+    } else {
+      this.setState({ psportvalid: false });
+    }
+  };
+
+  SsportHandler = (data) => {
+    if (/^[a-zA-Z ]+$/.test(data.target.value)) {
+      this.setState({ ssportvalid: true });
+      this.setState({ ssport: data.target.value });
+    } else {
+      this.setState({ ssportvalid: false });
+    }
+  };
+
+  GenderHandler = (data) => {
+    if (/^[a-zA-Z]+$/.test(data.target.value)) {
+      this.setState({ gendervalid: true });
+      this.setState({ gender: data.target.value });
+    } else {
+      this.setState({ gendervalid: false });
+    }
+  };
+
   addClickedHandler = () => {
-    this.props.hideAddConfirm();
+    if (
+      this.state.namevalid &&
+      this.state.emailvalid &&
+      this.state.psportvalid &&
+      this.state.ssportvalid &&
+      this.state.agevalid &&
+      this.state.name.length > 0 &&
+      this.state.email.length > 0 &&
+      this.state.psport.length > 0 &&
+      this.state.ssport.length > 0 &&
+      this.state.age.length > 0
+    ) {
+      axios.post("http://localhost:3001/Members", {
+        img: this.state.img,
+        name: this.state.name,
+        email: this.state.email,
+        gender: this.state.gender,
+        age: this.state.age,
+        primary: this.state.psport,
+        secondary: this.state.ssport,
+      });
+      this.props.hideAddConfirm();
+    }
   };
 
   deleteClickedHandler = () => {
     this.props.hideDeleteConfirm();
   };
+
   render() {
     return (
       <Modal
@@ -31,6 +128,13 @@ class ModalAthletes extends Component {
       >
         <Modal.Content>
           <Form>
+            <div>
+              <img
+                src={close_icon}
+                className="close-icon"
+                onClick={this.props.handleCloseModal}
+              />
+            </div>
             <div className="modal-athletes-div">
               <h2>{this.props.NameModalAthletes}</h2>
               <hr></hr>
@@ -41,11 +145,23 @@ class ModalAthletes extends Component {
                     fluid
                     label="Name"
                     placeholder="Input placeholder"
+                    error={
+                      this.state.namevalid
+                        ? null
+                        : "The field can not be empty or contain special characters"
+                    }
+                    onChange={this.NameHandler}
                   />
                   <Form.Input
                     fluid
                     label="Email Adress"
                     placeholder="Input placeholder"
+                    error={
+                      this.state.emailvalid
+                        ? null
+                        : "Enter a valid email address"
+                    }
+                    onChange={this.EmailHandler}
                   />
                 </Form.Group>
 
@@ -54,11 +170,23 @@ class ModalAthletes extends Component {
                     fluid
                     label="Primary Sport"
                     placeholder="Input placeholder"
+                    error={
+                      this.state.psportvalid
+                        ? null
+                        : "The field can not be empty or contain special characters"
+                    }
+                    onChange={this.PsportHandler}
                   />
                   <Form.Input
                     fluid
                     label="Secondary Sport"
                     placeholder="Input placeholder"
+                    error={
+                      this.state.ssportvalid
+                        ? null
+                        : "The field can not be empty or contain special characters"
+                    }
+                    onChange={this.SsportHandler}
                   />
                 </Form.Group>
                 <p>Personal Information </p>
@@ -67,26 +195,43 @@ class ModalAthletes extends Component {
                     fluid
                     label="Gender"
                     placeholder="Input placeholder"
+                    error={
+                      this.state.gendervalid
+                        ? null
+                        : "The field can not be empty or contain space character"
+                    }
+                    onChange={this.GenderHandler}
                   />
                   <Form.Input
                     fluid
                     label="Age"
                     placeholder="Input placeholder"
+                    error={
+                      this.state.agevalid
+                        ? null
+                        : "The field can not be empty or contain space charactere"
+                    }
+                    onChange={this.AgeHandler}
                   />
                 </Form.Group>
 
                 <Form.Group widths="equal">
                   <Form.Input
                     fluid
-                    label="First name"
-                    placeholder="First name"
+                    label="Height"
+                    placeholder="Input Placeholder"
                   />
-                  <Form.Input fluid label="Last name" placeholder="Last name" />
+                  <Form.Input
+                    fluid
+                    label="Weight"
+                    placeholder="Input Placeholder"
+                  />
                 </Form.Group>
                 <Form.Select
                   className="input-description"
                   label="Location"
                   placeholder="Input placeholder"
+                  required="false"
                 />
                 <h3>Avatar Image</h3>
                 <Dropzone onDrop={(files) => console.log(files)}>
