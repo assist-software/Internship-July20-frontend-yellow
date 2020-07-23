@@ -1,165 +1,231 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import { Form, Input, Modal } from "semantic-ui-react";
 import close_icon from "../../assets/close.svg";
 import "../Clubs/ModalAddClub/ModalAddClub.css";
+import Axios from "axios";
+import ModalAdded from "../../common/Modals/ModalAdded";
+import ModalDeleted from "../../common/Modals/ModalDeleted";
 
-const ModalAddCoach = (props) => {
-  var [emailValidation, setEmailValidation] = useState(true);
-  var [lastNameValidation, setlastNameValidation] = useState(true);
-  var [firstNameValidation, setfirstNameValidation] = useState(true);
-  var [classError, setClassError] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [email, setEmail] = useState("");
-  const Edit = () => {
+class ModalAddCoach extends Component {
+  state = {
+    show: false,
+    showAdd: false,
+    emailValidation: true,
+    lastNameValidation: true,
+    firstNameValidation: true,
+    lastName: "",
+    firstName: "",
+    email: "",
+    url: "http://localhost:3001/coaches",
+  };
+
+  Edit = () => {
     return (
-      <button className="delete-button-club" onClick={deleteClickedHandler}>
+      <button
+        className="delete-button-club"
+        onClick={this.deleteClickedHandler}
+      >
         {" "}
         Detele
       </button>
     );
   };
 
-  const firstNameHandler = (e) => {
-    if (/^[a-zA-Z ]+$/.test(e.target.value)) {
-      setfirstNameValidation(true);
-      setFirstName(e.target.value);
+  firstNameHandler = (event) => {
+    if (/^[a-zA-Z ]+$/.test(event.target.value)) {
+      this.setState({
+        firstNameValidation: true,
+        firstName: event.target.value,
+      });
     } else {
-      setfirstNameValidation(false);
+      this.setState({
+        firstNameValidation: false,
+      });
     }
   };
 
-  const lastNameHandler = (e) => {
-    if (/^[a-zA-Z ]+$/.test(e.target.value)) {
-      setlastNameValidation(true);
-      setLastName(e.target.value);
+  lastNameHandler = (event) => {
+    if (/^[a-zA-Z ]+$/.test(event.target.value)) {
+      this.setState({
+        lastNameValidation: true,
+        lastName: event.target.value,
+      });
     } else {
-      setlastNameValidation(false);
+      this.setState({
+        lastNameValidation: false,
+      });
     }
   };
-  const emailHandler = (e) => {
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e.target.value)) {
-      setEmailValidation(true);
-      setEmail(e.target.value);
-    } else {
-      setEmailValidation(false);
-    }
-  };
-
-  const addClickedHandler = () => {
+  emailHandler = (event) => {
     if (
-      lastNameValidation &&
-      firstNameValidation &&
-      emailValidation &&
-      firstName.length > 0 &&
-      lastName.length > 0 &&
-      email.length > 0
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(event.target.value)
     ) {
-      setFirstName("");
-      setLastName("");
-      setEmail("");
-      props.hideAddConfirm(firstName);
+      this.setState({
+        emailValidation: true,
+        email: event.target.value,
+      });
+    } else {
+      this.setState({
+        emailValidation: false,
+      });
     }
   };
 
-  const exitHandler = () => {
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    props.hideModal();
+  addClickedHandler = () => {
+    if (
+      this.state.lastNameValidation &&
+      this.state.firstNameValidation &&
+      this.state.emailValidation &&
+      this.state.email != undefined &&
+      this.state.firstName != undefined &&
+      this.state.lastName != undefined
+    ) {
+      Axios.post("http://localhost:3001/coaches", {
+        first_name: this.state.firstName,
+        last_name: this.state.lastName,
+        email: this.state.email,
+      }).then((response) => {});
+      this.setState({
+        email: "",
+        firstName: "",
+        lastName: "",
+      });
+    }
+    this.props.hideAddConfirm();
   };
 
-  const deleteClickedHandler = () => {
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    props.hideDeleteConfirm();
+  exitHandler = () => {
+    this.setState({
+      email: "",
+      firstName: "",
+      lastName: "",
+    });
+    this.props.hideModal();
   };
 
-  return (
-    <Modal
-      open={props.showModal}
-      onClose={props.hideModal}
-      className="modal-form"
-    >
-      <Modal.Content>
-        <Form>
-          <div>
-            <img
-              src={close_icon}
-              className="close-icon"
-              onClick={exitHandler}
-            />
-          </div>
-          <div>
-            <h2>{props.name}</h2>
-            <hr></hr>
+  deleteClickedHandler = () => {
+    this.setState({
+      email: "",
+      firstName: "",
+      lastName: "",
+    });
+    this.props.hideDeleteConfirm();
+  };
+  componentDidMount() {
+    Axios.get(this.state.url, {
+      params: {
+        id: this.props.id,
+      },
+    }).then((response) => {
+      console.log(this.props.id, "   ");
+      this.setState({
+        email: response.data.email,
+        firstName: response.data.first_name,
+        lastName: response.data.last_name,
+      });
+    });
+  }
 
-            <div className="modal-form-inputs">
-              <Form.Input
-                required
-                error={
-                  firstNameValidation
-                    ? null
-                    : "The field can not be empty or contain special characters"
-                }
-                onChange={firstNameHandler}
-                fluid
-                label="First Name"
-                placeholder="Input placeholder"
-                width="17"
+  render() {
+    return (
+      <Modal
+        open={this.props.showModal}
+        onClose={this.props.hideModal}
+        className="modal-form"
+      >
+        <Modal.Content>
+          <Form>
+            <div>
+              <img
+                src={close_icon}
+                className="close-icon"
+                onClick={this.exitHandler}
               />
+            </div>
+            <div>
+              <h2>{this.props.name}</h2>
+              <hr></hr>
 
-              <Form.Input
-                required
-                onChange={lastNameHandler}
-                error={
-                  lastNameValidation
-                    ? null
-                    : "The field can not be empty or contain special characters"
-                }
-                fluid
-                label="Last Name"
-                placeholder="Input placeholder"
-                width="17"
-              />
+              <div className="modal-form-inputs">
+                <Form.Input
+                  required
+                  error={
+                    this.state.firstNameValidation
+                      ? null
+                      : "The field can not be empty or contain special characters"
+                  }
+                  onChange={this.firstNameHandler}
+                  fluid
+                  label="First Name"
+                  placeholder="Input placeholder"
+                  width="16"
+                />
 
-              <Form.Input
-                required
-                onChange={emailHandler}
-                error={emailValidation ? null : "Enter a valid email address"}
-                fluid
-                label="Email Addres"
-                placeholder="Input placeholder"
-                width="17"
-              />
-              <label>Club Assign</label>
-              <Input list="Club" placeholder="Input placeholder" fluid />
-              <datalist id="Club">
-                <option value="English" />
-                <option value="Chinese" />
-                <option value="Dutch" />
-              </datalist>
+                <Form.Input
+                  required
+                  onChange={this.lastNameHandler}
+                  error={
+                    this.state.lastNameValidation
+                      ? null
+                      : "The field can not be empty or contain special characters"
+                  }
+                  fluid
+                  label="Last Name"
+                  placeholder="Input placeholder"
+                  width="16"
+                />
 
-              <br />
-              <br />
-              <div className="modal-form-buttons">
-                <hr className="second-line"></hr>
-                <div>{props.editForm ? <Edit /> : null}</div>
-                <button className="cancel-button" onClick={exitHandler}>
-                  {" "}
-                  Cancel
-                </button>
-                <button className="button" onClick={addClickedHandler}>
-                  {props.action}
-                </button>
+                <Form.Input
+                  required
+                  onChange={this.emailHandler}
+                  error={
+                    this.state.emailValidation
+                      ? null
+                      : "Enter a valid email address"
+                  }
+                  fluid
+                  label="Email Addres"
+                  placeholder="Input placeholder"
+                  width="16"
+                />
+                <label>Club Assign</label>
+                <Input list="Club" placeholder="Input placeholder" fluid />
+                <datalist id="Club">
+                  <option value="English" />
+                  <option value="Chinese" />
+                  <option value="Dutch" />
+                </datalist>
+
+                <br />
+                <br />
+                <div className="modal-form-buttons">
+                  <hr className="second-line"></hr>
+                  <div>{this.props.editForm ? <this.Edit /> : null}</div>
+                  <button className="cancel-button" onClick={this.exitHandler}>
+                    {" "}
+                    Cancel
+                  </button>
+                  <button className="button" onClick={this.addClickedHandler}>
+                    {this.props.action}
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </Form>
-      </Modal.Content>
-    </Modal>
-  );
-};
+          </Form>
+        </Modal.Content>
+        <ModalAdded
+          hideAddConfirm={this.state.showAdd}
+          hideModal={this.hideModal}
+          name={"Coach edited"}
+          description={"Coach name was edited"}
+        />
+        <ModalDeleted
+          hideAddConfirm={this.state.showDelete}
+          hideModal={this.hideModal}
+        />
+      </Modal>
+    );
+  }
+}
 
 export default ModalAddCoach;

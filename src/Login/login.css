@@ -8,11 +8,30 @@
   left: 613px;
   top: 0px;
 }
+
+.incorect-login {
+  color: red;
+  margin: 0 auto;
+  top: 160px;
+  position: relative;
+  display: table;
+}
+
+.corect-login {
+  color: red;
+  margin: 0 auto;
+  top: 160px;
+  position: relative;
+  display: none;
+}
+
 .form-box-login-h3 {
-  position: absolute;
-  width: 265px;
+  position: relative;
+  width: 326px;
   height: 14px;
-  left: 155px;
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
   top: 140px;
   color: #000000;
   font-family: Inter;
@@ -24,10 +43,12 @@
   text-transform: uppercase;
 }
 .form-box-login-h2 {
-  position: absolute;
-  width: 265px;
+  position: relative;
+  width: 325px;
   height: 84px;
-  left: 155px;
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
   top: 141px;
   font-size: 36px;
   font-family: Inter;
@@ -37,9 +58,9 @@
   text-transform: capitalize;
 }
 .inputs-login {
-  position: absolute;
-  top: 320px;
-  left: 155px;
+  position: relative;
+  top: 220px;
+  display: table;
   margin: 6% auto;
   align-self: center;
 }

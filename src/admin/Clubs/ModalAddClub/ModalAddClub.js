@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import { Form, Input, Modal, Icon } from "semantic-ui-react";
 
 import close_icon from "../../../assets/close.svg";
@@ -6,145 +6,157 @@ import "./ModalAddClub.css";
 import { render } from "@testing-library/react";
 import zIndex from "@material-ui/core/styles/zIndex";
 
-const InputForm = (props) => {
-  const [clicked, setClicked] = useState(false);
-  const [invitedMember, setInvitedMembers] = useState([]);
-  const [name, setName] = useState("");
-  const [coach, setCoach] = useState("");
-  const [nameValidation, setNameValidation] = useState(true);
-  const [coachValidation, setCoachValidation] = useState(true);
+class InputForm extends Component {
+  state = {
+    clicked: false,
+    invitedMember: [],
+    name: "",
+    coach: "",
+    nameValidation: true,
+    coachValidation: true,
+  };
 
-  const Results = () => (
-    <div className="club-invite">
-      <h3> Email address</h3>
-      <input type="email" />
-    </div>
-  );
+  Results = () =>
+    this.state.invitedMember.map(() => (
+      <input type="email" placeholder="Input email" />
+    ));
 
-  const AddAnotherEmail = () => (
-    <div>
-      <Icon color="grey" name="plus" />
-      <label onClick={inviteHandler}> Add another</label>
-    </div>
-  );
-
-  const nameHandler = (e) => {
+  nameHandler = (e) => {
     if (/^[a-zA-Z ]+$/.test(e.target.value)) {
-      setName(e.target.value);
-      setNameValidation(true);
+      this.setState({ name: e.target.value, nameValidation: true });
     } else {
-      setNameValidation(false);
+      this.setState({ nameValidation: false });
     }
   };
 
-  const coachHandler = (e) => {
+  coachHandler = (e) => {
     if (/^[a-zA-Z ]+$/.test(e.target.value)) {
-      setCoach(e.target.value);
-      setCoachValidation(true);
+      this.setState({ coach: e.target.value, coachValidation: true });
     } else {
-      setCoachValidation(false);
+      this.setState({ coachValidation: false });
     }
   };
 
-  const Edit = () => {
+  Edit = () => {
     return (
-      <button className="delete-button-club" onClick={deleteClickedHandler}>
+      <button
+        className="delete-button-club"
+        onClick={this.deleteClickedHandler}
+      >
         {" "}
         Detele
       </button>
     );
   };
 
-  const addClickedHandler = () => {
-    props.hideAddConfirm();
+  addAnother = () => (
+    <div>
+      <Icon color="grey" name="plus" />
+      <label onClick={this.inviteHandler}> Add another</label>
+    </div>
+  );
+
+  addClickedHandler = () => {
+    this.props.hideAddConfirm();
   };
 
-  const deleteClickedHandler = () => {
-    props.hideDeleteConfirm();
+  deleteClickedHandler = () => {
+    this.props.hideDeleteConfirm();
   };
 
-  const inviteHandler = () => {
-    let members = invitedMember;
+  inviteHandler = () => {
+    let members = this.state.invitedMember;
     members.push("");
-    setInvitedMembers(members);
-    console.log(invitedMember);
+    this.setState({ invitedMember: members });
+    console.log(this.state.invitedMember);
   };
-  let members = invitedMember;
-
-  return (
-    <Modal
-      open={props.showModal}
-      onClose={props.hideModal}
-      className="modal-form"
-    >
-      <Modal.Content>
-        <Form>
-          <div>
-            <img
-              src={close_icon}
-              alt=""
-              className="close-icon"
-              onClick={props.hideModal}
-            />
-          </div>
-          <div>
-            <h2>{props.name}</h2>
-            <hr></hr>
-
-            <div className="modal-form-inputs">
-              <Form.Input
-                required
-                onChange={nameHandler}
-                error={
-                  nameValidation
-                    ? null
-                    : "The field can not be empty or contain special characters"
-                }
-                fluid
-                label="Name"
-                placeholder="Input placeholder"
-                width="17"
+  render() {
+    return (
+      <Modal
+        open={this.props.showModal}
+        onClose={this.props.hideModal}
+        className="modal-form"
+      >
+        <Modal.Content>
+          <Form>
+            <div>
+              <img
+                src={close_icon}
+                alt=""
+                className="close-icon"
+                onClick={this.props.hideModal}
               />
-              <label>Assign a Coach</label>
-              <br />
-              <Input list="Coach" placeholder="Input placeholder" fluid />
-              <datalist id="Coach">
-                <option value="English" />
-                <option value="Chinese" />
-                <option value="Dutch" />
-              </datalist>
-              <p
-                className="label-invite-members"
-                onClick={() => setClicked(inviteHandler)}
-              >
-                Invite members{" "}
-              </p>
-              <div>
-                {invitedMember.map((item, index) => (
-                  <Results key={index} item={"ASFasff"} />
-                ))}
-                <div>{invitedMember.length ? <AddAnotherEmail /> : null}</div>
-              </div>
+            </div>
+            <div>
+              <h2>{this.props.name}</h2>
+              <hr></hr>
 
-              <br />
-              <br />
-              <div className="modal-form-buttons">
-                <hr className="second-line"></hr>
-                <div>{props.editForm ? <Edit /> : null}</div>
-                <button className="cancel-button" onClick={props.hideModal}>
-                  {" "}
-                  Cancel
-                </button>
-                <button className="button" onClick={addClickedHandler}>
-                  {props.action}
-                </button>
+              <div className="modal-form-inputs">
+                <Form.Input
+                  required
+                  onChange={this.nameHandler}
+                  error={
+                    this.state.nameValidation
+                      ? null
+                      : "The field can not be empty or contain special characters"
+                  }
+                  fluid
+                  label="Name"
+                  placeholder="Input placeholder"
+                  width="16"
+                />
+                <label>Assign a Coach</label>
+                <br />
+                <Input list="Coach" placeholder="Input placeholder" fluid />
+                <datalist id="Coach">
+                  <option value="English" />
+                  <option value="Chinese" />
+                  <option value="Dutch" />
+                </datalist>
+                <p
+                  className="label-invite-members"
+                  onClick={this.inviteHandler}
+                >
+                  Invite members{" "}
+                </p>
+                <div>
+                  <div>
+                    {this.state.invitedMember.length ? (
+                      <h3>Email Addres</h3>
+                    ) : null}
+                  </div>
+                  <this.Results />
+                  <div>
+                    {this.state.invitedMember.length ? (
+                      <this.addAnother />
+                    ) : null}
+                  </div>
+                </div>
+                <div></div>
+
+                <br />
+                <br />
+                <div className="modal-form-buttons">
+                  <hr className="second-line"></hr>
+                  <div>{this.props.editForm ? <this.Edit /> : null}</div>
+                  <button
+                    className="cancel-button"
+                    onClick={this.props.hideModal}
+                  >
+                    {" "}
+                    Cancel
+                  </button>
+                  <button className="button" onClick={this.addClickedHandler}>
+                    {this.props.action}
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </Form>
-      </Modal.Content>
-    </Modal>
-  );
-};
+          </Form>
+        </Modal.Content>
+      </Modal>
+    );
+  }
+}
 
 export default InputForm;
