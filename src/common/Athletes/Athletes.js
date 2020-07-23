@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Athletes.css";
 import InputSearch from "../InputSearch";
-import Button from "../Button";
+import axios from "axios";
 import {
   Grid,
   GridColumn,
@@ -21,6 +21,7 @@ class Athletes extends Component {
     show: false,
     showDelete: false,
     showAdd: false,
+    athletes: [],
   };
 
   handleOpenModal = () => {
@@ -55,6 +56,12 @@ class Athletes extends Component {
       showDelete: true,
     });
   };
+  componentDidMount() {
+    let url = "http://localhost:3001/members";
+    axios.get(url).then((response) => {
+      this.setState({ athletes: response.data });
+    });
+  }
   render() {
     return (
       <div className="athletes-page">
@@ -63,18 +70,11 @@ class Athletes extends Component {
         </div>
 
         <div className="grid-athletes">
-          <Grid>
-            <GridRow>
-              <GridColumn floated="left" align="left" computer="8" tablet="8">
-                <InputSearch />
-              </GridColumn>
-              <GridColumn floated="right" align="right" computer="8" tablet="8">
-                <button className="but-new" onClick={this.handleOpenModal}>
-                  ADD NEW
-                </button>
-              </GridColumn>
-            </GridRow>
-          </Grid>
+          <InputSearch />
+
+          <button className="but-new-athletes" onClick={this.handleOpenModal}>
+            ADD NEW
+          </button>
         </div>
         <ModalAthletes
           NameModalAthletes="Add Athlete"
@@ -96,16 +96,16 @@ class Athletes extends Component {
           description={"Athlete {this.name} was added on {this.clubName}"}
         />
         <div className="persons-atheltes">
-          <PersonClubThumbnail />
-          <PersonClubThumbnail />
-          <PersonClubThumbnail />
-          <PersonClubThumbnail />
-          <PersonClubThumbnail />
-          <PersonClubThumbnail />
-          <PersonClubThumbnail />
-          <PersonClubThumbnail />
-          <PersonClubThumbnail />
-          <PersonClubThumbnail />
+          {this.state.athletes &&
+            this.state.athletes.map((athlete, index) => (
+              <PersonClubThumbnail
+                name={athlete.name}
+                gender={athlete.gender}
+                age={athlete.age}
+                primary={athlete.primary}
+                secondary={athlete.secondary}
+              />
+            ))}
         </div>
         <div className="pagination-athletes">
           <Pagination

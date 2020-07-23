@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import EventsComponent from "./EventsComponent/EventsComponent";
 import "./Events.css";
-import Button from "../Button";
 import InputSearch from "../InputSearch";
 import { Grid, GridColumn, GridRow, Pagination, Icon } from "semantic-ui-react";
 import ModalEvents from "./ModalEvents";
 import ModalAdded from "../Modals/ModalAdded";
 import ModalDeleted from "../Modals/ModalDeleted";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 class Events extends Component {
   state = {
@@ -14,6 +15,7 @@ class Events extends Component {
     show: false,
     showDelete: false,
     showAdd: false,
+    events: [],
   };
   showModal = () => {
     this.setState({ show: true });
@@ -47,6 +49,14 @@ class Events extends Component {
   handleCloseModal = () => {
     this.setState({ show: false });
   };
+
+  componentDidMount() {
+    let url = "http://localhost:3001/EVENTS";
+    axios.get(url).then((response) => {
+      this.setState({ events: response.data });
+    });
+  }
+
   render() {
     return (
       <div className="ContentArea">
@@ -90,12 +100,19 @@ class Events extends Component {
           <button className="but">Past</button>
         </div>
         <div className="events-component">
-          <EventsComponent />
-          <EventsComponent />
-          <EventsComponent />
-          <EventsComponent />
-          <EventsComponent />
-          <EventsComponent />
+          {this.state.events &&
+            this.state.events.map((event, index) => (
+              <Link to="/event" className="style-card-events-link">
+                <EventsComponent
+                  key={index}
+                  title={event.title}
+                  body={event.body}
+                  time={event.time}
+                  date={event.date}
+                  location={event.location}
+                />
+              </Link>
+            ))}
         </div>
         <div className="pagination-events">
           <Pagination
