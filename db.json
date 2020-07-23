@@ -33,7 +33,6 @@
       "email": "ralucasorina.hladiuc@gmail.com",
       "club": "clubY",
       "id": 5
-
     },
     {
       "firstName": "fsafsa",
@@ -192,8 +191,6 @@
       "last_name": "new",
       "email": "new@gmail.com",
       "id": 33
-
-
     }
   ],
   "comments": [
@@ -281,27 +278,22 @@
   ],
   "clubs": [
     {
-
-      "title": "Swimming Club",
-=======
+      "id": 0,
       "title": "Biking club",
-
       "img": "",
       "members": "22",
       "coach": "Esther Wilson"
     },
     {
+      "id": 1,
       "title": "Biking Club",
       "img": "",
       "members": "22",
       "coach": "Esther"
     },
     {
-
-      "title": "Running Club",
-
+      "id": 2,
       "title": "Biking club",
-
       "img": "",
       "members": "22",
       "coach": "Wilson"
@@ -309,8 +301,6 @@
   ],
   "members": [
     {
-
-
       "id": 1,
 
       "img": "",
@@ -321,7 +311,6 @@
       "secondary": "Biking"
     },
     {
-
       "id": 2,
 
       "img": "",
@@ -332,7 +321,6 @@
       "secondary": "Running"
     },
     {
-
       "id": 3,
 
       "img": "",
@@ -341,7 +329,6 @@
       "age": "22",
       "primary": "Running",
       "secondary": "Biking"
-
     }
   ]
 }
