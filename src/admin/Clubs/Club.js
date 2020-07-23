@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import InputSearch from "../../common/InputSearch";
 import InputForm from "./ModalAddClub/ModalAddClub";
-
+import { Link } from "react-router-dom";
 import ClubThumbnail from "./ClubThumbnail";
 import { Grid, GridRow } from "semantic-ui-react";
 import { GridColumn } from "semantic-ui-react";
 import ModalAdded from "../../common/Modals/ModalAdded";
-
+import axios from "axios";
 import "./Club.css";
 
 class Club extends Component {
-  state = { show: false, showAdd: false };
+  state = { show: false, showAdd: false, clubs: [] };
 
   showModal = () => {
     this.setState({ show: true });
@@ -26,6 +26,13 @@ class Club extends Component {
       showAdd: true,
     });
   };
+
+  componentDidMount() {
+    let url = "http://localhost:3001/clubs";
+    axios.get(url).then((response) => {
+      this.setState({ clubs: response.data });
+    });
+  }
 
   render() {
     return (
@@ -67,52 +74,18 @@ class Club extends Component {
               }
             />
             <div className="grid-container">
-              <ClubThumbnail
-                className="grid-item"
-                name="Bike Club"
-                coach="naem"
-              />
-
-              <ClubThumbnail
-                className="grid-item"
-                name="Bike Club"
-                coach="asf"
-              />
-              <ClubThumbnail
-                className="grid-item"
-                name="Bike Club"
-                coach="safa"
-              />
-              <ClubThumbnail
-                className="grid-item"
-                name="Bike Club"
-                coach="naem"
-              />
-              <ClubThumbnail
-                className="grid-item"
-                name="Bike Club"
-                coach="asf"
-              />
-              <ClubThumbnail
-                className="grid-item"
-                name="Bike Club"
-                coach="safa"
-              />
-              <ClubThumbnail
-                className="grid-item"
-                name="Bike Club"
-                coach="naem"
-              />
-              <ClubThumbnail
-                className="grid-item"
-                name="Bike Club"
-                coach="asf"
-              />
-              <ClubThumbnail
-                className="grid-item"
-                name="Bike Club"
-                coach="safa"
-              />
+              {this.state.clubs &&
+                this.state.clubs.map((club, index) => (
+                  <Link to={`/clubs/${index}`} className="linkStyle">
+                    <ClubThumbnail
+                      key={index}
+                      name={club.title}
+                      coach={club.coach}
+                      className="grid-item"
+                      number={club.members}
+                    />
+                  </Link>
+                ))}
             </div>
           </div>
         </div>

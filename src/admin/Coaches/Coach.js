@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import CoachTable from "./CoachTable";
-import { Grid, GridRow, GridColumn } from "semantic-ui-react";
+import { Grid, GridRow, GridColumn, Input } from "semantic-ui-react";
 import InputSearch from "../../common/InputSearch";
-
+import axios from "axios";
 import "./Coach.css";
 
 import ModalAddCoach from "./ModalAddCoach";
 import ModalAdded from "../../common/Modals/ModalAdded";
 
 class Coach extends Component {
-  state = { show: false, showAdd: false };
+  state = { show: false, showAdd: false, coaches: [] };
   showModal = () => {
     this.setState({ show: true });
   };
@@ -18,7 +18,7 @@ class Coach extends Component {
     this.setState({ show: false, showAdd: false });
   };
 
-  hideAddConfirm = (firstName) => {
+  hideAddConfirm = () => {
     this.setState({
       show: false,
       showAdd: true,
@@ -32,7 +32,11 @@ class Coach extends Component {
         <Grid>
           <GridRow>
             <GridColumn floated="left" align="left" computer="8" tablet="8">
-              <InputSearch />
+              <Input
+                className="search-bar"
+                icon={{ name: "search", circular: true, link: true }}
+                placeholder="Search..."
+              />
             </GridColumn>
             <GridColumn floated="right" align="right" computer="8" tablet="8">
               <button className="button" onClick={this.showModal}>
@@ -48,12 +52,13 @@ class Coach extends Component {
           name={"Add Coach"}
           action={"Add"}
           editForm={false}
+          object={[]}
         />
         <ModalAdded
           hideAddConfirm={this.state.showAdd}
           hideModal={this.hideModal}
           name={"Coach added"}
-          description={this.hideAddConfirm.firstName}
+          description={"SFA"}
         />
         <div className="table-coach">
           <CoachTable />

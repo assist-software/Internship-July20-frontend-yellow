@@ -51,6 +51,11 @@ class SideBar extends Component {
     });
   };
 
+  logOutHandler = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
+
   pressedHandlerEvents = () => {
     this.setState({
       coachespressed: false,
@@ -126,8 +131,10 @@ class SideBar extends Component {
           </NavLink>
         </div>
         <div className="logout-div">
-          <img src={logout} />
-          <button className="logout-button">Logout</button>
+          <img src={logout} onClick={this.logOutHandler} />
+          <button className="logout-button" onClick={this.logOutHandler}>
+            Logout
+          </button>
         </div>
       </div>
     );
