@@ -64,6 +64,7 @@ class Club extends Component {
               name={"Add Club"}
               action={"Add"}
               editForm={false}
+              object={[]}
             />
             <ModalAdded
               hideAddConfirm={this.state.showAdd}
@@ -72,6 +73,7 @@ class Club extends Component {
               description={
                 "Your club with name “Biking Club” has been succesfully added in the system."
               }
+              object={this.props.object}
             />
             <div className="grid-container">
               {this.state.clubs &&
