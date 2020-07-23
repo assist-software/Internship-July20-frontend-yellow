@@ -57,7 +57,7 @@ class Athletes extends Component {
     });
   };
   componentDidMount() {
-    let url = "http://localhost:3001/MEMBERS";
+    let url = "http://localhost:3001/members";
     axios.get(url).then((response) => {
       this.setState({ athletes: response.data });
     });
@@ -70,18 +70,11 @@ class Athletes extends Component {
         </div>
 
         <div className="grid-athletes">
-          <Grid>
-            <GridRow>
-              <GridColumn floated="left" align="left" computer="8" tablet="8">
-                <InputSearch />
-              </GridColumn>
-              <GridColumn floated="right" align="right" computer="8" tablet="8">
-                <button className="but-new" onClick={this.handleOpenModal}>
-                  ADD NEW
-                </button>
-              </GridColumn>
-            </GridRow>
-          </Grid>
+          <InputSearch />
+
+          <button className="but-new-athletes" onClick={this.handleOpenModal}>
+            ADD NEW
+          </button>
         </div>
         <ModalAthletes
           NameModalAthletes="Add Athlete"

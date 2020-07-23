@@ -22,10 +22,23 @@
 .grid-athletes {
   margin-left: 30px;
   margin-top: 20px;
+  display: flex;
 }
 
 .pagination-athletes {
   margin-left: 50px;
   margin-bottom: 50px;
   margin-top: 20px;
+}
+
+.but-new-athletes {
+  background-color: #1a1a1a;
+  text-align: center;
+  color: #44dabd;
+  padding: 5px;
+  margin-top: 16px;
+  border-radius: 8px;
+  width: 177px;
+  height: 46px;
+  margin-left: 400px;
 }

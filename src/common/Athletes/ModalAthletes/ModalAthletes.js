@@ -14,6 +14,7 @@ import {
 import "./ModalAthletes.css";
 import axios from "axios";
 import close_icon from "../../../assets/close.svg";
+
 class ModalAthletes extends Component {
   state = {
     namevalid: true,
@@ -101,16 +102,28 @@ class ModalAthletes extends Component {
       this.state.ssport.length > 0 &&
       this.state.age.length > 0
     ) {
-      axios.post("http://localhost:3001/Members", {
-        img: this.state.img,
-        name: this.state.name,
-        email: this.state.email,
-        gender: this.state.gender,
-        age: this.state.age,
-        primary: this.state.psport,
-        secondary: this.state.ssport,
-      });
-      this.props.hideAddConfirm();
+      axios
+        .post("http://localhost:3001/members", {
+          img: this.state.img,
+          name: this.state.name,
+          gender: this.state.gender,
+          age: this.state.age,
+          primary: this.state.psport,
+          secondary: this.state.ssport,
+        })
+        .then((response) => {
+          console.log(response, "dsgsdgsgd");
+        });
+
+      {
+        this.setState({ img: "" });
+        this.setState({ name: "" });
+        this.setState({ gender: "" });
+        this.setState({ age: "" });
+        this.setState({ psport: "" });
+        this.setState({ ssport: "" });
+        this.props.hideAddConfirm();
+      }
     }
   };
 
@@ -132,6 +145,7 @@ class ModalAthletes extends Component {
               <img
                 src={close_icon}
                 className="close-icon"
+                alt=""
                 onClick={this.props.handleCloseModal}
               />
             </div>
@@ -229,7 +243,7 @@ class ModalAthletes extends Component {
                 </Form.Group>
                 <Form.Select
                   className="input-description"
-                  label="Location"
+                  label="Assign to a club"
                   placeholder="Input placeholder"
                   required="false"
                 />

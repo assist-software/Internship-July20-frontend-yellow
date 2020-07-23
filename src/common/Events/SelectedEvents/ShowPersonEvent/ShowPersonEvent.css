@@ -1,7 +1,7 @@
 .show-cards-event {
   position: relative;
-  width: 140px;
-  height: 200px;
+  width: 160px;
+  height: 163px;
   flex-grow: 1;
   margin-bottom: 7px;
   margin-top: 7px;
@@ -21,6 +21,8 @@
   flex: none;
   order: 0;
   align-self: flex-start;
+  margin-top: 7px;
+  margin-bottom: 7px;
 }
 
 .content-show-card-event h3 {
@@ -39,4 +41,13 @@
   flex: none;
   order: 1;
   align-self: flex-start;
+  margin-top: 7px;
+}
+.avatar-check {
+  display: flex;
+}
+.checkbox-event {
+  display: flex;
+  left: 70px;
+  top: 10px;
 }
