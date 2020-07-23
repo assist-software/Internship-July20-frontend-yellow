@@ -93,6 +93,7 @@
 
 .close-icon {
   float: right;
+  cursor: pointer;
 }
 
 .error-fields {

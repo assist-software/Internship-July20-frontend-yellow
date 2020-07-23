@@ -1,5 +1,5 @@
 .cards-event {
-  position: relative;
+  position: absolute;
   height: 200vh;
   width: 86%;
   left: 216px;
@@ -23,9 +23,9 @@
   background: white;
 }
 .first-paragraph {
-  position: absolute;
   word-wrap: break-word;
-  width: 550px;
+  left: 30px;
+  right: 20px;
   padding: 0px;
   margin: 10px;
 }
@@ -45,13 +45,12 @@
 }
 
 .show-person-parent {
-  position: absolute;
   display: flex;
   flex-wrap: wrap;
-  top: 1000px;
-  width: 660px;
-  left: 340px;
-  margin: 8px;
+
+  width: 800px;
+  margin-left: 30px;
+  margin-top: 20px;
 }
 
 .label-event {
@@ -146,12 +145,8 @@
 }
 
 .cards-features {
-  position: absolute;
-  top: 900px;
-  display: inline-block;
-  left: 340px;
-  right: 340px;
-  margin: 5px;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .cards-features h3 {
@@ -186,4 +181,42 @@
   border-radius: 8px;
   outline: 0;
   border: solid 2px #44dabd;
+}
+
+.paragraph-metrics {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.athletes-bottom-page {
+  position: absolute;
+  left: 340px;
+  right: 180px;
+  top: 860px;
+  max-height: 700;
+  border-radius: 20px;
+}
+.paragraph-select-athlete {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 24px;
+  margin-top: 20px;
+}
+
+.metric {
+  width: 150px;
+  height: 43px;
+  border-radius: 8px;
+  background: white;
+  display: inline-flex;
+  margin: 10px;
+}
+.select-metric {
+  margin-top: 13px;
+  margin-left: 12px;
 }

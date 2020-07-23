@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ImageEvent from "./Rectangle30.png";
 import "./SelectedEvents.css";
 import ModalEvents from "../ModalEvents";
+import { Bar, Line } from "react-chartjs-2";
 
 import {
   Grid,
@@ -11,11 +12,33 @@ import {
   Icon,
   Card,
   CardContent,
+  Checkbox,
 } from "semantic-ui-react";
 import ShowPersonEvent from "./ShowPersonEvent/ShowPersonEvent";
 
 class SelectedEvents extends Component {
-  state = { show: false };
+  state = {
+    barChartData: {
+      labels: ["Africa", "Asia", "Europe"],
+      datasets: [
+        {
+          label: "Population (millions)",
+          backgroundColor: [
+            "#3e95cd",
+            "#8e5ea2",
+            "#3cba9f",
+            "#e8c3b9",
+            "#c45850",
+          ],
+          data: [2478, 5267, 734, 784, 433],
+        },
+      ],
+    },
+  };
+  state = {
+    show: false,
+    displaycheck: false,
+  };
 
   handleOpenModal = () => {
     this.setState({ show: true });
@@ -23,6 +46,15 @@ class SelectedEvents extends Component {
 
   handleCloseModal = () => {
     this.setState({ show: false });
+  };
+  handleEditCard = () => {
+    if (this.state.displaycheck === false) {
+      this.setState({ displaycheck: true });
+      this.setState({ buttonChange: "DONE" });
+    } else {
+      this.setState({ displaycheck: false });
+      this.setState({ buttonChange: "Compare Performance" });
+    }
   };
 
   render() {
@@ -65,20 +97,75 @@ class SelectedEvents extends Component {
             </Card.Content>
           </Card>
         </div>
-        <div className="show-person-parent">
-          <ShowPersonEvent />
-          <ShowPersonEvent />
-          <ShowPersonEvent />
-          <ShowPersonEvent />
-          <ShowPersonEvent />
-          <ShowPersonEvent />
-          <ShowPersonEvent />
+
+        <div className="athletes-bottom-page">
+          <div className="cards-features">
+            <h3>Participants ({this.props.CountNumberParticipantsEvent})</h3>
+
+            <button
+              className="event-button-compare"
+              onClick={this.handleEditCard}
+            >
+              {this.state.displaycheck ? "Done" : "Compare Performance"}
+            </button>
+          </div>
+          <div>
+            {this.state.displaycheck ? (
+              <p className="paragraph-select-athlete">
+                Select participants you want to compare
+              </p>
+            ) : null}
+          </div>
+          <div className="show-person-parent">
+            <ShowPersonEvent checkboxdisplay={this.state.displaycheck} />
+            <ShowPersonEvent checkboxdisplay={this.state.displaycheck} />
+            <ShowPersonEvent checkboxdisplay={this.state.displaycheck} />
+            <ShowPersonEvent checkboxdisplay={this.state.displaycheck} />
+            <ShowPersonEvent checkboxdisplay={this.state.displaycheck} />
+            <ShowPersonEvent checkboxdisplay={this.state.displaycheck} />
+            <ShowPersonEvent checkboxdisplay={this.state.displaycheck} />
+          </div>
+          <div>
+            {this.state.displaycheck ? (
+              <div>
+                <p className="paragraph-metrics">
+                  Select metrics you want to be compared
+                </p>
+                <div className="metrics">
+                  <div className="metric">
+                    <Checkbox className="select-metric" label="Heart rate" />
+                  </div>
+                  <div className="metric">
+                    <Checkbox className="select-metric" label="Calories" />
+                  </div>
+                  <div className="metric">
+                    <Checkbox className="select-metric" label="Av.speed" />
+                  </div>
+                  <div className="metric">
+                    <Checkbox className="select-metric" label="Distance" />
+                  </div>
+                </div>
+                <Bar
+                  data={this.state.barChartData}
+                  options={{
+                    title: {
+                      display: true,
+                      text: "Graph",
+                      fontSize: 20,
+                    },
+                    legend: {
+                      display: true,
+                      position: "right",
+                    },
+                  }}
+                  width={400}
+                  height={200}
+                />
+              </div>
+            ) : null}
+          </div>
         </div>
 
-        <div className="cards-features">
-          <h3>Participants ({this.props.CountNumberParticipantsEvent})</h3>
-          <button className="event-button-compare">Compare Performance</button>
-        </div>
         <ModalEvents
           NameModalEvents="Edit Event"
           handleOpenModal={this.state.show}
