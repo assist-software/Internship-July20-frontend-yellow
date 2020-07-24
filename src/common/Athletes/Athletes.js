@@ -57,7 +57,7 @@ class Athletes extends Component {
     });
   };
   componentDidMount() {
-    let url = "http://localhost:3001/members";
+    let url = "http://localhost:3000/members";
     axios.get(url).then((response) => {
       this.setState({ athletes: response.data });
     });

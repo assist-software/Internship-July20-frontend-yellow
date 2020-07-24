@@ -9,12 +9,12 @@ import { render } from "@testing-library/react";
 class EventsComponent extends Component {
   render() {
     return (
-      <Link to="/event">
-        <div className="events">
-          <Card style={{ width: "540px" }} className="card-events">
-            <Image className="events-image" src={Logo} />
+      <div className="card-events">
+        <Card fluid style={({ width: "540px" }, { height: "270px" })}>
+          <Image className="events-image" src={Logo} />
 
-            <div className="events-text">
+          <div className="events-text">
+            <div className="events-text2">
               <h3>{this.props.title}</h3>
               <p>{this.props.body}</p>
               <div className="events-card-details">
@@ -36,9 +36,9 @@ class EventsComponent extends Component {
               <h4>Participants</h4>
               <GroupAvatars></GroupAvatars>
             </div>
-          </Card>
-        </div>
-      </Link>
+          </div>
+        </Card>
+      </div>
     );
   }
 }

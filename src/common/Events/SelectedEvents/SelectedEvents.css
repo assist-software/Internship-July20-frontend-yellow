@@ -8,18 +8,20 @@
 }
 
 .card-event {
-  position: absolute;
-  left: 340px;
-  right: 340px;
-  top: 170px;
+  width: 680px;
   max-height: 700;
   border-radius: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.page-top {
+  margin: auto;
+  width: 680px;
+  margin-top: 50px;
 }
 .card-content-event {
   position: relative;
   height: 300px;
-  min-height: 180px;
-  max-height: 397px;
   background: white;
 }
 .first-paragraph {
@@ -47,16 +49,12 @@
 .show-person-parent {
   display: flex;
   flex-wrap: wrap;
-
-  width: 800px;
-  margin-left: 30px;
-  margin-top: 20px;
+  width: 740px;
+  margin: auto;
 }
 
 .label-event {
-  position: absolute;
   display: inline-block;
-  left: 340px;
   top: 53px;
 }
 .label-event h3 {
@@ -83,18 +81,14 @@
   text-transform: capitalize;
   color: #000000;
 }
-.event-bar {
-  position: absolute;
-  display: inline-block;
-  left: 340px;
-  top: 130px;
-}
+
 .event-bar p {
   display: inline-flex;
   font-family: Inter;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
+  margin-bottom: 20px;
 }
 .time-event {
   position: relative;
@@ -118,15 +112,16 @@
   font-size: 14px;
 }
 .div-event-button-edit {
-  position: absolute;
-  top: 85px;
-  right: 340px;
+  margin-top: 30px;
+  display: flex;
 }
+.div-event-button-edit h2 {
+  width: 200px;
+}
+
 .event-button-edit {
   width: 170px;
   height: 40px;
-  left: 813px;
-  top: 114px;
   background: #1a1a1a;
   border-radius: 8px;
   font-family: Inter;
@@ -138,6 +133,8 @@
   text-transform: uppercase;
   color: #44dabd;
   border: none;
+  margin-left: 340px;
+  margin-top: 5px;
 }
 .event-button-edit:focus {
   border-radius: 8px;
@@ -145,8 +142,12 @@
 }
 
 .cards-features {
-  margin-left: 0;
-  margin-right: 0;
+  margin: auto;
+  width: 680px;
+  margin-top: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
 }
 
 .cards-features h3 {
@@ -192,8 +193,8 @@
 }
 
 .athletes-bottom-page {
-  position: absolute;
-  left: 340px;
+  width: 700px;
+  margin: auto;
   right: 180px;
   top: 860px;
   max-height: 700;

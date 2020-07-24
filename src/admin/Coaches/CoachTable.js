@@ -24,11 +24,29 @@ export default class CoachTable extends Component {
     coaches_page: [],
   };
 
+
   token = localStorage.getItem("token");
 
   nameHandle = (nameReceived) => {
     this.setState({ name: nameReceived });
   };
+
+  componentDidMount() {
+    let url = "http://192.168.100.228:8001/api/coach/";
+    const token = localStorage.getItem("token");
+    axios
+      .get(
+        url,
+        { page: 1 },
+        {
+          headers: { Authorization: token },
+        }
+      )
+      .then((response) => {
+        this.setState({ coaches: response.data });
+      });
+  }
+
 
   showModal = (e) => {
     this.setState({
@@ -84,7 +102,7 @@ export default class CoachTable extends Component {
         column: clickedColumn,
         data: _.sortBy(data, [clickedColumn]),
         direction: "ascending",
-      });
+      });;
 
       return;
     }

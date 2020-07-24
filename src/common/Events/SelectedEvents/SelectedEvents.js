@@ -60,26 +60,32 @@ class SelectedEvents extends Component {
   render() {
     return (
       <div className="cards-event">
-        <div className="label-event">
-          <h3>{"Events > "}</h3>
-          <h4> Running for life</h4>
-        </div>
-        <div className="div-event-button-edit">
-          <button className="event-button-edit" onClick={this.handleOpenModal}>
-            EDIT
-          </button>
-        </div>
-        <div className="event-bar">
-          <Icon name="calendar alternate outline" />
-          <p>20.06.2020</p>
-
-          <div className="time-event">
-            <Icon name="clock outline" />
-            <p>09:00 AM</p>
+        <div className="page-top">
+          <div className="label-event">
+            <h3>{"Events > "}</h3>
+            <h4> Running for life</h4>
           </div>
-          <div className="location-event">
-            <Icon name="location arrow " />
-            <p>Suceava fortress, Main Enter</p>
+          <div className="div-event-button-edit">
+            <h2>Running for life</h2>
+            <button
+              className="event-button-edit"
+              onClick={this.handleOpenModal}
+            >
+              EDIT
+            </button>
+          </div>
+          <div className="event-bar">
+            <Icon name="calendar alternate outline" />
+            <p>20.06.2020</p>
+
+            <div className="time-event">
+              <Icon name="clock outline" />
+              <p>09:00 AM</p>
+            </div>
+            <div className="location-event">
+              <Icon name="location arrow " />
+              <p>Suceava fortress, Main Enter</p>
+            </div>
           </div>
         </div>
         <div className="card-event">

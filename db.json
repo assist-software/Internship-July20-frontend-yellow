@@ -247,6 +247,17 @@
   },
   "events": [
     {
+      "id": 1,
+      "img": "",
+      "title": "Swimming for life",
+      "body": "Ad enim sit commodo laborum mollit. Incididunt Lorem exercitation ad occaecat reprehenderit id.",
+      "date": "20.06.2020",
+      "time": "09:00 AM",
+      "location": "Suceava Fortress, Main Enter",
+      "participants": "11"
+    },
+    {
+      "id": 2,
       "img": "",
       "title": "Running for Life",
       "body": "Ad enim sit commodo laborum mollit. Incididunt Lorem exercitation ad occaecat reprehenderit id.",
@@ -256,6 +267,7 @@
       "participants": "11"
     },
     {
+      "id": 3,
       "img": "",
       "title": "Running for Life",
       "body": "Ad enim sit commodo laborum mollit. Incididunt Lorem exercitation ad occaecat reprehenderit id.",
@@ -265,6 +277,7 @@
       "participants": "11"
     },
     {
+      "id": 4,
       "img": "",
       "title": "Running for Life",
       "body": "Ad enim sit commodo laborum mollit. Incididunt Lorem exercitation ad occaecat reprehenderit id.",
@@ -274,22 +287,32 @@
       "participants": "11"
     },
     {
+      "id": 5,
       "img": "",
       "title": "Running for Life",
       "body": "Ad enim sit commodo laborum mollit. Incididunt Lorem exercitation ad occaecat reprehenderit id.",
-      "date": "20.06.2020",
+      "date": "23.06.2020",
       "time": "09:00 AM",
       "location": "Suceava Fortress, Main Enter",
       "participants": "11"
     },
     {
+      "id": 6,
       "img": "",
       "title": "Running for Life",
       "body": "Ad enim sit commodo laborum mollit. Incididunt Lorem exercitation ad occaecat reprehenderit id.",
-      "date": "20.06.2020",
+      "date": "23.06.2020",
       "time": "09:00 AM",
       "location": "Suceava Fortress, Main Enter",
       "participants": "11"
+    },
+    {
+      "title": "dsgsdgs",
+      "date": "sdgsdg",
+      "time": "sdgs",
+      "location": "",
+      "participants": "",
+      "id": 7
     }
   ],
   "participants": [
@@ -343,6 +366,7 @@
   ],
   "members": [
     {
+
       "id": 1,
       "img": "",
       "name": "Dianne Robertson",
@@ -352,6 +376,7 @@
       "secondary": "Biking"
     },
     {
+
       "id": 2,
       "img": "",
       "name": "Eduardo Miles",
@@ -361,6 +386,7 @@
       "secondary": "Running"
     },
     {
+
       "id": 3,
       "img": "",
       "name": "Lily Jones",
@@ -368,6 +394,14 @@
       "age": "22",
       "primary": "Running",
       "secondary": "Biking"
+    },
+    {
+      "name": "Iulian Marcu",
+      "gender": "male",
+      "age": "30",
+      "primary": "Footbal",
+      "secondary": "Swimming",
+      "id": 3
     }
   ]
 }
