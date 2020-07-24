@@ -17,6 +17,10 @@ class InputForm extends Component {
     id: -1,
   };
 
+  handleId = (id_received) => {
+    this.setState({ id: id_received });
+  };
+
   Results = () =>
     this.state.invitedMember.map(() => (
       <input type="email" placeholder="Input email" />
