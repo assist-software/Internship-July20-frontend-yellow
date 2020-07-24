@@ -26,12 +26,17 @@ class ModalAthletes extends Component {
     heightvalid: false,
     wightvalid: false,
     locationvalid: false,
+    heightvalid: true,
+    weightvalid: true,
+    sports: [],
     name: "",
     email: "",
     psport: "",
     ssport: "",
     gender: "",
     age: "",
+    height: "",
+    weight: "",
   };
 
   NameHandler = (data) => {
@@ -89,6 +94,43 @@ class ModalAthletes extends Component {
     }
   };
 
+  HeightHandler = (data) => {
+    if (/^[1-31-91-9]+$/.test(data.target.value)) {
+      this.setState({ heightvalid: true });
+      this.setState({ height: data.target.value });
+    } else {
+      this.setState({ heightvalid: false });
+    }
+  };
+
+  WeightHandler = (data) => {
+    if (/^[1-31-91-9]+$/.test(data.target.value)) {
+      this.setState({ weightvalid: true });
+      this.setState({ weight: data.target.value });
+    } else {
+      this.setState({ weightvalid: false });
+    }
+  };
+
+  componentDidMount() {
+    let url = "http://192.168.100.228:8001/api/sports/";
+    const token = localStorage.getItem("token");
+    axios.get(url, { headers: { Authorization: token } }).then((response) => {
+      let sport =
+        response &&
+        response.data &&
+        response.data.map((item, index) => {
+          return {
+            key: index,
+            text: item.description,
+            value: item.description,
+          };
+        });
+      console.log(sport, "aaaaa");
+      this.setState({ sports: sport });
+      console.log(response.data, "asfuysaf");
+    });
+  }
   addClickedHandler = () => {
     if (
       this.state.namevalid &&
@@ -98,18 +140,27 @@ class ModalAthletes extends Component {
       this.state.agevalid &&
       this.state.name.length > 0 &&
       this.state.email.length > 0 &&
-      this.state.psport.length > 0 &&
-      this.state.ssport.length > 0 &&
       this.state.age.length > 0
     ) {
-      axios.post("http://localhost:3000/members", {
-        img: this.state.img,
-        name: this.state.name,
-        gender: this.state.gender,
-        age: this.state.age,
-        primary: this.state.psport,
-        secondary: this.state.ssport,
-      });
+      const token = localStorage.getItem("token");
+      axios.post(
+        "http://192.168.100.228:8001/api/athlete/",
+        {
+          name: this.state.name,
+          email: this.state.email,
+          primary_sport: this.state.psport,
+          secondary_sport: this.state.ssport,
+          gender: this.state.gender,
+          age: this.state.age,
+          height: this.state.height,
+          weight: this.state.weight,
+        },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
 
       {
         this.setState({ img: "" });
@@ -187,8 +238,9 @@ class ModalAthletes extends Component {
                     }
                     onChange={this.PsportHandler}
                   />
-                  <Form.Input
+                  <Form.Select
                     fluid
+                    options={this.state.sports || []}
                     label="Secondary Sport"
                     placeholder="Input placeholder"
                     error={
@@ -230,11 +282,23 @@ class ModalAthletes extends Component {
                     fluid
                     label="Height"
                     placeholder="Input Placeholder"
+                    error={
+                      this.state.heightvalid
+                        ? null
+                        : "The field can not be empty or contain special characters"
+                    }
+                    onChange={this.HeightHandler}
                   />
                   <Form.Input
                     fluid
                     label="Weight"
                     placeholder="Input Placeholder"
+                    error={
+                      this.state.weightvalid
+                        ? null
+                        : "The field can not be empty or contain special characters"
+                    }
+                    onChange={this.WeightHandler}
                   />
                 </Form.Group>
                 <Form.Select

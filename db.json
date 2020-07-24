@@ -313,6 +313,14 @@
       "location": "",
       "participants": "",
       "id": 7
+    },
+    {
+      "title": "Running ",
+      "date": "12/07/1999",
+      "time": "12:50 AM",
+      "location": "",
+      "participants": "",
+      "id": 8
     }
   ],
   "participants": [
@@ -366,7 +374,6 @@
   ],
   "members": [
     {
-
       "id": 1,
       "img": "",
       "name": "Dianne Robertson",
@@ -376,7 +383,6 @@
       "secondary": "Biking"
     },
     {
-
       "id": 2,
       "img": "",
       "name": "Eduardo Miles",
@@ -386,7 +392,6 @@
       "secondary": "Running"
     },
     {
-
       "id": 3,
       "img": "",
       "name": "Lily Jones",
@@ -402,6 +407,14 @@
       "primary": "Footbal",
       "secondary": "Swimming",
       "id": 3
+    },
+    {
+      "name": "Iulian Agache",
+      "gender": "Male",
+      "age": "23",
+      "primary": "Volei",
+      "secondary": "Fotbal",
+      "id": 4
     }
   ]
 }
