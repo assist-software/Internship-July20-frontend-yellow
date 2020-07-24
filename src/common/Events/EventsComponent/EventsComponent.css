@@ -1,21 +1,29 @@
 .card-events {
-  width: 560px;
-  height: 299px;
+  width: 480px;
+  height: 270px;
   border-radius: 12px;
+  margin: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
 .events-image {
   position: absolute;
-  width: 232px;
-  height: 299px;
+  width: 200px;
+  height: 270px;
 }
 .events-text {
   position: absolute;
   width: 260px;
-  height: 299px;
+  height: 270px;
   background: #ffffff;
-  left: 250px;
+  left: 220px;
 }
+.events-text2 {
+  top: auto;
+  height: 200px;
+}
+
 .events-text h3 {
   margin-left: 10px;
   margin-top: 20px !important;
@@ -39,6 +47,7 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   margin-top: 20px !important;
+  margin-bottom: 4px;
 }
 
 .events {

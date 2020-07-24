@@ -17,9 +17,40 @@ import TimePicker from "rc-time-picker";
 import SingleDatePicker from "react-datepicker";
 import moment from "moment";
 import CalendarContainer from "rc-time-picker";
+import axios from "axios";
 
 class ModalEvents extends Component {
-  state = { clicked: false };
+  state = {
+    clicked: false,
+    title: "",
+    body: "",
+    date: "",
+    time: "",
+    location: "",
+    participants: "",
+  };
+
+  TitleHandler = (data) => {
+    this.setState({ title: data.target.value });
+  };
+
+  BodyHandler = (data) => {
+    this.setState({ body: data.target.value });
+  };
+  DateHandler = (data) => {
+    this.setState({ date: data.target.value });
+  };
+
+  TimeHandler = (data) => {
+    this.setState({ time: data.target.value });
+  };
+  LocationHandler = (data) => {
+    this.setState({ location: data.target.value });
+  };
+  ParticipantsHandler = (data) => {
+    this.setState({ participants: data.target.value });
+  };
+
   Results = () => (
     <div className="event-invite">
       <h3> Email address</h3>
@@ -29,6 +60,15 @@ class ModalEvents extends Component {
     </div>
   );
   addClickedHandler = () => {
+    axios.post("http://localhost:3000/events", {
+      img: this.state.img,
+      title: this.state.title,
+      date: this.state.date,
+      age: this.state.age,
+      time: this.state.time,
+      location: this.state.location,
+      participants: this.state.participants,
+    });
     this.props.hideAddConfirm();
   };
 
@@ -49,18 +89,24 @@ class ModalEvents extends Component {
             <hr></hr>
 
             <div className="form-events">
-              <Form.Input label="Name" placeholder="Input placeholder" />
+              <Form.Input
+                label="Name"
+                placeholder="Input placeholder"
+                onChange={this.TitleHandler}
+              />
 
               <Form.Group widths="equal">
                 <Form.Input
                   fluid
                   label="Time"
                   placeholder="Input Placeholder"
+                  onChange={this.TimeHandler}
                 />
                 <Form.Input
                   fluid
                   label="Date"
                   placeholder="Input Placeholder"
+                  onChange={this.DateHandler}
                 />
               </Form.Group>
 
@@ -68,6 +114,7 @@ class ModalEvents extends Component {
                 className="input-description"
                 label="Location"
                 placeholder="Input placeholder"
+                onChange={this.LocationHandler}
               />
 
               <Form.Input
@@ -75,6 +122,7 @@ class ModalEvents extends Component {
                 style={{ height: "144px" }}
                 label="Description"
                 placeholder="Input placeholder"
+                onChange={this.BodyHandler}
               />
               <div className="invite-optional">
                 <p

@@ -102,18 +102,14 @@ class ModalAthletes extends Component {
       this.state.ssport.length > 0 &&
       this.state.age.length > 0
     ) {
-      axios
-        .post("http://localhost:3001/members", {
-          img: this.state.img,
-          name: this.state.name,
-          gender: this.state.gender,
-          age: this.state.age,
-          primary: this.state.psport,
-          secondary: this.state.ssport,
-        })
-        .then((response) => {
-          console.log(response, "dsgsdgsgd");
-        });
+      axios.post("http://localhost:3000/members", {
+        img: this.state.img,
+        name: this.state.name,
+        gender: this.state.gender,
+        age: this.state.age,
+        primary: this.state.psport,
+        secondary: this.state.ssport,
+      });
 
       {
         this.setState({ img: "" });

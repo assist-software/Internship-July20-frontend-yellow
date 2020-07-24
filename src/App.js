@@ -18,7 +18,6 @@ function App() {
     <div>
       <Switch>
         <Route path="/athletes" component={Athletes} />
-
         <Route exact path="/clubs/:id" component={SelectedClub} />
         <Route exact path="/clubs" component={Club} />
         <Route path="/coach" component={Coach} />

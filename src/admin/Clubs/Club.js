@@ -28,7 +28,7 @@ class Club extends Component {
   };
 
   componentDidMount() {
-    let url = "http://localhost:3001/clubs";
+    let url = "http://localhost:3000/clubs";
     axios.get(url).then((response) => {
       this.setState({ clubs: response.data });
     });
