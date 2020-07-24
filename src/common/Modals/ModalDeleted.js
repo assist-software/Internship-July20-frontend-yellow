@@ -24,8 +24,8 @@ class ModalDeleted extends Component {
           </Modal.Header>
           <Modal.Content>
             <p>
-              Are you sure you want to delete club “ASSIST Running Club”? If you
-              delete this club, all data associated with it will be permanently
+              Are you sure you want to delete {this.props.name}? If you delete
+              this club, all data associated with it will be permanently
               deleted, including events and athletes.
             </p>
           </Modal.Content>

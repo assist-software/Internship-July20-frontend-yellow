@@ -47,6 +47,7 @@ class Login extends Component {
       .then(
         (response) => {
           window.localStorage.setItem("token", response.data.token);
+          window.localStorage.setItem("role", response.data.role);
           this.setState({ succes: true });
           window.location.reload();
         },

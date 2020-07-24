@@ -14,6 +14,11 @@ class InputForm extends Component {
     coach: "",
     nameValidation: true,
     coachValidation: true,
+    id: -1,
+  };
+
+  handleId = (id_received) => {
+    this.setState({ id: id_received });
   };
 
   Results = () =>

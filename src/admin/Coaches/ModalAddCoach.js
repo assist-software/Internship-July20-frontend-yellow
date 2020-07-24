@@ -16,6 +16,7 @@ class ModalAddCoach extends Component {
     lastName: "",
     firstName: "",
     email: "",
+    id: -1,
     url: "http://localhost:3001/coaches",
   };
 
@@ -71,27 +72,46 @@ class ModalAddCoach extends Component {
     }
   };
 
+  nameHandle = (nameReceived) => {
+    this.props.nameSet(nameReceived);
+  };
+
   addClickedHandler = () => {
     if (
       this.state.lastNameValidation &&
       this.state.firstNameValidation &&
       this.state.emailValidation &&
-      this.state.email != undefined &&
-      this.state.firstName != undefined &&
-      this.state.lastName != undefined
+      !!this.state.email &&
+      !!this.state.firstName &&
+      !!this.state.lastName
     ) {
-      Axios.post("http://localhost:3001/coaches", {
-        first_name: this.state.firstName,
-        last_name: this.state.lastName,
-        email: this.state.email,
-      }).then((response) => {});
+      const token = localStorage.getItem("token");
+      console.log(token);
+      Axios.post(
+        "http://192.168.100.228:8001/api/coach/",
+        {
+          first_name: this.state.firstName,
+          last_name: this.state.lastName,
+          email: this.state.email,
+        },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      ).then((response) => {
+        this.nameHandle(
+          response.data.first_name + " " + response.data.last_name
+        );
+        this.setState({ id: response.data.id });
+      });
       this.setState({
         email: "",
         firstName: "",
         lastName: "",
       });
+      this.props.hideAddConfirm();
     }
-    this.props.hideAddConfirm();
   };
 
   exitHandler = () => {
