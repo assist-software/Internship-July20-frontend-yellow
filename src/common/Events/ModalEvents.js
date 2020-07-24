@@ -22,12 +22,14 @@ import axios from "axios";
 class ModalEvents extends Component {
   state = {
     clicked: false,
+    namevalid: true,
     title: "",
     body: "",
     date: "",
     time: "",
     location: "",
     participants: "",
+    img: "",
   };
 
   TitleHandler = (data) => {
@@ -64,7 +66,7 @@ class ModalEvents extends Component {
       img: this.state.img,
       title: this.state.title,
       date: this.state.date,
-      age: this.state.age,
+      body: this.state.body,
       time: this.state.time,
       location: this.state.location,
       participants: this.state.participants,
