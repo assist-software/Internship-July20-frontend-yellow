@@ -60,7 +60,11 @@ class Login extends Component {
   render() {
     return (
       <Grid>
-        <GridRow className="grid-row-login" columns="2">
+        <GridRow
+          className="grid-row-login"
+          columns="2"
+          style={{ paddingBottom: "0px" }}
+        >
           <GridColumn
             color="white"
             floated="left"

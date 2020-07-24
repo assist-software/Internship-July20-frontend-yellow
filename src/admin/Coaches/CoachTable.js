@@ -23,10 +23,19 @@ export default class CoachTable extends Component {
   };
 
   componentDidMount() {
-    let url = "http://localhost:3001/coaches";
-    axios.get(url).then((response) => {
-      this.setState({ coaches: response.data });
-    });
+    let url = "http://192.168.100.228:8001/api/coach/";
+    const token = localStorage.getItem("token");
+    axios
+      .get(
+        url,
+        { page: 1 },
+        {
+          headers: { Authorization: token },
+        }
+      )
+      .then((response) => {
+        this.setState({ coaches: response.data });
+      });
   }
 
   showModal = (e) => {
