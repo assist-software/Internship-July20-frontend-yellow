@@ -62,7 +62,7 @@ export default class CoachTable extends Component {
     e.preventDefault();
     const index = parseInt(e.target.id);
 
-    const url = `http://192.168.100.228:8001/api/coach/${this.state.coaches_page[index].id}/`;
+    const url = `http://192.168.100.228:8001/api/coach/${this.state.coaches_page[indexx].id}/`;
     Axios.delete(url, {
       headers: {
         Authorization: this.token,
