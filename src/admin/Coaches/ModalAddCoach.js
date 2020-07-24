@@ -85,7 +85,6 @@ class ModalAddCoach extends Component {
       !!this.state.firstName &&
       !!this.state.lastName
     ) {
-      g;
       const token = localStorage.getItem("token");
       console.log(token);
       Axios.post(

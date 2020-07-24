@@ -24,7 +24,6 @@ export default class CoachTable extends Component {
     coaches_page: [],
   };
 
-
   token = localStorage.getItem("token");
 
   nameHandle = (nameReceived) => {
@@ -34,19 +33,16 @@ export default class CoachTable extends Component {
   componentDidMount() {
     let url = "http://192.168.100.228:8001/api/coach/";
     const token = localStorage.getItem("token");
-    axios
-      .get(
-        url,
-        { page: 1 },
-        {
-          headers: { Authorization: token },
-        }
-      )
-      .then((response) => {
-        this.setState({ coaches: response.data });
-      });
+    Axios.get(
+      url,
+      { page: 1 },
+      {
+        headers: { Authorization: token },
+      }
+    ).then((response) => {
+      this.setState({ coaches: response.data });
+    });
   }
-
 
   showModal = (e) => {
     this.setState({
@@ -80,7 +76,7 @@ export default class CoachTable extends Component {
     e.preventDefault();
     const index = parseInt(e.target.id);
 
-    const url = `http://192.168.100.228:8001/api/coach/${this.state.coaches_page[indexx].id}/`;
+    const url = `http://192.168.100.228:8001/api/coach/${this.state.coaches_page[index].id}/`;
     Axios.delete(url, {
       headers: {
         Authorization: this.token,
@@ -102,7 +98,7 @@ export default class CoachTable extends Component {
         column: clickedColumn,
         data: _.sortBy(data, [clickedColumn]),
         direction: "ascending",
-      });;
+      });
 
       return;
     }
