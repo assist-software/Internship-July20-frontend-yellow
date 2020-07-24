@@ -98,6 +98,10 @@ img.ui.image.sidebar-icon {
   outline: 0;
 }
 
+.coaches-button {
+  display: none;
+}
+
 .button-icon {
   vertical-align: middle;
   float: left;
@@ -107,14 +111,14 @@ img.ui.image.sidebar-icon {
 }
 
 .button-zone {
-  margin-top: 120px;
+  margin-top: 80px;
 }
 
 .logout-div {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 120px;
+  margin-top: 30px;
 }
 
 .logout-button {

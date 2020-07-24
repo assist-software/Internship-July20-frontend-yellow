@@ -20,9 +20,10 @@ class SideBar extends Component {
     athletespressed: false,
     clubsspressed: false,
     eventpressed: false,
+    admin: true,
   };
 
-  clickedHandlerClubs = () => {};
+  role = localStorage.getItem("role");
 
   pressedHandlerClubs = () => {
     this.setState({
@@ -76,7 +77,7 @@ class SideBar extends Component {
           <div></div>
           <NavLink to="/coach" activeClassName="active">
             <button
-              className="sidebar-buttons"
+              className={this.role == 0 ? "sidebar-buttons" : "coaches-button"}
               onClick={this.pressedHandlerCoaches}
             >
               <img
