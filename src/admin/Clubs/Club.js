@@ -28,10 +28,18 @@ class Club extends Component {
   };
 
   componentDidMount() {
-    let url = "http://localhost:3000/clubs";
-    axios.get(url).then((response) => {
-      this.setState({ clubs: response.data });
-    });
+    let url = "http://192.168.100.228:8001/api/club/";
+    const token = localStorage.getItem("token");
+    axios
+      .get(url, {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then((response) => {
+        console.log(response, "clvu");
+        this.setState({ clubs: response.data });
+      });
   }
 
   render() {
@@ -81,7 +89,7 @@ class Club extends Component {
                   <Link to={`/clubs/${index}`} className="linkStyle">
                     <ClubThumbnail
                       key={index}
-                      name={club.title}
+                      name={club.name}
                       coach={club.coach}
                       className="grid-item"
                       number={club.members}

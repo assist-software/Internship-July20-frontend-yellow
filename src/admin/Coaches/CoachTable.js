@@ -22,6 +22,9 @@ export default class CoachTable extends Component {
     page: 1,
     nameDeleted: "",
     coaches_page: [],
+    idDeleted: -1,
+    delete: false,
+    numberPages: 0,
   };
 
   token = localStorage.getItem("token");
@@ -72,22 +75,31 @@ export default class CoachTable extends Component {
     });
   };
 
+  deleteItem = (deleteReceived) => {
+    console.log(deleteReceived, "ASF");
+    if (deleteReceived) {
+      const url = `http://192.168.100.228:8001/api/coach/${this.state.idDeleted}/`;
+      Axios.delete(url, {
+        headers: {
+          Authorization: this.token,
+          "Content-Type": "application/json",
+        },
+      }).then((response) => {});
+    }
+  };
+
   hideDeleteConfirm = (e) => {
     e.preventDefault();
     const index = parseInt(e.target.id);
-
-    const url = `http://192.168.100.228:8001/api/coach/${this.state.coaches_page[index].id}/`;
-    Axios.delete(url, {
-      headers: {
-        Authorization: this.token,
-        "Content-Type": "application/json",
-      },
-    }).then((response) => {
-      this.setState({
-        show: false,
-        showDelete: true,
-      });
+    this.setState({
+      idDeleted: this.state.coaches_page[index].id,
     });
+
+    this.setState({
+      show: false,
+      showDelete: true,
+    });
+    this.deleteItem();
   };
 
   handleSort = (clickedColumn) => () => {
@@ -110,7 +122,7 @@ export default class CoachTable extends Component {
   };
 
   componentDidMount() {
-    let url = "http://192.168.100.228:8001/api/coach/";
+    let url = `http://192.168.100.228:8001/api/coach/?page=1&limit=10/`;
     const token = localStorage.getItem("token");
 
     Axios.get(
@@ -128,12 +140,13 @@ export default class CoachTable extends Component {
       }
     ).then((response) => {
       this.setState({ coaches_page: response.data.coaches });
+      this.setState({ numberPages: response.data.page_number });
     });
   }
 
   setNumPage = (event, { activePage }) => {
     this.setState({ page: activePage });
-    let url = "http://192.168.100.228:8001/api/coach/";
+    let url = `http://192.168.100.228:8001/api/coach/?page=${activePage}&limit=10/`;
     Axios.get(
       url,
 
@@ -149,6 +162,7 @@ export default class CoachTable extends Component {
       }
     ).then((response) => {
       this.setState({ coaches_page: response.data.coaches });
+      this.setState({ numberPages: response.data.page_number });
     });
   };
 
@@ -206,13 +220,13 @@ export default class CoachTable extends Component {
               </Table.Row>
             ))}
           </Table.Body>
-          <Pagination
-            defaultActivePage={1}
-            totalPages={10}
-            onPageChange={this.setNumPage}
-            activePage={this.state.page}
-          />
         </Table>
+        <Pagination
+          activePage={this.state.page}
+          defaultActivePage={1}
+          totalPages={this.state.numberPages}
+          onPageChange={this.setNumPage}
+        />
         <ModalAddCoach
           showModal={this.state.show}
           hideModal={this.hideModal}
@@ -234,6 +248,7 @@ export default class CoachTable extends Component {
           hideModal={this.hideModal}
           setName={this.nameHandle}
           name={this.state.nameDeleted}
+          ConfirmDelete={this.deleteItem}
         />
       </div>
     );

@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { Form, Input, Modal, Icon } from "semantic-ui-react";
-
+import { Form, Modal, Icon, Input } from "semantic-ui-react";
+import Axios from "axios";
 import close_icon from "../../../assets/close.svg";
 import "./ModalAddClub.css";
-import { render } from "@testing-library/react";
-import zIndex from "@material-ui/core/styles/zIndex";
+import Coach from "../../Coaches/Coach";
 
 class InputForm extends Component {
   state = {
@@ -14,16 +13,30 @@ class InputForm extends Component {
     coach: "",
     nameValidation: true,
     coachValidation: true,
+    coachesList: [],
     id: -1,
   };
+
+  role = localStorage.getItem("role");
 
   handleId = (id_received) => {
     this.setState({ id: id_received });
   };
+  members = this.state.invitedMember;
+  inviteMailHandler = (e, index) => {
+    this.members[index] = e.target.value;
+    console.log("members", this.members);
+  };
 
   Results = () =>
-    this.state.invitedMember.map(() => (
-      <input type="email" placeholder="Input email" />
+    this.state.invitedMember.map((item, index) => (
+      <input
+        onChange={(e) => this.inviteMailHandler(e, index)}
+        type="email"
+        placeholder="Input email"
+        className="input-mail-invite"
+        id={index}
+      />
     ));
 
   nameHandler = (e) => {
@@ -62,6 +75,27 @@ class InputForm extends Component {
   );
 
   addClickedHandler = () => {
+    const token = localStorage.getItem("token");
+    if (
+      this.state.nameValidation &&
+      !!this.state.name &&
+      this.state.coachValidation &&
+      !!this.state.coach
+    )
+      Axios.post(
+        "http://192.168.100.228:8001/api/club/",
+        {
+          name: this.state.name,
+          coach: this.state.coach,
+        },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      ).then((response) => {
+        console.log(response);
+      });
     this.props.hideAddConfirm();
   };
 
@@ -73,8 +107,30 @@ class InputForm extends Component {
     let members = this.state.invitedMember;
     members.push("");
     this.setState({ invitedMember: members });
-    console.log(this.state.invitedMember);
   };
+
+  componentDidMount() {
+    let url = `http://192.168.100.228:8001/api/coach/`;
+    const token = localStorage.getItem("token");
+
+    Axios.get(
+      url,
+
+      {
+        headers: {
+          Authorization: token,
+        },
+      },
+      {
+        params: {
+          page: 1,
+        },
+      }
+    ).then((response) => {
+      this.setState({ coachesList: response.data.coaches });
+    });
+  }
+
   render() {
     return (
       <Modal
@@ -112,12 +168,31 @@ class InputForm extends Component {
                 />
                 <label>Assign a Coach</label>
                 <br />
-                <Input list="Coach" placeholder="Input placeholder" fluid />
-                <datalist id="Coach">
-                  <option value="English" />
-                  <option value="Chinese" />
-                  <option value="Dutch" />
-                </datalist>
+                {this.role == 0 ? (
+                  <div>
+                    <Form.Input
+                      list="Coach"
+                      placeholder="Input placeholder"
+                      fluid
+                      onChange={this.coachHandler}
+                      error={
+                        this.state.coachValidation
+                          ? null
+                          : "The field can not be empty or contain special characters"
+                      }
+                    />
+                    <datalist id="Coach">
+                      {this.state.coachesList.map((coac) => {
+                        return (
+                          <option
+                            value={coac.first_name + " " + coac.last_name}
+                          />
+                        );
+                      })}
+                    </datalist>
+                  </div>
+                ) : null}
+
                 <p
                   className="label-invite-members"
                   onClick={this.inviteHandler}

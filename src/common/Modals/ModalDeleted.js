@@ -4,6 +4,11 @@ import checked_icon from "../../assets/checked_icon.svg";
 import close_icon from "../../assets/close.svg";
 
 class ModalDeleted extends Component {
+  deleteHandler = () => {
+    this.props.ConfirmDelete(true);
+    this.props.hideModal();
+  };
+
   render() {
     return (
       <div>
@@ -33,7 +38,7 @@ class ModalDeleted extends Component {
             <button className="cancel-button" onClick={this.props.hideModal}>
               Cancel
             </button>
-            <button className="button" onClick={this.props.hideModal}>
+            <button className="button" onClick={this.deleteHandler}>
               Delete
             </button>
           </Modal.Actions>
