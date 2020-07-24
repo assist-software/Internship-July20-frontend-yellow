@@ -61,9 +61,11 @@ class Events extends Component {
   };
 
   componentDidMount() {
-    let url = "http://localhost:3000/EVENTS";
-    axios.get(url).then((response) => {
+    let url = "http://192.168.100.228:8001/api/event/all/events/";
+    const token = localStorage.getItem("token");
+    axios.get(url, { headers: { Authorization: token } }).then((response) => {
       this.setState({ events: response.data });
+      console.log(response.data);
     });
   }
 
@@ -128,8 +130,8 @@ class Events extends Component {
           {SearchEvents.map((event) => (
             <Link to="/event" className="style-card-events-link">
               <EventsComponent
-                title={event.title}
-                body={event.body}
+                title={event.name}
+                body={event.description}
                 time={event.time}
                 date={event.date}
                 location={event.location}

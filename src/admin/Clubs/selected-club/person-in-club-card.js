@@ -28,7 +28,7 @@ const PersonClubThumbnail = (props) => {
           />
           <Card.Header>{props.name}</Card.Header>
           <Card.Meta>
-            {props.gender} -{props.age}
+            {props.gender} -{props.age} YEARS
           </Card.Meta>
           <Card.Description Content>
             <div className="grid-sports">
@@ -36,9 +36,11 @@ const PersonClubThumbnail = (props) => {
               <label className="card-first-line-label">Secondary sport</label>
             </div>
             <div className="grid-sports">
-              <label className="card-second-line-label">{props.primary}</label>
               <label className="card-second-line-label">
-                {props.secondary}
+                {props.primary_sport}
+              </label>
+              <label className="card-second-line-label">
+                {props.secondary_sport}
               </label>
             </div>
           </Card.Description>

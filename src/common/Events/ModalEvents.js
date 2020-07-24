@@ -33,7 +33,12 @@ class ModalEvents extends Component {
   };
 
   TitleHandler = (data) => {
-    this.setState({ title: data.target.value });
+    if (/^[a-zA-Z ]+$/.test(data.target.value)) {
+      this.setState({ namevalid: true });
+      this.setState({ title: data.target.value });
+    } else {
+      this.setState({ namevalid: false });
+    }
   };
 
   BodyHandler = (data) => {
@@ -62,15 +67,24 @@ class ModalEvents extends Component {
     </div>
   );
   addClickedHandler = () => {
-    axios.post("http://localhost:3000/events", {
-      img: this.state.img,
-      title: this.state.title,
-      date: this.state.date,
-      body: this.state.body,
-      time: this.state.time,
-      location: this.state.location,
-      participants: this.state.participants,
-    });
+    const token = localStorage.getItem("token");
+    axios.post(
+      "http://192.168.100.228:8001/api/event/create/",
+      {
+        club: "Running",
+        sport: "Fotbal",
+        name: this.state.title,
+        date: this.state.date,
+        description: this.state.body,
+        time: this.state.time,
+        location: this.state.location,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
     this.props.hideAddConfirm();
   };
 
@@ -94,6 +108,11 @@ class ModalEvents extends Component {
               <Form.Input
                 label="Name"
                 placeholder="Input placeholder"
+                error={
+                  this.state.namevalid
+                    ? null
+                    : "The field can not be empty or contain special characters"
+                }
                 onChange={this.TitleHandler}
               />
 

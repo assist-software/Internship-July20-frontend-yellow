@@ -22,6 +22,8 @@ class Athletes extends Component {
     showDelete: false,
     showAdd: false,
     athletes: [],
+    page: 1,
+    athletes_page: [],
   };
 
   handleOpenModal = () => {
@@ -57,11 +59,39 @@ class Athletes extends Component {
     });
   };
   componentDidMount() {
-    let url = "http://localhost:3000/members";
-    axios.get(url).then((response) => {
-      this.setState({ athletes: response.data });
-    });
+    let url = "http://192.168.100.228:8001/api/athlete/";
+    const token = localStorage.getItem("token");
+    axios
+      .get(url, { headers: { Authorization: token } }, { params: { page: 1 } })
+      .then((response) => {
+        this.setState({ athletes: response.data.athletes });
+        console.log(response.data);
+      });
   }
+
+  setNumPage = (event, { activePage }) => {
+    const token = localStorage.getItem("token");
+    this.setState({ page: activePage });
+    let url = "http://192.168.100.228:8001/api/athlete/";
+    axios
+      .get(
+        url,
+
+        {
+          headers: {
+            Authorization: token,
+          },
+        },
+        {
+          params: {
+            page: this.state.page,
+          },
+        }
+      )
+      .then((response) => {
+        this.setState({ athletes_page: response.data.athletes });
+      });
+  };
   render() {
     return (
       <div className="athletes-page">
@@ -99,11 +129,11 @@ class Athletes extends Component {
           {this.state.athletes &&
             this.state.athletes.map((athlete, index) => (
               <PersonClubThumbnail
-                name={athlete.name}
+                name={athlete.first_name + " " + athlete.last_name}
                 gender={athlete.gender}
                 age={athlete.age}
-                primary={athlete.primary}
-                secondary={athlete.secondary}
+                primary_sport={athlete.primary_sport}
+                secondary_sport={athlete.secondary_sport}
               />
             ))}
         </div>
@@ -125,6 +155,8 @@ class Athletes extends Component {
             prevItem={{ content: <Icon name="angle left" />, icon: true }}
             nextItem={{ content: <Icon name="angle right" />, icon: true }}
             totalPages={10}
+            onPageChange={this.setNumPage}
+            activePage={this.state.page}
           />
         </div>
         <ModalDeleted
