@@ -7,7 +7,7 @@ import trash_icon from "../../assets/trash.svg";
 import ModalAddCoach from "./ModalAddCoach";
 import ModalAdded from "../../common/Modals/ModalAdded";
 import ModalDeleted from "../../common/Modals/ModalDeleted";
-import axios from "axios";
+import Axios from "axios";
 import { Pagination } from "semantic-ui-react";
 
 export default class CoachTable extends Component {
@@ -20,14 +20,15 @@ export default class CoachTable extends Component {
     showDelete: false,
     coaches: [],
     page: 1,
+    nameDeleted: "",
+    coaches_page: [],
   };
 
-  componentDidMount() {
-    let url = "http://localhost:3001/coaches";
-    axios.get(url).then((response) => {
-      this.setState({ coaches: response.data });
-    });
-  }
+  token = localStorage.getItem("token");
+
+  nameHandle = (nameReceived) => {
+    this.setState({ name: nameReceived });
+  };
 
   showModal = (e) => {
     this.setState({
@@ -45,22 +46,33 @@ export default class CoachTable extends Component {
   };
 
   hideAddConfirm = () => {
-    this.setState({
-      show: false,
-      showAdd: true,
+    Axios.get("http://192.168.100.228:8001/api/coach/<int:id>/", {
+      headers: {
+        Authorization: this.token,
+      },
+    }).then((response) => {
+      this.setState({
+        nameDeleted: response.data.first_name + " " + response.data.last_name,
+      });
+      this.setState({ id: response.data.id });
     });
   };
 
   hideDeleteConfirm = (e) => {
-    console.log(e.target.id);
-    axios.delete("http://localhost:3001/coaches", { first_name: "fsafsa" });
-    var newState = this.state.coaches.slice();
-    newState.splice(e.target.id, 1);
-    this.setState({ coaches: newState });
-    console.log(this.state.coaches);
-    this.setState({
-      show: false,
-      showDelete: true,
+    e.preventDefault();
+    const index = parseInt(e.target.id);
+
+    const url = `http://192.168.100.228:8001/api/coach/${this.state.coaches_page[index].id}/`;
+    Axios.delete(url, {
+      headers: {
+        Authorization: this.token,
+        "Content-Type": "application/json",
+      },
+    }).then((response) => {
+      this.setState({
+        show: false,
+        showDelete: true,
+      });
     });
   };
 
@@ -83,16 +95,52 @@ export default class CoachTable extends Component {
     });
   };
 
+  componentDidMount() {
+    let url = "http://192.168.100.228:8001/api/coach/";
+    const token = localStorage.getItem("token");
+
+    Axios.get(
+      url,
+
+      {
+        headers: {
+          Authorization: token,
+        },
+      },
+      {
+        params: {
+          page: 1,
+        },
+      }
+    ).then((response) => {
+      this.setState({ coaches_page: response.data.coaches });
+    });
+  }
+
   setNumPage = (event, { activePage }) => {
     this.setState({ page: activePage });
+    let url = "http://192.168.100.228:8001/api/coach/";
+    Axios.get(
+      url,
+
+      {
+        headers: {
+          Authorization: this.token,
+        },
+      },
+      {
+        params: {
+          page: this.state.page,
+        },
+      }
+    ).then((response) => {
+      this.setState({ coaches_page: response.data.coaches });
+    });
   };
 
   render() {
     const { column, data, direction } = this.state;
-    const coachesOnTable = this.state.coaches.slice(
-      (this.state.page - 1) * 7,
-      (this.state.page - 1) * 7 + 6
-    );
+    const coachesOnTable = this.state.coaches_page;
     return (
       <div>
         <Table sortable fixed>
@@ -114,7 +162,7 @@ export default class CoachTable extends Component {
                 sorted={column === "gender" ? direction : null}
                 onClick={this.handleSort("gender")}
               >
-                Owwned Clubs
+                Owned Clubs
               </Table.HeaderCell>
               <Table.HeaderCell>Actions</Table.HeaderCell>
             </Table.Row>
@@ -170,6 +218,8 @@ export default class CoachTable extends Component {
         <ModalDeleted
           hideAddConfirm={this.state.showDelete}
           hideModal={this.hideModal}
+          setName={this.nameHandle}
+          name={this.state.nameDeleted}
         />
       </div>
     );

@@ -9,7 +9,12 @@ import ModalAddCoach from "./ModalAddCoach";
 import ModalAdded from "../../common/Modals/ModalAdded";
 
 class Coach extends Component {
-  state = { show: false, showAdd: false, coaches: [] };
+  state = { show: false, showAdd: false, coaches: [], name: "" };
+
+  nameHandle = (nameReceived) => {
+    this.setState({ name: nameReceived });
+  };
+
   showModal = () => {
     this.setState({ show: true });
   };
@@ -26,6 +31,7 @@ class Coach extends Component {
   };
 
   render() {
+    console.log("SFAfsa", this.state.id);
     return (
       <div className="coach-main-page">
         <h2 className="page-title-coach">Coaches</h2>
@@ -53,12 +59,13 @@ class Coach extends Component {
           action={"Add"}
           editForm={false}
           object={[]}
+          nameSet={this.nameHandle}
         />
         <ModalAdded
           hideAddConfirm={this.state.showAdd}
           hideModal={this.hideModal}
           name={"Coach added"}
-          description={"SFA"}
+          description={this.state.name}
         />
         <div className="table-coach">
           <CoachTable />

@@ -14,6 +14,7 @@ class InputForm extends Component {
     coach: "",
     nameValidation: true,
     coachValidation: true,
+    id: -1,
   };
 
   Results = () =>
