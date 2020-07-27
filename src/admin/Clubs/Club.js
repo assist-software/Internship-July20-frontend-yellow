@@ -51,7 +51,7 @@ class Club extends Component {
             <Grid>
               <GridRow>
                 <GridColumn floated="left" align="left" computer="8" tablet="8">
-                  <InputSearch show={this.state.show} align="left" />
+                  <InputSearch show={this.state.show} align="right" />
                 </GridColumn>
                 <GridColumn
                   floated="right"
@@ -90,7 +90,7 @@ class Club extends Component {
                     <ClubThumbnail
                       key={index}
                       name={club.name}
-                      coach={club.coach}
+                      coach={club.first_name + " " + club.last_name}
                       className="grid-item"
                       number={club.members}
                     />

@@ -3,7 +3,6 @@ import Avatar from "@material-ui/core/Avatar";
 import AvatarGroup from "@material-ui/lab/AvatarGroup";
 
 export default function GroupAvatars(props) {
-  console.log(props.number, "in avatar");
   return (
     <AvatarGroup max={4}>
       <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />

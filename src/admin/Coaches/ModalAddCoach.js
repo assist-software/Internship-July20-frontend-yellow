@@ -113,6 +113,7 @@ class ModalAddCoach extends Component {
   nameHandle = (nameReceived) => {
     this.props.nameSet(nameReceived);
     this.setState({ nameAdded: nameReceived });
+
     this.showConfirmation();
   };
 
