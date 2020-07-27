@@ -120,6 +120,11 @@ class ModalAddCoach extends Component {
     this.props.hideAddConfirm();
   };
 
+  hideAddConfirm = () => {
+    this.setState({ showAdd: true });
+    this.props.hideConfirmEdit();
+  };
+
   addClickedHandler = () => {
     if (
       this.state.lastNameValidation &&
@@ -130,11 +135,9 @@ class ModalAddCoach extends Component {
       !!this.state.lastName
     ) {
       const token = localStorage.getItem("token");
-
-      const url = `http://34.65.176.55:8081/api/coach/${this.props.personToEdit.id}/`;
       if (this.props.editForm) {
         Axios.put(
-          url,
+          `http://34.65.176.55:8081/api/coach/${this.props.personToEdit.id}/`,
           {
             first_name: this.state.firstName,
             last_name: this.state.lastName,
@@ -152,8 +155,8 @@ class ModalAddCoach extends Component {
               firstName: "",
               lastName: "",
             });
-
-            this.hideModal();
+            this.hideAddConfirm();
+            this.props.coachesHandler();
           })
           .catch((error) => {
             alert(error);
@@ -173,18 +176,14 @@ class ModalAddCoach extends Component {
           }
         )
           .then((response) => {
-            this.setState(
-              {
-                nameAdded: response.data.name,
-                email: "",
-                firstName: "",
-                lastName: "",
-              },
-              function () {}
-            );
+            this.setState({
+              nameAdded: response.data.name,
+              email: "",
+              firstName: "",
+              lastName: "",
+            });
 
             this.nameHandle(response.data.name);
-            this.setState({ id: response.data.id });
           })
           .catch((error) => {
             alert(error);
@@ -243,6 +242,7 @@ class ModalAddCoach extends Component {
           <Form>
             <div>
               <img
+                alt=""
                 src={close_icon}
                 className="close-icon"
                 onClick={this.exitHandler}
@@ -326,7 +326,6 @@ class ModalAddCoach extends Component {
           hideAddConfirm={this.state.showAdd}
           hideModal={this.hideModal}
           name={"Coach edited"}
-          description={"testtt"}
         />
         <ModalDeleted
           hideAddConfirm={this.state.showDelete}

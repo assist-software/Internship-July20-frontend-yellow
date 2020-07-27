@@ -5,7 +5,6 @@ import "./CoachTable.css";
 import edit_icon from "../../assets/edit-icon.svg";
 import trash_icon from "../../assets/trash.svg";
 import ModalAddCoach from "./ModalAddCoach";
-import ModalAdded from "../../common/Modals/ModalAdded";
 import ModalDeleted from "../../common/Modals/ModalDeleted";
 import Axios from "axios";
 import { Pagination } from "semantic-ui-react";
@@ -65,7 +64,13 @@ export default class CoachTable extends Component {
           Authorization: this.token,
           "Content-Type": "application/json",
         },
-      }).then((response) => {});
+      })
+        .then((response) => {
+          this.props.coachesHandler();
+        })
+        .catch((error) => {
+          alert(error);
+        });
     }
   };
 
@@ -82,13 +87,15 @@ export default class CoachTable extends Component {
     this.deleteItem();
   };
 
+  hideConfirmEdit = () => {
+    this.setState({ show: false });
+  };
+
   editHandler = (e, index) => {
     this.setState(
       { personToEdit: this.state.coaches_page[index] },
       function () {}
     );
-    console.log(this.state.coaches_page[index], "in coach");
-
     this.showModalEdit(this.state.coaches_page[index]);
   };
 
@@ -115,30 +122,13 @@ export default class CoachTable extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.searchString !== this.props.searchString) {
       this.setState({ search: this.props.searchString }, function () {});
-      let url = `http://34.65.176.55:8081/api/coach/?page=1&search=${this.props.searchString}&limit=10/`;
-      const token = localStorage.getItem("token");
-      Axios.get(
-        url,
-
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      ).then((response) => {
-        this.setState({ coaches_page: response.data.coaches });
-
-        this.setState({ numberPages: response.data.page_number });
-        console.log(response.data);
-      });
+      this.coachesHandler();
     }
   }
 
-  componentDidMount() {
+  coachesHandler = () => {
     let url = `http://34.65.176.55:8081/api/coach/?page=1&search=${this.props.searchString}&limit=10/`;
-
     const token = localStorage.getItem("token");
-
     Axios.get(
       url,
 
@@ -153,6 +143,10 @@ export default class CoachTable extends Component {
       this.setState({ numberPages: response.data.page_number });
       console.log(response.data);
     });
+  };
+
+  componentDidMount() {
+    this.coachesHandler();
   }
 
   setNumPage = (event, { activePage }) => {
@@ -169,7 +163,7 @@ export default class CoachTable extends Component {
   };
 
   render() {
-    const { column, data, direction } = this.state;
+    const { column, direction } = this.state;
     const coachesOnTable = this.state.coaches_page;
     return (
       <div>
@@ -231,8 +225,10 @@ export default class CoachTable extends Component {
         />
         <ModalAddCoach
           personToEdit={this.state.personToEdit}
+          coachesHandler={this.coachesHandler}
           showModal={this.state.show}
           hideModal={this.hideModal}
+          hideConfirmEdit={this.hideConfirmEdit}
           hideAddConfirm={this.hideAddConfirm}
           hideDeleteConfirm={(e) => this.hideDeleteConfirm}
           id={this.state.id}
