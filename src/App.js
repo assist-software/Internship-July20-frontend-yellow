@@ -22,7 +22,7 @@ function App() {
         <Route exact path="/clubs" component={Club} />
         <Route path="/coach" component={Coach} />
         <Route path="/events" component={Events} />
-        <Route path="/event" component={SelectedEvents} />
+        <Route exact path="/event/:cardId" component={SelectedEvents} />
       </Switch>
     </div>
   );

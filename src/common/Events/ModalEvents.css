@@ -1,25 +1,25 @@
 .modal-events {
   position: absolute;
-  width: 600px;
+
   height: 900px;
   background: #ffffff;
   border: 1px solid #8e9296;
   box-sizing: border-box;
   border-radius: 8px;
-  max-width: 500px !important;
+  max-width: 560px !important;
 }
 
 .modal-content-div {
-  position: relative;
-  width: 500px;
+  position: absolute;
+  width: 560px;
   height: 650px;
 }
-.modal-events h2 {
-  position: absolute;
-  width: 176px;
-  height: 42px;
-  left: 44px;
-  top: 45px;
+.buttom-modal-events {
+  margin-left: 44px;
+  margin-right: 44px;
+  margin-top: 60px;
+}
+.buttom-modal-events h2 {
   font-family: Inter;
   font-style: normal;
   font-weight: normal;
@@ -27,46 +27,59 @@
   text-transform: capitalize;
   color: #000000;
 }
-.modal-events hr {
-  position: absolute;
-  height: 0px;
+.first-line-events {
   left: 44px;
   right: 44px;
-  top: 90px;
+  top: 30px;
+}
+.first-line-events hr {
   border: 1px solid #cad2e2;
 }
 .form-events {
-  position: absolute;
-  top: 140px;
-  left: 44px;
-  right: 44px;
+  margin-top: 50px;
+  margin-left: 44px;
+  margin-right: 44px;
 }
 
 .input-time-date {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  bottom: 8px;
+  display: flex;
 }
-.input-content-time {
-  display: inline-flex;
-  width: 190px;
+
+.input-time {
+  width: 180px !important;
 }
+
 .input-content-calendar {
   display: inline-flex;
   width: 190px;
   left: 20px;
 }
 
-.button-add-events {
+.bottom-events-modal {
   margin-top: 70px;
-  float: right;
 }
-.second-line-events {
-  top: 500px !important;
+.bottom-events-modal hr {
+  border: 1px solid #cad2e2;
+}
+.button-add-events {
+  float: right;
+  margin-top: 20px;
+}
+.button-add-event:hover {
+  border-radius: 8px;
+  transform: translate(0.2);
+}
+.button-add-event:focus {
+  outline: 0;
+  border-radius: 8px;
+}
+.button-add-event:active {
+  transform: translateY(1px);
+  box-shadow: 0 5px #666;
 }
 
 .button-close-event {
+  cursor: pointer;
   margin: 5px;
   width: 90px;
   height: 40px;
@@ -81,8 +94,20 @@
   color: black;
   border: none;
 }
-
+.button-close-event:hover {
+  border-radius: 8px;
+  transform: translate(0.2);
+}
+.button-close-event:focus {
+  outline: 0;
+  border-radius: 8px;
+}
+.button-close-event:active {
+  transform: translateY(1px);
+  box-shadow: 0 5px #666;
+}
 .button-add-event {
+  cursor: pointer;
   width: 130px;
   height: 40px;
   background: #1a1a1a;
@@ -191,4 +216,12 @@
   font-weight: 700;
   text-transform: none;
   margin-bottom: 5px;
+}
+
+.close-icon-events {
+  float: right;
+  margin-right: 15px;
+  margin-top: 15px;
+  top: 5px;
+  cursor: pointer;
 }

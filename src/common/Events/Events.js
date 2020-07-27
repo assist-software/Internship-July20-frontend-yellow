@@ -8,6 +8,7 @@ import ModalAdded from "../Modals/ModalAdded";
 import ModalDeleted from "../Modals/ModalDeleted";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import SelectedEvents from "./SelectedEvents/SelectedEvents";
 
 class Events extends Component {
   state = {
@@ -61,11 +62,10 @@ class Events extends Component {
   };
 
   componentDidMount() {
-    let url = "http://192.168.100.228:8001/api/event/all/events/";
+    let url = "http://34.65.176.55:8081/api/event/all/events/";
     const token = localStorage.getItem("token");
     axios.get(url, { headers: { Authorization: token } }).then((response) => {
       this.setState({ events: response.data });
-      console.log(response.data);
     });
   }
 
@@ -78,9 +78,7 @@ class Events extends Component {
             .indexOf(this.state.searchterm.toLowerCase()) !== -1
         );
     });
-    let filteredEvents = this.state.events.filter((event) => {
-      if (event.date) return event.date === this.state.currentTime;
-    });
+
     return (
       <div className="ContentArea">
         <div className="content-area">
@@ -127,17 +125,26 @@ class Events extends Component {
         />
 
         <div className="events-component">
-          {SearchEvents.map((event) => (
-            <Link to="/event" className="style-card-events-link">
-              <EventsComponent
-                title={event.name}
-                body={event.description}
-                time={event.time}
-                date={event.date}
-                location={event.location}
-              />
-            </Link>
-          ))}
+          {SearchEvents &&
+            this.state.events.map((event, index) => (
+              <Link
+                to={{
+                  pathname: `/event/${event.id}`,
+                  state: { eventid: event },
+                }}
+                className="style-card-events-link"
+              >
+                <EventsComponent
+                  cardId={index}
+                  title={event.title}
+                  body={event.body}
+                  time={event.time}
+                  date={event.date}
+                  location={event.location}
+                  img2={"data:image/png;base64," + event.img}
+                />
+              </Link>
+            ))}
         </div>
         <div className="pagination-events">
           <Pagination

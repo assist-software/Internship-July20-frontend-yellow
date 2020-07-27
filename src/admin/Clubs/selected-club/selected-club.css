@@ -14,7 +14,7 @@
 }
 
 .card-width {
-  min-width: 305px;
+  min-width: 295px;
 }
 
 .header-selected-club {
@@ -30,6 +30,8 @@
 }
 
 .person-club-card {
+  display: flex;
+  flex-direction: column;
   margin-left: 16px;
   margin-top: 16px;
 }
@@ -77,4 +79,20 @@
   margin-left: 16px;
   text-align: center;
   margin-top: 30px;
+}
+
+.meta-custom {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 8px;
+  line-height: 16px;
+  /* identical to box height, or 117% */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+
+  color: #000000;
 }

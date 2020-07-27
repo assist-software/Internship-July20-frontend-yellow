@@ -2,18 +2,9 @@ import React, { Component } from "react";
 import ImageEvent from "./Rectangle30.png";
 import "./SelectedEvents.css";
 import ModalEvents from "../ModalEvents";
-import { Bar, Line } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 
-import {
-  Grid,
-  GridColumn,
-  GridRow,
-  Image,
-  Icon,
-  Card,
-  CardContent,
-  Checkbox,
-} from "semantic-ui-react";
+import { Image, Icon, Card, Checkbox } from "semantic-ui-react";
 import ShowPersonEvent from "./ShowPersonEvent/ShowPersonEvent";
 
 class SelectedEvents extends Component {
@@ -38,10 +29,15 @@ class SelectedEvents extends Component {
   state = {
     show: false,
     displaycheck: false,
+    event: {},
   };
 
   handleOpenModal = () => {
     this.setState({ show: true });
+  };
+
+  passData = () => {
+    return this.props.location.state;
   };
 
   handleCloseModal = () => {
@@ -56,17 +52,25 @@ class SelectedEvents extends Component {
       this.setState({ buttonChange: "Compare Performance" });
     }
   };
+  componentWillMount() {
+    // Called first time the comp is loaded right before the comp is added to the page
+    console.log("Component WILL MOUNT!");
 
+    console.log("passed", this.props.match.params.cardId);
+    console.log("passed", this.props.location.state.eventid.title);
+    this.setState({ event: this.props.location.state });
+    console.log("passed", this.state.event);
+  }
   render() {
     return (
       <div className="cards-event">
         <div className="page-top">
           <div className="label-event">
             <h3>{"Events > "}</h3>
-            <h4> Running for life</h4>
+            <h4> {this.props.location.state.eventid.title}</h4>
           </div>
           <div className="div-event-button-edit">
-            <h2>Running for life</h2>
+            <h2>{this.props.location.state.eventid.title}</h2>
             <button
               className="event-button-edit"
               onClick={this.handleOpenModal}
@@ -76,15 +80,15 @@ class SelectedEvents extends Component {
           </div>
           <div className="event-bar">
             <Icon name="calendar alternate outline" />
-            <p>20.06.2020</p>
+            <p>{this.props.location.state.eventid.date}</p>
 
             <div className="time-event">
               <Icon name="clock outline" />
-              <p>09:00 AM</p>
+              <p>{this.props.location.state.eventid.time}</p>
             </div>
             <div className="location-event">
               <Icon name="location arrow " />
-              <p>Suceava fortress, Main Enter</p>
+              <p>{this.props.location.state.eventid.location}</p>
             </div>
           </div>
         </div>
@@ -93,9 +97,7 @@ class SelectedEvents extends Component {
             <Image src={ImageEvent} wrapped ui={false} />
             <Card.Content className="card-content-event">
               <div className="first-paragraph">
-                <h3>
-                  this.props.FirstParagraphdbgvbsidybbfsaduougfadnilsisffadhiJSGDFHAID
-                </h3>
+                <h3>{this.props.location.state.eventid.body}</h3>
                 <p>
                   this.props.SecondParagraphsdvdbdbdvcsbfbdsybusybfubsdbcusbcusbdvgykusdvbusuidvbousivvbisudvbusdibvnsoubsdvinoduvidbohjnmklkjashugftgvbhnjmk,lsxhbdfvvghujikoijuhygtfrdesdrftgyhujikolxkoasjihucygdrtfyguh
                 </p>

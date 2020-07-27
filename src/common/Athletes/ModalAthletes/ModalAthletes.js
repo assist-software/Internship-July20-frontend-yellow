@@ -38,7 +38,10 @@ class ModalAthletes extends Component {
     height: "",
     weight: "",
   };
-
+  optionsGender = [
+    { key: "m", text: "Male", value: "male" },
+    { key: "f", text: "Female", value: "female" },
+  ];
   NameHandler = (data) => {
     if (/^[a-zA-Z ]+$/.test(data.target.value)) {
       this.setState({ namevalid: true });
@@ -48,7 +51,10 @@ class ModalAthletes extends Component {
     }
   };
   AgeHandler = (data) => {
-    if (/([1-9 ][0-9 ])/.test(data.target.value)) {
+    if (
+      /([1-5][0-9])/.test(data.target.value) &&
+      data.target.value.length < 3
+    ) {
       this.setState({ agevalid: true });
       this.setState({ age: data.target.value });
     } else {
@@ -95,7 +101,10 @@ class ModalAthletes extends Component {
   };
 
   HeightHandler = (data) => {
-    if (/^[1-31-91-9]+$/.test(data.target.value)) {
+    if (
+      /[1-2][0-90-9]+$/.test(data.target.value) &&
+      data.target.value.length < 4
+    ) {
       this.setState({ heightvalid: true });
       this.setState({ height: data.target.value });
     } else {
@@ -104,7 +113,10 @@ class ModalAthletes extends Component {
   };
 
   WeightHandler = (data) => {
-    if (/^[1-31-91-9]+$/.test(data.target.value)) {
+    if (
+      /[1-3][0-90-9]+$/.test(data.target.value) &&
+      data.target.value.length < 4
+    ) {
       this.setState({ weightvalid: true });
       this.setState({ weight: data.target.value });
     } else {
@@ -140,7 +152,9 @@ class ModalAthletes extends Component {
       this.state.agevalid &&
       this.state.name.length > 0 &&
       this.state.email.length > 0 &&
-      this.state.age.length > 0
+      this.state.age.length > 0 &&
+      this.state.height.length > 0 &&
+      this.state.weight.length > 0
     ) {
       const token = localStorage.getItem("token");
       axios.post(
@@ -173,7 +187,30 @@ class ModalAthletes extends Component {
       }
     }
   };
-
+  cancelClickedHandler = () => {
+    {
+      this.setState({ img: "" });
+      this.setState({ name: "" });
+      this.setState({ gender: "" });
+      this.setState({ age: "" });
+      this.setState({ psport: "" });
+      this.setState({ ssport: "" });
+      this.setState({ height: "" });
+      this.setState({ weight: "" });
+      this.setState({ email: "" });
+    }
+    {
+      this.setState({ namevalid: true });
+      this.setState({ heightvalid: true });
+      this.setState({ gendervalid: true });
+      this.setState({ agevalid: true });
+      this.setState({ psportvalid: true });
+      this.setState({ ssportvalid: true });
+      this.setState({ weightvalid: true });
+      this.setState({ emailvalid: true });
+    }
+    this.props.handleCloseModal();
+  };
   deleteClickedHandler = () => {
     this.props.hideDeleteConfirm();
   };
@@ -191,14 +228,17 @@ class ModalAthletes extends Component {
             <div>
               <img
                 src={close_icon}
-                className="close-icon"
+                className="close-icon-athlete"
                 alt=""
-                onClick={this.props.handleCloseModal}
+                onClick={this.cancelClickedHandler}
               />
             </div>
             <div className="modal-athletes-div">
               <h2>{this.props.NameModalAthletes}</h2>
-              <hr></hr>
+              <div className="first-line-athletes">
+                <hr></hr>
+              </div>
+
               <p>General Information</p>
               <div className="modal-form-inputs-athletes">
                 <Form.Group widths="equal">
@@ -227,14 +267,15 @@ class ModalAthletes extends Component {
                 </Form.Group>
 
                 <Form.Group widths="equal">
-                  <Form.Input
+                  <Form.Select
                     fluid
                     label="Primary Sport"
                     placeholder="Input placeholder"
+                    options={this.state.sports || []}
                     error={
                       this.state.psportvalid
                         ? null
-                        : "The field can not be empty or contain special characters"
+                        : "The field can not be empty.Select an option"
                     }
                     onChange={this.PsportHandler}
                   />
@@ -246,21 +287,22 @@ class ModalAthletes extends Component {
                     error={
                       this.state.ssportvalid
                         ? null
-                        : "The field can not be empty or contain special characters"
+                        : "The field can not be empty.Select an option"
                     }
                     onChange={this.SsportHandler}
                   />
                 </Form.Group>
                 <p>Personal Information </p>
                 <Form.Group widths="equal">
-                  <Form.Input
+                  <Form.Select
                     fluid
                     label="Gender"
                     placeholder="Input placeholder"
+                    options={this.optionsGender}
                     error={
                       this.state.gendervalid
                         ? null
-                        : "The field can not be empty or contain space character"
+                        : "The field can not be empty."
                     }
                     onChange={this.GenderHandler}
                   />
@@ -271,7 +313,7 @@ class ModalAthletes extends Component {
                     error={
                       this.state.agevalid
                         ? null
-                        : "The field can not be empty or contain space charactere"
+                        : "The field can not be empty and must contain only digits.The maximum value is 49"
                     }
                     onChange={this.AgeHandler}
                   />
@@ -285,7 +327,7 @@ class ModalAthletes extends Component {
                     error={
                       this.state.heightvalid
                         ? null
-                        : "The field can not be empty or contain special characters"
+                        : "The field can not be empty and must contain only digits.The maximum value is 299"
                     }
                     onChange={this.HeightHandler}
                   />
@@ -296,7 +338,7 @@ class ModalAthletes extends Component {
                     error={
                       this.state.weightvalid
                         ? null
-                        : "The field can not be empty or contain special characters"
+                        : "The field can not be empty and must contain only digits.The maximum value is 399"
                     }
                     onChange={this.WeightHandler}
                   />
@@ -305,7 +347,7 @@ class ModalAthletes extends Component {
                   className="input-description"
                   label="Assign to a club"
                   placeholder="Input placeholder"
-                  required="false"
+                  required="true"
                 />
                 <h3>Avatar Image</h3>
                 <Dropzone onDrop={(files) => console.log(files)}>
@@ -331,12 +373,14 @@ class ModalAthletes extends Component {
                     </div>
                   )}
                 </Dropzone>
+                <div className="second-line-athletes">
+                  <hr></hr>
+                </div>
 
-                <hr className="second-line"></hr>
                 <div className="modal-buttons-athletes">
                   <button
                     className="cancel-button-athletes"
-                    onClick={this.props.handleCloseModal}
+                    onClick={this.cancelClickedHandler}
                   >
                     CANCEL
                   </button>
