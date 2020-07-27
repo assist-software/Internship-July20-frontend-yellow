@@ -17,7 +17,7 @@ class ModalAddCoach extends Component {
     firstName: "",
     email: "",
     id: -1,
-    url: "http://localhost:3001/coaches",
+    url: "http://34.65.176.55:8081/coaches",
   };
 
   Edit = () => {
@@ -86,9 +86,8 @@ class ModalAddCoach extends Component {
       !!this.state.lastName
     ) {
       const token = localStorage.getItem("token");
-      console.log(token);
       Axios.post(
-        "http://192.168.100.228:8001/api/coach/",
+        "http://34.65.176.55:8081/api/coach/",
         {
           first_name: this.state.firstName,
           last_name: this.state.lastName,
@@ -131,20 +130,11 @@ class ModalAddCoach extends Component {
     });
     this.props.hideDeleteConfirm();
   };
-  componentDidMount() {
-    Axios.get(this.state.url, {
-      params: {
-        id: this.props.id,
-      },
-    }).then((response) => {
-      console.log(this.props.id, "   ");
-      this.setState({
-        email: response.data.email,
-        firstName: response.data.first_name,
-        lastName: response.data.last_name,
-      });
-    });
-  }
+
+  autoComplete = () => {
+    this.setState({ name: "Fsafs" });
+    console.log(this.props.personToEdit, "asf");
+  };
 
   render() {
     return (

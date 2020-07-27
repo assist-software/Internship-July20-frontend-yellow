@@ -16,6 +16,7 @@ class ModalAdded extends Component {
           <Modal.Content>
             <div>
               <img
+                alt=""
                 src={close_icon}
                 className="close-icon"
                 onClick={this.props.hideModal}
