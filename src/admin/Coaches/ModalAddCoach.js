@@ -153,7 +153,7 @@ class ModalAddCoach extends Component {
               lastName: "",
             });
 
-            //this.props.hideAddConfirm();
+            this.hideModal();
           })
           .catch((error) => {
             alert(error);
