@@ -7,9 +7,17 @@ import "./Coach.css";
 
 import ModalAddCoach from "./ModalAddCoach";
 import ModalAdded from "../../common/Modals/ModalAdded";
+import { search } from "superagent";
 
 class Coach extends Component {
-  state = { show: false, showAdd: false, coaches: [], name: "" };
+  state = {
+    show: false,
+    showAdd: false,
+    coaches: [],
+    name: "",
+    searchString: "",
+    searchOk: false,
+  };
 
   nameHandle = (nameReceived) => {
     this.setState({ name: nameReceived });
@@ -30,8 +38,15 @@ class Coach extends Component {
     });
   };
 
+  searchStringHandler = (e) => {
+    this.setState({ searchString: e.target.value });
+  };
+
+  searchHandler = () => {
+    this.setState({ searchOk: true });
+  };
+
   render() {
-    console.log("SFAfsa", this.state.id);
     return (
       <div className="coach-main-page">
         <h2 className="page-title-coach">Coaches</h2>
@@ -40,7 +55,13 @@ class Coach extends Component {
             <GridColumn floated="left" align="left" computer="8" tablet="8">
               <Input
                 className="search-bar"
-                icon={{ name: "search", circular: true, link: true }}
+                icon={{
+                  name: "search",
+                  circular: true,
+                  link: true,
+                  onClick: this.searchHandler,
+                }}
+                onChange={this.searchStringHandler}
                 placeholder="Search..."
               />
             </GridColumn>
@@ -68,7 +89,10 @@ class Coach extends Component {
           description={this.state.name}
         />
         <div className="table-coach">
-          <CoachTable />
+          <CoachTable
+            searchString={this.state.searchContent}
+            searchPressed={this.state.searchOk}
+          />
         </div>
       </div>
     );

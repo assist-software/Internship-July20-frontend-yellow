@@ -9,6 +9,8 @@ import ModalAdded from "../../common/Modals/ModalAdded";
 import ModalDeleted from "../../common/Modals/ModalDeleted";
 import Axios from "axios";
 import { Pagination } from "semantic-ui-react";
+import Coach from "./Coach";
+import { Redirect } from "react-router-dom";
 
 export default class CoachTable extends Component {
   state = {
@@ -25,6 +27,7 @@ export default class CoachTable extends Component {
     idDeleted: -1,
     delete: false,
     numberPages: 0,
+    personToEdit: [],
   };
 
   token = localStorage.getItem("token");
@@ -33,25 +36,19 @@ export default class CoachTable extends Component {
     this.setState({ name: nameReceived });
   };
 
-  componentDidMount() {
-    let url = "http://192.168.100.228:8001/api/coach/";
-    const token = localStorage.getItem("token");
-    Axios.get(
-      url,
-      { page: 1 },
-      {
-        headers: { Authorization: token },
-      }
-    ).then((response) => {
-      this.setState({ coaches: response.data });
-    });
-  }
-
-  showModal = (e) => {
+  showModalEdit = (prs) => {
     this.setState({
-      id: e.target.id,
+      show: true,
+      personToEdit: prs,
+    });
+    this.addCoach.current.autoComplete();
+  };
+
+  showModal = () => {
+    this.setState({
       show: true,
     });
+    this.addCoach.current.autoComplete();
   };
 
   hideModal = () => {
@@ -63,7 +60,7 @@ export default class CoachTable extends Component {
   };
 
   hideAddConfirm = () => {
-    Axios.get("http://192.168.100.228:8001/api/coach/<int:id>/", {
+    Axios.get("http://34.65.176.55:8081/api/coach/<int:id>/", {
       headers: {
         Authorization: this.token,
       },
@@ -76,9 +73,8 @@ export default class CoachTable extends Component {
   };
 
   deleteItem = (deleteReceived) => {
-    console.log(deleteReceived, "ASF");
     if (deleteReceived) {
-      const url = `http://192.168.100.228:8001/api/coach/${this.state.idDeleted}/`;
+      const url = `http://34.65.176.55:8081/api/coach/${this.state.idDeleted}/`;
       Axios.delete(url, {
         headers: {
           Authorization: this.token,
@@ -88,11 +84,13 @@ export default class CoachTable extends Component {
     }
   };
 
-  hideDeleteConfirm = (e) => {
-    e.preventDefault();
-    const index = parseInt(e.target.id);
+  hideDeleteConfirm = (e, index) => {
     this.setState({
       idDeleted: this.state.coaches_page[index].id,
+      nameDeleted:
+        this.state.coaches_page[index].first_name +
+        " " +
+        this.state.coaches_page[index].first_name,
     });
 
     this.setState({
@@ -101,14 +99,26 @@ export default class CoachTable extends Component {
     });
     this.deleteItem();
   };
+  addCoach = React.createRef();
+
+  editHandler = (e, index) => {
+    this.setState(
+      { personToEdit: this.state.coaches_page[index] },
+      function () {}
+    );
+    console.log(this.state.coaches_page[index], "in coach");
+
+    this.showModalEdit(this.state.coaches_page[index]);
+  };
 
   handleSort = (clickedColumn) => () => {
-    const { column, data, direction } = this.state;
-
+    const { column, coaches_page, direction } = this.state;
+    console.log(coaches_page, "coaches");
+    console.log(clickedColumn, "column");
     if (column !== clickedColumn) {
       this.setState({
         column: clickedColumn,
-        data: _.sortBy(data, [clickedColumn]),
+        coaches_page: _.sortBy(coaches_page, [clickedColumn]),
         direction: "ascending",
       });
 
@@ -116,13 +126,14 @@ export default class CoachTable extends Component {
     }
 
     this.setState({
-      data: data.reverse(),
+      coaches_page: coaches_page.reverse(),
       direction: direction === "ascending" ? "descending" : "ascending",
     });
   };
 
   componentDidMount() {
-    let url = `http://192.168.100.228:8001/api/coach/?page=1&limit=10/`;
+    let url = `http://34.65.176.55:8081/api/coach/?page=1&limit=10/`;
+
     const token = localStorage.getItem("token");
 
     Axios.get(
@@ -132,35 +143,23 @@ export default class CoachTable extends Component {
         headers: {
           Authorization: token,
         },
-      },
-      {
-        params: {
-          page: 1,
-        },
       }
     ).then((response) => {
       this.setState({ coaches_page: response.data.coaches });
+
       this.setState({ numberPages: response.data.page_number });
+      console.log(response.data);
     });
   }
 
   setNumPage = (event, { activePage }) => {
     this.setState({ page: activePage });
     let url = `http://192.168.100.228:8001/api/coach/?page=${activePage}&limit=10/`;
-    Axios.get(
-      url,
-
-      {
-        headers: {
-          Authorization: this.token,
-        },
+    Axios.get(url, {
+      headers: {
+        Authorization: this.token,
       },
-      {
-        params: {
-          page: this.state.page,
-        },
-      }
-    ).then((response) => {
+    }).then((response) => {
       this.setState({ coaches_page: response.data.coaches });
       this.setState({ numberPages: response.data.page_number });
     });
@@ -175,20 +174,20 @@ export default class CoachTable extends Component {
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell
-                sorted={column === "name" ? direction : null}
-                onClick={this.handleSort("name")}
+                sorted={column === "firstName" ? direction : null}
+                onClick={this.handleSort("firstName")}
               >
                 First and Last Name
               </Table.HeaderCell>
               <Table.HeaderCell
-                sorted={column === "Email Address" ? direction : null}
-                onClick={this.handleSort("Email Address")}
+                sorted={column === "email" ? direction : null}
+                onClick={this.handleSort("email")}
               >
                 Email Address
               </Table.HeaderCell>
               <Table.HeaderCell
-                sorted={column === "gender" ? direction : null}
-                onClick={this.handleSort("gender")}
+                sorted={column === "club" ? direction : null}
+                onClick={this.handleSort("club")}
               >
                 Owned Clubs
               </Table.HeaderCell>
@@ -206,13 +205,14 @@ export default class CoachTable extends Component {
                 <Table.Cell>{coaches.club}</Table.Cell>
                 <Table.Cell>
                   <img
+                    alt=""
                     src={edit_icon}
                     className="table-icons"
-                    onClick={this.showModal}
-                    id={index}
+                    onClick={(e) => this.editHandler(e, index)}
                   />
                   <img
-                    onClick={this.hideDeleteConfirm}
+                    alt=""
+                    onClick={(e) => this.hideDeleteConfirm(e, index)}
                     src={trash_icon}
                     id={index}
                   />
@@ -223,15 +223,16 @@ export default class CoachTable extends Component {
         </Table>
         <Pagination
           activePage={this.state.page}
-          defaultActivePage={1}
           totalPages={this.state.numberPages}
           onPageChange={this.setNumPage}
         />
         <ModalAddCoach
+          personToEdit={this.state.personToEdit}
+          ref={this.addCoach}
           showModal={this.state.show}
           hideModal={this.hideModal}
           hideAddConfirm={this.hideAddConfirm}
-          hideDeleteConfirm={this.hideDeleteConfirm}
+          hideDeleteConfirm={(e) => this.hideDeleteConfirm}
           id={this.state.id}
           name={"Edit Coach"}
           action={"Save"}
@@ -247,8 +248,12 @@ export default class CoachTable extends Component {
           hideAddConfirm={this.state.showDelete}
           hideModal={this.hideModal}
           setName={this.nameHandle}
+          title={"Delete Coach"}
           name={this.state.nameDeleted}
           ConfirmDelete={this.deleteItem}
+          description={
+            "If you delete coach’s account, all data associated with this profile will permanently deleted."
+          }
         />
       </div>
     );

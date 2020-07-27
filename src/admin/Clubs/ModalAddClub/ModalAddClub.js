@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { Form, Modal, Icon, Input } from "semantic-ui-react";
+import { Form, Modal, Icon } from "semantic-ui-react";
 import Axios from "axios";
 import close_icon from "../../../assets/close.svg";
 import "./ModalAddClub.css";
-import Coach from "../../Coaches/Coach";
 
 class InputForm extends Component {
   state = {
@@ -14,6 +13,7 @@ class InputForm extends Component {
     nameValidation: true,
     coachValidation: true,
     coachesList: [],
+    emailValidation: [],
     id: -1,
   };
 
@@ -22,22 +22,42 @@ class InputForm extends Component {
   handleId = (id_received) => {
     this.setState({ id: id_received });
   };
+
   members = this.state.invitedMember;
+  validation = this.state.emailValidation;
+
   inviteMailHandler = (e, index) => {
     this.members[index] = e.target.value;
-    console.log("members", this.members);
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e.target.value)) {
+      this.members[index] = e.target.value;
+      this.validation[index] = "true";
+    } else {
+      this.validation[index] = "false";
+    }
+
+    this.setState({
+      emailValidation: this.validation,
+      invitedMember: this.members,
+    });
   };
 
   Results = () =>
-    this.state.invitedMember.map((item, index) => (
-      <input
-        onChange={(e) => this.inviteMailHandler(e, index)}
-        type="email"
-        placeholder="Input email"
-        className="input-mail-invite"
-        id={index}
-      />
-    ));
+    this.state.invitedMember.map((item, index) => {
+      return (
+        <Form.Input
+          onChange={(e) => this.inviteMailHandler(e, index)}
+          type="email"
+          placeholder="Input email"
+          className="input-mail-invite"
+          id={index}
+          error={
+            this.state.emailValidation[index] === "true"
+              ? null
+              : "Enter a valid email address"
+          }
+        />
+      );
+    });
 
   nameHandler = (e) => {
     if (/^[a-zA-Z ]+$/.test(e.target.value)) {
@@ -83,7 +103,7 @@ class InputForm extends Component {
       !!this.state.coach
     )
       Axios.post(
-        "http://192.168.100.228:8001/api/club/",
+        "http://34.65.176.55:8081/api/club/",
         {
           name: this.state.name,
           coach: this.state.coach,
@@ -95,8 +115,8 @@ class InputForm extends Component {
         }
       ).then((response) => {
         console.log(response);
+        this.props.hideAddConfirm();
       });
-    this.props.hideAddConfirm();
   };
 
   deleteClickedHandler = () => {
@@ -105,8 +125,10 @@ class InputForm extends Component {
 
   inviteHandler = () => {
     let members = this.state.invitedMember;
+    let validation = this.state.emailValidation;
+    validation.push("true");
     members.push("");
-    this.setState({ invitedMember: members });
+    this.setState({ invitedMember: members, emailValidation: validation });
   };
 
   componentDidMount() {
