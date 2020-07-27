@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import EventsComponent from "./EventsComponent/EventsComponent";
 import "./Events.css";
 import InputSearch from "../InputSearch";
-import { Pagination, Icon } from "semantic-ui-react";
+import { Pagination, Icon, Input } from "semantic-ui-react";
 import ModalEvents from "./ModalEvents";
 import ModalAdded from "../Modals/ModalAdded";
 import ModalDeleted from "../Modals/ModalDeleted";
@@ -18,9 +18,10 @@ class Events extends Component {
     showAdd: false,
     events: [],
     ongoingevents: false,
+    numberpages: 0,
     page: 1,
-    searchterm: "",
-    currentTime: new Date().toLocaleString,
+    search: "",
+    time: 1,
   };
   handleChangeInput = (event) => {
     this.setState({ searchterm: event.target.value });
@@ -31,6 +32,23 @@ class Events extends Component {
   showModal = () => {
     this.setState({ show: true });
   };
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.time !== this.state.time) {
+      this.setState({ time: prevProps.time });
+      if (prevProps.search !== this.state.search) {
+        this.setState({ search: prevProps.search });
+
+        let url = `http://192.168.100.228:8001/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
+        const token = localStorage.getItem("token");
+        axios
+          .get(url, { headers: { Authorization: token } })
+          .then((response) => {
+            this.setState({ events: response.data.events });
+            this.setState({ numberpages: response.data.page_number });
+          });
+      }
+    }
+  }
   hideModal = () => {
     this.setState({
       show: false,
@@ -60,15 +78,42 @@ class Events extends Component {
   handleCloseModal = () => {
     this.setState({ show: false });
   };
-
+  presshandleOngoing = () => {
+    this.setState({ time: 1 });
+  };
+  presshandlePast = () => {
+    this.setState({ time: 3 });
+  };
+  presshandleFuture = () => {
+    this.setState({ time: 2 });
+  };
   componentDidMount() {
-    let url = "http://34.65.176.55:8081/api/event/all/events/";
+    let url = `http://192.168.100.228:8001/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
     const token = localStorage.getItem("token");
     axios.get(url, { headers: { Authorization: token } }).then((response) => {
-      this.setState({ events: response.data });
+      this.setState({ events: response.data.events });
+      this.setState({ numberpages: response.data.page_number });
     });
   }
 
+  setNumPage = (event, { activePage }) => {
+    this.setState({ page: activePage });
+    let url = `http://192.168.100.228:8001/api/event/all/events/?page=${activePage}&time=${this.state.time}&limit=10/`;
+    const token = localStorage.getItem("token");
+    axios
+      .get(url, {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then((response) => {
+        this.setState({ events: response.data.events });
+        this.setState({ numberpages: response.data.page_number });
+      });
+  };
+  hadleInput = (date) => {
+    this.setState({ search: date.target.value });
+  };
   render() {
     let SearchEvents = this.state.events.filter((event) => {
       if (event.title)
@@ -84,23 +129,31 @@ class Events extends Component {
         <div className="content-area">
           <h2>Events</h2>
           <div className="grid-events">
-            <input
-              className="input-events-new"
-              placeholder="Input placeholder"
-              Icon="search"
-              value={this.state.searchTerm}
-              onChange={this.handleChangeInput.bind(this)}
+            <Input
+              className="search-bar"
+              icon={{
+                name: "search",
+                circular: true,
+                link: true,
+                onClick: this.searchHandler,
+              }}
+              onChange={this.hadleInput}
+              placeholder="Search..."
             />
             <button className="but-new" onClick={this.handleOpenModal}>
               ADD NEW
             </button>
           </div>
           <div className="buttons-events">
-            <button className="but" onClick={this.handleonGoingButton}>
-              Ongoing
+            <button className="but" active onClick={this.presshandleOngoing}>
+              Ongoing({this.state.events.length})
             </button>
-            <button className="but">Future</button>
-            <button className="but">Past</button>
+            <button className="but" onClick={this.presshandleFuture}>
+              Future
+            </button>
+            <button className="but" onClick={this.presshandlePast}>
+              Past
+            </button>
           </div>
         </div>
 
@@ -129,19 +182,18 @@ class Events extends Component {
             this.state.events.map((event, index) => (
               <Link
                 to={{
-                  pathname: `/event/${event.id}`,
-                  state: { eventid: event },
+                  pathname: `/event/detail/${event.id}`,
+                  state: { eventid: event.id },
                 }}
                 className="style-card-events-link"
               >
                 <EventsComponent
-                  cardId={index}
-                  title={event.title}
-                  body={event.body}
+                  cardId={event.id}
+                  title={event.name}
+                  body={event.description}
                   time={event.time}
                   date={event.date}
                   location={event.location}
-                  img2={"data:image/png;base64," + event.img}
                 />
               </Link>
             ))}
@@ -149,7 +201,7 @@ class Events extends Component {
         <div className="pagination-events">
           <Pagination
             defaultActivePage={1}
-            totalPages={10}
+            totalPages={this.state.numberpages}
             onPageChange={this.setNumPage}
             activePage={this.state.page}
           />

@@ -40,6 +40,13 @@
   color: #8e9296;
   background-color: white;
 }
+
+.but :active {
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  outline: 0;
+}
 .but:hover {
   background-color: black;
   color: white;
@@ -68,8 +75,8 @@
   border-radius: 8px;
   width: 177px;
   height: 46px;
-  margin-left: 460px;
-  margin-top: 0px;
+  margin-left: 430px;
+  margin-top: 20px;
 }
 .input-events-new {
   height: 46px;
