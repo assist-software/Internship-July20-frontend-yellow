@@ -64,11 +64,11 @@ class SelectedEvents extends Component {
         console.log(response.data, "aaaaa");
         this.setState({ eventselected: response.data });
         const selectevent = this.state.eventselected[0];
-        console.log(this.selectevent.name, "asfasfasfasf");
+        console.log(this.selectevent, "asfasfasfasf");
       });
   }
   render() {
-    console.log(this.state.eventselected[0].name, "asfasfasfasf");
+    console.log(this.state.eventselected.name, "asfasfasfasf");
     return (
       console.log(this.selectevent, "asfasfasfasf"),
       (
@@ -76,10 +76,10 @@ class SelectedEvents extends Component {
           <div className="page-top">
             <div className="label-event">
               <h3>{"Events > "}</h3>
-              {/* <h4> {this.state.eventselected[0]}</h4> */}
+              <h4> {this.state.eventselected.name}</h4>
             </div>
             <div className="div-event-button-edit">
-              {/* <h2>{this.state.eventselected}</h2> */}
+              <h2>{this.state.eventselected.name}</h2>
               <button
                 className="event-button-edit"
                 onClick={this.handleOpenModal}
@@ -89,15 +89,15 @@ class SelectedEvents extends Component {
             </div>
             <div className="event-bar">
               <Icon name="calendar alternate outline" />
-              <p>{this.props.location.state.eventid}</p>
+              <p>{this.state.eventselected.date}</p>
 
               <div className="time-event">
                 <Icon name="clock outline" />
-                <p>{this.props.location.state.eventid}</p>
+                <p>{this.state.eventselected.time}</p>
               </div>
               <div className="location-event">
                 <Icon name="location arrow " />
-                <p>{this.props.location.state.eventid}</p>
+                <p>{this.state.eventselected.location}</p>
               </div>
             </div>
           </div>
