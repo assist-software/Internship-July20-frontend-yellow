@@ -14,6 +14,7 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
+import * as moment from "moment";
 import "./ModalEvents.css";
 import Button from "../Button";
 import "react-datepicker/dist/react-datepicker.css";
@@ -101,15 +102,22 @@ class ModalEvents extends Component {
       this.state.time.length > 0
     ) {
       const token = localStorage.getItem("token");
+
+      moment(this.state.data).format("yyyy-mm-dd");
+      console.log(this.state.log, "date");
+      moment(this.state.time).format("HHMMSS");
+      console.log(this.state.log, "time");
       axios.post(
-        "http://34.65.176.55:8081/api/event/create/",
+        "http://192.168.100.228:8001/api/event/create/",
         {
+          club: "Running",
           img: this.state.img,
-          title: this.state.title,
+          name: this.state.title,
           date: this.state.date,
-          body: this.state.body,
+          description: this.state.body,
           time: this.state.time,
           location: this.state.address,
+          eventedit: [],
         },
         {
           headers: {
@@ -135,6 +143,18 @@ class ModalEvents extends Component {
     members.push("");
     this.setState({ invite: members });
   };
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevProps.time !== this.s.time) {
+  //     this.setState({ time: prevProps.time });
+
+  //     let url = `http://192.168.100.228:8001/api/event/create/&${this.props.IdEvent}/`;
+  //     const token = localStorage.getItem("token");
+  //     axios.get(url, { headers: { Authorization: token } }).then((response) => {
+  //       this.setState({ events: response.data.events });
+  //       this.setState({ numberpages: response.data.page_number });
+  //     });
+  //   }
+  // }
 
   render() {
     {
@@ -165,6 +185,7 @@ class ModalEvents extends Component {
             <div className="form-events">
               <Form.Input
                 label="Name"
+                value={this.props.name}
                 placeholder="Input placeholder"
                 error={
                   this.state.titlevalid
@@ -177,8 +198,9 @@ class ModalEvents extends Component {
                 <Form.Input
                   label="Date"
                   type="date"
+                  value={this.props.date}
                   value={this.state.date}
-                  dateformat={"yyyy/MM/dd"}
+                  dateformat="yyyy/MM/dd"
                   placeholder="Input placeholder"
                   filterDate={(date) =>
                     date.getDay() !== 6 && date.getDay() !== 0
