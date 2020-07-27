@@ -66,7 +66,7 @@ export default class CoachTable extends Component {
         },
       })
         .then((response) => {
-          this.props.coachesHandler();
+          this.coachesHandler();
         })
         .catch((error) => {
           alert(error);
