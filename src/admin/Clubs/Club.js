@@ -28,7 +28,7 @@ class Club extends Component {
   };
 
   componentDidMount() {
-    let url = "http://192.168.100.228:8001/api/club/";
+    let url = "http://34.65.176.55:8081/api/club/";
     const token = localStorage.getItem("token");
     axios
       .get(url, {
@@ -51,7 +51,7 @@ class Club extends Component {
             <Grid>
               <GridRow>
                 <GridColumn floated="left" align="left" computer="8" tablet="8">
-                  <InputSearch show={this.state.show} />
+                  <InputSearch show={this.state.show} align="right" />
                 </GridColumn>
                 <GridColumn
                   floated="right"

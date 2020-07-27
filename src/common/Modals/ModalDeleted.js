@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Button, Modal } from "semantic-ui-react";
-import checked_icon from "../../assets/checked_icon.svg";
+import { Modal } from "semantic-ui-react";
 import close_icon from "../../assets/close.svg";
 
 class ModalDeleted extends Component {
@@ -20,18 +19,18 @@ class ModalDeleted extends Component {
           <Modal.Header>
             <div>
               <img
+                alt=""
                 src={close_icon}
                 className="close-icon"
                 onClick={this.props.hideModal}
               />
             </div>
-            <h2> Delete Club </h2>
+            <h2> {this.props.title} </h2>
           </Modal.Header>
           <Modal.Content>
             <p>
-              Are you sure you want to delete {this.props.name}? If you delete
-              this club, all data associated with it will be permanently
-              deleted, including events and athletes.
+              Are you sure you want to delete {this.props.name}?{" "}
+              {this.props.description}
             </p>
           </Modal.Content>
           <Modal.Actions>

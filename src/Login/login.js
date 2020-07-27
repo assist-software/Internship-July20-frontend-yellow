@@ -11,7 +11,7 @@ class Login extends Component {
     emailValidation: true,
     password: " ",
     succes: true,
-    url: "http://192.168.100.228:8001/api/signin/",
+    url: "http://34.65.176.55:8081/api/signin/",
   };
 
   config = {
@@ -40,7 +40,7 @@ class Login extends Component {
     const user_password = this.state.password;
 
     axios
-      .post("http://192.168.100.228:8001/api/signin/", {
+      .post("http://34.65.176.55:8081/api/signin/", {
         email: user_email,
         password: user_password,
       })
