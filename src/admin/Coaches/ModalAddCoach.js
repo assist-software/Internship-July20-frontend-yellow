@@ -14,18 +14,56 @@ class ModalAddCoach extends Component {
     lastNameValidation: true,
     firstNameValidation: true,
     lastName: "",
+    nameAdded: "",
     firstName: "",
     email: "",
     id: -1,
     url: "http://34.65.176.55:8081/coaches",
   };
 
+  hideModal = () => {
+    this.setState({
+      show: false,
+      showDelete: false,
+      showAdd: false,
+    });
+  };
+  token = localStorage.getItem("token");
+  deleteItem = (deleteReceived) => {
+    if (deleteReceived) {
+      const url = `http://34.65.176.55:8081/api/coach/${this.state.idDeleted}/`;
+      Axios.delete(url, {
+        headers: {
+          Authorization: this.token,
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          this.hideModal();
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    }
+  };
+
+  hideDeleteConfirm = () => {
+    console.log(this.props.personToEdit.id);
+    this.setState({
+      idDeleted: this.props.personToEdit.id,
+      nameDeleted:
+        this.props.personToEdit.first_name +
+        " " +
+        this.props.personToEdit.first_name,
+      show: false,
+      showDelete: true,
+    });
+    this.deleteItem();
+  };
+
   Edit = () => {
     return (
-      <button
-        className="delete-button-club"
-        onClick={this.deleteClickedHandler}
-      >
+      <button className="delete-button-club" onClick={this.hideDeleteConfirm}>
         {" "}
         Detele
       </button>
@@ -59,7 +97,7 @@ class ModalAddCoach extends Component {
   };
   emailHandler = (event) => {
     if (
-      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(event.target.value)
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,5})+$/.test(event.target.value)
     ) {
       this.setState({
         emailValidation: true,
@@ -74,6 +112,12 @@ class ModalAddCoach extends Component {
 
   nameHandle = (nameReceived) => {
     this.props.nameSet(nameReceived);
+    this.setState({ nameAdded: nameReceived });
+    this.showConfirmation();
+  };
+
+  showConfirmation = () => {
+    this.props.hideAddConfirm();
   };
 
   addClickedHandler = () => {
@@ -86,39 +130,96 @@ class ModalAddCoach extends Component {
       !!this.state.lastName
     ) {
       const token = localStorage.getItem("token");
-      Axios.post(
-        "http://34.65.176.55:8081/api/coach/",
-        {
-          first_name: this.state.firstName,
-          last_name: this.state.lastName,
-          email: this.state.email,
-        },
-        {
-          headers: {
-            Authorization: token,
+
+      const url = `http://34.65.176.55:8081/api/coach/${this.props.personToEdit.id}/`;
+      if (this.props.editForm) {
+        Axios.put(
+          url,
+          {
+            first_name: this.state.firstName,
+            last_name: this.state.lastName,
+            email: this.state.email,
           },
-        }
-      ).then((response) => {
-        this.nameHandle(
-          response.data.first_name + " " + response.data.last_name
-        );
-        this.setState({ id: response.data.id });
-      });
-      this.setState({
-        email: "",
-        firstName: "",
-        lastName: "",
-      });
-      this.props.hideAddConfirm();
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        )
+          .then((response) => {
+            this.setState({
+              email: "",
+              firstName: "",
+              lastName: "",
+            });
+
+            this.hideModal();
+          })
+          .catch((error) => {
+            alert(error);
+          });
+      } else {
+        Axios.post(
+          "http://34.65.176.55:8081/api/coach/",
+          {
+            first_name: this.state.firstName,
+            last_name: this.state.lastName,
+            email: this.state.email,
+          },
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        )
+          .then((response) => {
+            this.setState(
+              {
+                nameAdded: response.data.name,
+                email: "",
+                firstName: "",
+                lastName: "",
+              },
+              function () {}
+            );
+
+            this.nameHandle(response.data.name);
+            this.setState({ id: response.data.id });
+          })
+          .catch((error) => {
+            alert(error);
+          });
+      }
     }
   };
 
+  UNSAFE_componentWillReceiveProps(nextProps, nextState) {
+    if (
+      this.props.personToEdit !== nextProps.personToEdit &&
+      nextProps.personToEdit !== null
+    ) {
+      console.log("this", this.props.personToEdit);
+      console.log("next", nextProps.personToEdit);
+      this.setState({
+        firstName: nextProps.personToEdit.first_name,
+        lastName: nextProps.personToEdit.last_name,
+        email: nextProps.personToEdit.email,
+      });
+    }
+  }
+
   exitHandler = () => {
-    this.setState({
-      email: "",
-      firstName: "",
-      lastName: "",
-    });
+    this.setState(
+      {
+        email: "",
+        firstName: "",
+        lastName: "",
+        emailValidation: true,
+        firstNameValidation: true,
+        lastNameValidation: true,
+      },
+      function () {}
+    );
     this.props.hideModal();
   };
 
@@ -129,11 +230,6 @@ class ModalAddCoach extends Component {
       lastName: "",
     });
     this.props.hideDeleteConfirm();
-  };
-
-  autoComplete = () => {
-    this.setState({ name: "Fsafs" });
-    console.log(this.props.personToEdit, "asf");
   };
 
   render() {
@@ -169,6 +265,7 @@ class ModalAddCoach extends Component {
                   label="First Name"
                   placeholder="Input placeholder"
                   width="16"
+                  defaultValue={this.state.firstName}
                 />
 
                 <Form.Input
@@ -183,6 +280,7 @@ class ModalAddCoach extends Component {
                   label="Last Name"
                   placeholder="Input placeholder"
                   width="16"
+                  defaultValue={this.state.lastName}
                 />
 
                 <Form.Input
@@ -197,6 +295,7 @@ class ModalAddCoach extends Component {
                   label="Email Addres"
                   placeholder="Input placeholder"
                   width="16"
+                  defaultValue={this.state.email}
                 />
                 <label>Club Assign</label>
                 <Input list="Club" placeholder="Input placeholder" fluid />
@@ -227,11 +326,18 @@ class ModalAddCoach extends Component {
           hideAddConfirm={this.state.showAdd}
           hideModal={this.hideModal}
           name={"Coach edited"}
-          description={"Coach name was edited"}
+          description={"testtt"}
         />
         <ModalDeleted
           hideAddConfirm={this.state.showDelete}
           hideModal={this.hideModal}
+          setName={this.nameHandle}
+          title={"Delete Coach"}
+          name={this.state.nameDeleted}
+          ConfirmDelete={this.deleteItem}
+          description={
+            "If you delete coach’s account, all data associated with this profile will permanently deleted."
+          }
         />
       </Modal>
     );

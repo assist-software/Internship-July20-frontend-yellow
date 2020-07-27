@@ -86,11 +86,11 @@ class Coach extends Component {
           hideAddConfirm={this.state.showAdd}
           hideModal={this.hideModal}
           name={"Coach added"}
-          description={this.state.name}
+          description={"Coach " + this.state.name + " was added"}
         />
         <div className="table-coach">
           <CoachTable
-            searchString={this.state.searchContent}
+            searchString={this.state.searchString}
             searchPressed={this.state.searchOk}
           />
         </div>

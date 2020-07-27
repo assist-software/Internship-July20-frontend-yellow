@@ -24,9 +24,7 @@ class ModalAdded extends Component {
             </div>
             <Image src={checked_icon} centered size="tiny" />
             <h2 className="modal-add-title"> {this.props.name} </h2>
-            <p className="modal-add-description">
-              Coach {this.props.description} was added
-            </p>
+            <p className="modal-add-description">{this.props.description}</p>
             <button
               className="button-modal-added"
               onClick={this.props.hideModal}
