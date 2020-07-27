@@ -17,6 +17,7 @@ function App() {
         <Route exact path="/clubs" component={Club} />
         <Route path="/coach" component={Coach} />
         <Route path="/events" component={Events} />
+        <Route exact path="/event/:cardId" component={SelectedEvents} />
         <Route path="/event" component={SelectedEvents} />
         <Redirect from="/" to="/clubs" />
       </Switch>

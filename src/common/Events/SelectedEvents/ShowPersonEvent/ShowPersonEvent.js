@@ -1,15 +1,6 @@
 import React, { Component } from "react";
 import "./ShowPersonEvent.css";
-import {
-  Grid,
-  GridColumn,
-  GridRow,
-  Image,
-  Icon,
-  Card,
-  CardContent,
-  Checkbox,
-} from "semantic-ui-react";
+import { Card, Checkbox } from "semantic-ui-react";
 import Avatar from "@material-ui/core/Avatar";
 // import { Checkbox } from "@material-ui/core";
 

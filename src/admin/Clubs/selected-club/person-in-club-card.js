@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  Button,
-  Card,
-  Image,
-  Grid,
-  GridColumn,
-  GridRow,
-} from "semantic-ui-react";
+import { Card, Image } from "semantic-ui-react";
 
 import "./selected-club.css";
 import PersonThumbnail from "../PersonThumbnail";
@@ -27,7 +20,7 @@ const PersonClubThumbnail = (props) => {
             circular
           />
           <Card.Header>{props.name}</Card.Header>
-          <Card.Meta>
+          <Card.Meta className="meta-custom">
             {props.gender} -{props.age} YEARS
           </Card.Meta>
           <Card.Description Content>

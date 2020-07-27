@@ -34,6 +34,8 @@
   word-wrap: break-word;
   margin-top: 0px;
   margin-right: 15px;
+
+  overflow: hidden;
 }
 .events-text h4 {
   margin-left: 14px;
@@ -65,6 +67,7 @@
   margin-left: 10px;
   margin-right: 20px;
   margin-bottom: 0px;
+  margin-top: 0px;
 }
 .events-calendar p {
   display: inline-flex;

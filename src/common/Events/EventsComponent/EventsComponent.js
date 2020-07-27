@@ -8,10 +8,11 @@ import { render } from "@testing-library/react";
 
 class EventsComponent extends Component {
   render() {
+    console.log(this.props.img2, this.props.date, "lalalaaa");
     return (
       <div className="card-events">
         <Card fluid style={({ width: "540px" }, { height: "270px" })}>
-          <Image className="events-image" src={Logo} />
+          <Image className="events-image" src={this.props.img2} />
 
           <div className="events-text">
             <div className="events-text2">

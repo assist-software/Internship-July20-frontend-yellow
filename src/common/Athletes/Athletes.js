@@ -2,14 +2,7 @@ import React, { Component } from "react";
 import "./Athletes.css";
 import InputSearch from "../InputSearch";
 import axios from "axios";
-import {
-  Grid,
-  GridColumn,
-  GridRow,
-  Icon,
-  Pagination,
-  InputForm,
-} from "semantic-ui-react";
+import { Icon, Pagination } from "semantic-ui-react";
 import PersonClubThumbnail from "../../admin/Clubs/selected-club/person-in-club-card";
 import ModalAthletes from "./ModalAthletes/ModalAthletes";
 import ModalAdded from "../Modals/ModalAdded";
@@ -59,14 +52,12 @@ class Athletes extends Component {
     });
   };
   componentDidMount() {
-    let url = "http://192.168.100.228:8001/api/athlete/";
+    let url = "http://34.65.176.55:8081/api/athlete/";
     const token = localStorage.getItem("token");
-    axios
-      .get(url, { headers: { Authorization: token } }, { params: { page: 1 } })
-      .then((response) => {
-        this.setState({ athletes: response.data.athletes });
-        console.log(response.data);
-      });
+    axios.get(url, { headers: { Authorization: token } }).then((response) => {
+      this.setState({ athletes: response.data });
+      console.log(response.data);
+    });
   }
 
   setNumPage = (event, { activePage }) => {
@@ -95,16 +86,14 @@ class Athletes extends Component {
   render() {
     return (
       <div className="athletes-page">
-        <div className="athletes-paragraph">
+        <div className="bottom-content-athletes">
           <h2>Athletes</h2>
-        </div>
-
-        <div className="grid-athletes">
-          <InputSearch />
-
-          <button className="but-new-athletes" onClick={this.handleOpenModal}>
-            ADD NEW
-          </button>
+          <div className="grid-athletes">
+            <InputSearch />
+            <button className="but-new-athletes" onClick={this.handleOpenModal}>
+              ADD NEW
+            </button>
+          </div>
         </div>
         <ModalAthletes
           NameModalAthletes="Add Athlete"
