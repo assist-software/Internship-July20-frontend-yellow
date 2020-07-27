@@ -51,7 +51,7 @@ class Club extends Component {
             <Grid>
               <GridRow>
                 <GridColumn floated="left" align="left" computer="8" tablet="8">
-                  <InputSearch show={this.state.show} align="right" />
+                  <InputSearch show={this.state.show} align="left" />
                 </GridColumn>
                 <GridColumn
                   floated="right"

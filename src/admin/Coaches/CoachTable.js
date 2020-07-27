@@ -9,8 +9,6 @@ import ModalAdded from "../../common/Modals/ModalAdded";
 import ModalDeleted from "../../common/Modals/ModalDeleted";
 import Axios from "axios";
 import { Pagination } from "semantic-ui-react";
-import Coach from "./Coach";
-import { Redirect } from "react-router-dom";
 
 export default class CoachTable extends Component {
   state = {
@@ -19,6 +17,7 @@ export default class CoachTable extends Component {
     direction: null,
     show: false,
     showAdd: false,
+    search: "",
     showDelete: false,
     coaches: [],
     page: 1,
@@ -41,7 +40,6 @@ export default class CoachTable extends Component {
       show: true,
       personToEdit: prs,
     });
-    this.addCoach.current.autoComplete();
   };
 
   showModal = () => {
@@ -56,19 +54,6 @@ export default class CoachTable extends Component {
       show: false,
       showDelete: false,
       showAdd: false,
-    });
-  };
-
-  hideAddConfirm = () => {
-    Axios.get("http://34.65.176.55:8081/api/coach/<int:id>/", {
-      headers: {
-        Authorization: this.token,
-      },
-    }).then((response) => {
-      this.setState({
-        nameDeleted: response.data.first_name + " " + response.data.last_name,
-      });
-      this.setState({ id: response.data.id });
     });
   };
 
@@ -91,15 +76,11 @@ export default class CoachTable extends Component {
         this.state.coaches_page[index].first_name +
         " " +
         this.state.coaches_page[index].first_name,
-    });
-
-    this.setState({
       show: false,
       showDelete: true,
     });
     this.deleteItem();
   };
-  addCoach = React.createRef();
 
   editHandler = (e, index) => {
     this.setState(
@@ -131,8 +112,30 @@ export default class CoachTable extends Component {
     });
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.searchString !== this.props.searchString) {
+      this.setState({ search: this.props.searchString }, function () {});
+      let url = `http://34.65.176.55:8081/api/coach/?page=1&search=${this.props.searchString}&limit=10/`;
+      const token = localStorage.getItem("token");
+      Axios.get(
+        url,
+
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      ).then((response) => {
+        this.setState({ coaches_page: response.data.coaches });
+
+        this.setState({ numberPages: response.data.page_number });
+        console.log(response.data);
+      });
+    }
+  }
+
   componentDidMount() {
-    let url = `http://34.65.176.55:8081/api/coach/?page=1&limit=10/`;
+    let url = `http://34.65.176.55:8081/api/coach/?page=1&search=${this.props.searchString}&limit=10/`;
 
     const token = localStorage.getItem("token");
 
@@ -154,7 +157,7 @@ export default class CoachTable extends Component {
 
   setNumPage = (event, { activePage }) => {
     this.setState({ page: activePage });
-    let url = `http://192.168.100.228:8001/api/coach/?page=${activePage}&limit=10/`;
+    let url = `http://34.65.176.55:8081/api/coach/?page=${activePage}&search=${this.state.search}&limit=10/`;
     Axios.get(url, {
       headers: {
         Authorization: this.token,
@@ -228,7 +231,6 @@ export default class CoachTable extends Component {
         />
         <ModalAddCoach
           personToEdit={this.state.personToEdit}
-          ref={this.addCoach}
           showModal={this.state.show}
           hideModal={this.hideModal}
           hideAddConfirm={this.hideAddConfirm}
@@ -238,12 +240,7 @@ export default class CoachTable extends Component {
           action={"Save"}
           editForm={true}
         />
-        <ModalAdded
-          hideAddConfirm={this.state.showAdd}
-          hideModal={this.hideModal}
-          name={"Coach edited"}
-          description={"Coach was edited"}
-        />
+
         <ModalDeleted
           hideAddConfirm={this.state.showDelete}
           hideModal={this.hideModal}
