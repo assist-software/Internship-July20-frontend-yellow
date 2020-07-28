@@ -16,6 +16,7 @@ class Athletes extends Component {
     showAdd: false,
     athletes: [],
     page: 1,
+    numberpages: 0,
   };
 
   handleOpenModal = () => {
@@ -51,14 +52,28 @@ class Athletes extends Component {
     });
   };
   componentDidMount() {
-    let url = "http://34.65.176.55:8081/api/athlete/";
+    let url = `http://192.168.100.228:8001/api/athlete/?page=1&limit=10`;
     const token = localStorage.getItem("token");
     axios.get(url, { headers: { Authorization: token } }).then((response) => {
       this.setState({ athletes: response.data });
-      console.log(response.data);
+      this.setState({ numberpages: response.data.page_number });
     });
   }
-
+  setNumPage = (event, { activePage }) => {
+    this.setState({ page: activePage });
+    let url = `http://192.168.100.228:8001/api/athlete/?page=${activePage}&time=${this.state.time}&limit=10/`;
+    const token = localStorage.getItem("token");
+    axios
+      .get(url, {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then((response) => {
+        this.setState({ athletess: response.data });
+        this.setState({ numberpages: response.data.page_number });
+      });
+  };
   render() {
     return (
       <div className="athletes-page">
@@ -104,22 +119,8 @@ class Athletes extends Component {
         </div>
         <div className="pagination-athletes">
           <Pagination
-            defaultActivePage={5}
-            ellipsisItem={{
-              content: <Icon name="ellipsis horizontal" />,
-              icon: true,
-            }}
-            firstItem={{
-              content: <Icon name="angle double left" />,
-              icon: true,
-            }}
-            lastItem={{
-              content: <Icon name="angle double right" />,
-              icon: true,
-            }}
-            prevItem={{ content: <Icon name="angle left" />, icon: true }}
-            nextItem={{ content: <Icon name="angle right" />, icon: true }}
-            totalPages={10}
+            defaultActivePage={1}
+            totalPages={this.state.numberpages}
             onPageChange={this.setNumPage}
             activePage={this.state.page}
           />

@@ -94,7 +94,7 @@ class ModalEvents extends Component {
       const token = localStorage.getItem("token");
 
       if (this.props.NameModalEvents === "Edit Event") {
-        const url = `http://34.65.176.55:8081/api/event/put/${this.props.eventselected.id}/`;
+        const url = `http://192.168.100.228:8001/api/event/put/${this.props.eventselected.id}/`;
         axios
           .put(
             url,
