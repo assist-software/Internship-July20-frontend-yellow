@@ -5,6 +5,7 @@ import "./selected-club.css";
 import PersonThumbnail from "../PersonThumbnail";
 
 const PersonClubThumbnail = (props) => {
+  console.log("id", props.idClub);
   const [show, setShow] = useState(false);
   const hideModal = () => {
     setShow(false);
@@ -47,6 +48,9 @@ const PersonClubThumbnail = (props) => {
         gender={props.gender}
         primary_sport={props.primary_sport}
         secondary_sport={props.secondary_sport}
+        idUser={props.idUser}
+        idClub={props.idClub}
+        requested={props.requested}
       />
     </div>
   );

@@ -18,6 +18,7 @@ class SelectedClub extends Component {
     showAdd: false,
     members: [],
     clubDetails: "",
+    request: false,
     owner: "",
     page: 1,
     numberPages: 1,
@@ -63,9 +64,10 @@ class SelectedClub extends Component {
       }
     )
       .then((response) => {
-        console.log("responsepage", response.data);
         this.setState({
+          request: true,
           members: response.data.Members,
+          clubDetails: response.data.Club_details,
           numberPages: response.data.page_number,
         });
       })
@@ -87,8 +89,8 @@ class SelectedClub extends Component {
       }
     )
       .then((response) => {
-        console.log("responsepage", response.data);
         this.setState({
+          request: false,
           members: response.data.Members,
           clubDetails: response.data.Club_details,
           owner: response.data.Club_details.id_Owner,
@@ -112,8 +114,14 @@ class SelectedClub extends Component {
 
   searchStringHandler = (e) => {
     this.setState({ searchString: e.target.value });
-    this.membersHandler();
   };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.searchString !== this.state.searchString) {
+      if (this.state.request) this.requestedMembersHandler();
+      else this.membersHandler();
+    }
+  }
 
   hideDeleteConfirm = () => {
     this.setState({
@@ -125,13 +133,12 @@ class SelectedClub extends Component {
   setNumPage = (event, { activePage }) => {
     const token = localStorage.getItem("token");
     this.setState({ page: activePage });
-    let url = `http://34.65.176.55:8081/api/club/${this.id}/?page=${this.activePage}&search=${this.state.searchString}`;
+    let url = `http://34.65.176.55:8081/api/club/${this.id}/?page=${activePage}&search=${this.state.searchString}`;
     Axios.get(url, {
       headers: {
         Authorization: token,
       },
     }).then((response) => {
-      console.log("responsepage", response.data);
       this.setState({
         members: response.data.Members,
         clubDetails: response.data.Club_details,
@@ -142,6 +149,12 @@ class SelectedClub extends Component {
   };
 
   render() {
+    var clubid = 0;
+    if (this.state.request === false) {
+      clubid = 0;
+    } else {
+      clubid = this.state.clubDetails.id;
+    }
     return (
       <div className="selected-club-main">
         <div className="header-selected-club">
@@ -215,25 +228,31 @@ class SelectedClub extends Component {
           />
           <div className="persons-grid">
             {this.state.members &&
-              this.state.members.map((member, index) => (
-                <PersonClubThumbnail
-                  name={
-                    member.id_User.first_name + " " + member.id_User.last_name
-                  }
-                  gender={member.id_User.gender === 0 ? "male" : "female"}
-                  age={member.id_User.age}
-                  primary_sport={
-                    member.id_User.primary_sport
-                      ? member.id_User.primary_sport.description
-                      : "none"
-                  }
-                  secondary_sport={
-                    member.id_User.secondary_sport
-                      ? member.id_User.secondary_sport.description
-                      : "none"
-                  }
-                />
-              ))}
+              this.state.members.map((member, index) => {
+                console.log(this.clubid, "asfs");
+                return (
+                  <PersonClubThumbnail
+                    name={
+                      member.id_User.first_name + " " + member.id_User.last_name
+                    }
+                    gender={member.id_User.gender === 0 ? "male" : "female"}
+                    age={member.id_User.age}
+                    primary_sport={
+                      member.id_User.primary_sport
+                        ? member.id_User.primary_sport.description
+                        : "none"
+                    }
+                    requested={this.state.request}
+                    idUser={member.id_User.email}
+                    idClub={this.state.clubDetails.id}
+                    secondary_sport={
+                      member.id_User.secondary_sport
+                        ? member.id_User.secondary_sport.description
+                        : "none"
+                    }
+                  />
+                );
+              })}
           </div>
         </div>
         <div className="pagination-numbers">

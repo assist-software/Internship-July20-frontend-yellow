@@ -48,7 +48,6 @@ class ModalAddCoach extends Component {
   };
 
   hideDeleteConfirm = () => {
-    console.log(this.props.personToEdit.id);
     this.setState({
       idDeleted: this.props.personToEdit.id,
       nameDeleted:
@@ -199,8 +198,6 @@ class ModalAddCoach extends Component {
       this.props.personToEdit !== nextProps.personToEdit &&
       nextProps.personToEdit !== null
     ) {
-      console.log("this", this.props.personToEdit);
-      console.log("next", nextProps.personToEdit);
       this.setState({
         firstName: nextProps.personToEdit.first_name,
         lastName: nextProps.personToEdit.last_name,

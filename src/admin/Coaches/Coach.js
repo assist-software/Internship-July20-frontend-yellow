@@ -21,7 +21,7 @@ class Coach extends Component {
 
   constructor(props) {
     super(props);
-    //this.childTable = React.createRef();
+    this.childTable = React.createRef();
   }
 
   nameHandle = (nameReceived) => {
