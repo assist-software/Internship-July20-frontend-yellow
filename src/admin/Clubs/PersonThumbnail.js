@@ -17,8 +17,10 @@ class PersonThumbnail extends Component {
           <Modal.Content>
             <img src={personImage} className="person-image" />
             <div className="person-info">
-              <label className="person-name">Lily Jones</label>
-              <p className="person-details">Female - 28 years</p>
+              <label className="person-name">{this.props.name}</label>
+              <p className="person-details">
+                {this.props.gender} - {this.props.age}
+              </p>
             </div>
             <div className="person-sports-div">
               <hr className="person-hr" />
@@ -28,8 +30,8 @@ class PersonThumbnail extends Component {
                 <label>Secondary sport</label>
               </div>
               <div className="person-sport">
-                <label>biking</label>
-                <label>Swimming</label>
+                <label>{this.props.primary_sport}</label>
+                <label>{this.props.secondary_sport}</label>
               </div>
               <hr className="person-hr" />
             </div>

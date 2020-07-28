@@ -3,14 +3,20 @@ import InputSearch from "../../common/InputSearch";
 import InputForm from "./ModalAddClub/ModalAddClub";
 import { Link } from "react-router-dom";
 import ClubThumbnail from "./ClubThumbnail";
-import { Grid, GridRow } from "semantic-ui-react";
+import { Grid, GridRow, Input } from "semantic-ui-react";
 import { GridColumn } from "semantic-ui-react";
 import ModalAdded from "../../common/Modals/ModalAdded";
 import axios from "axios";
 import "./Club.css";
 
 class Club extends Component {
-  state = { show: false, showAdd: false, clubs: [] };
+  state = {
+    show: false,
+    showAdd: false,
+    clubs: [],
+    searchString: "",
+    clubAdded: "",
+  };
 
   showModal = () => {
     this.setState({ show: true });
@@ -27,8 +33,13 @@ class Club extends Component {
     });
   };
 
-  componentDidMount() {
-    let url = "http://34.65.176.55:8081/api/club/";
+  searchStringHandler = (e) => {
+    this.setState({ searchString: e.target.value });
+    this.getClub();
+  };
+
+  getClub = () => {
+    let url = `http://34.65.176.55:8081/api/club/?search=${this.state.searchString}`;
     const token = localStorage.getItem("token");
     axios
       .get(url, {
@@ -37,9 +48,17 @@ class Club extends Component {
         },
       })
       .then((response) => {
-        console.log(response, "clvu");
+        console.log(response.data);
         this.setState({ clubs: response.data });
       });
+  };
+
+  setClubAdded = (response) => {
+    this.setState({ clubAdded: response });
+  };
+
+  componentDidMount() {
+    this.getClub();
   }
 
   render() {
@@ -51,7 +70,17 @@ class Club extends Component {
             <Grid>
               <GridRow>
                 <GridColumn floated="left" align="left" computer="8" tablet="8">
-                  <InputSearch show={this.state.show} align="right" />
+                  <Input
+                    className="search-bar"
+                    icon={{
+                      name: "search",
+                      circular: true,
+                      link: true,
+                      onClick: this.searchHandler,
+                    }}
+                    onChange={this.searchStringHandler}
+                    placeholder="Search..."
+                  />
                 </GridColumn>
                 <GridColumn
                   floated="right"
@@ -72,15 +101,14 @@ class Club extends Component {
               name={"Add Club"}
               action={"Add"}
               editForm={false}
+              clubAdded={this.setClubAdded}
               object={[]}
             />
             <ModalAdded
               hideAddConfirm={this.state.showAdd}
               hideModal={this.hideModal}
               name={"Club added"}
-              description={
-                "Your club with name “Biking Club” has been succesfully added in the system."
-              }
+              description={`Your club with name ${this.state.clubAdded} has been succesfully added in the system.`}
               object={this.props.object}
             />
             <div className="grid-container">
@@ -90,9 +118,12 @@ class Club extends Component {
                     <ClubThumbnail
                       key={index}
                       name={club.name}
-                      coach={club.first_name + " " + club.last_name}
+                      coach={
+                        club.id_Owner.first_name + " " + club.id_Owner.last_name
+                      }
                       className="grid-item"
-                      number={club.members}
+                      number={club}
+                      id={index}
                     />
                   </Link>
                 ))}

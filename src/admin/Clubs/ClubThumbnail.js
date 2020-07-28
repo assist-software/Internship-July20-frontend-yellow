@@ -3,8 +3,6 @@ import React from "react";
 import "./Club.css";
 
 import GroupAvatars from "../../common/Avatar";
-import { Link } from "react-router-dom";
-import Club from "./Club";
 
 const ClubThumbnail = (props) => {
   return (
@@ -12,8 +10,8 @@ const ClubThumbnail = (props) => {
       <h3>{props.name}</h3>
       <h5>MEMBERS</h5>
       <GroupAvatars number={props.number} />
-      <p>Coach</p>
-      <p>{props.coach}</p>
+      <p className="coach-p">Coach</p>
+      <p className="coach-name-p">{props.coach}</p>
     </div>
   );
 };

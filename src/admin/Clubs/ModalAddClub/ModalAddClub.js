@@ -41,6 +41,10 @@ class InputForm extends Component {
     });
   };
 
+  setClubAdded = () => {
+    this.props.clubAdded(this.state.name);
+  };
+
   Results = () =>
     this.state.invitedMember.map((item, index) => {
       return (
@@ -104,6 +108,7 @@ class InputForm extends Component {
     )
       Axios.post(
         "http://34.65.176.55:8081/api/club/",
+        //"http://192.168.100.228:8001/api/club/",
         {
           name: this.state.name,
           coach: this.state.coach,
@@ -113,10 +118,14 @@ class InputForm extends Component {
             Authorization: token,
           },
         }
-      ).then((response) => {
-        console.log(response);
-        this.props.hideAddConfirm();
-      });
+      )
+        .then((response) => {
+          this.setClubAdded();
+          this.props.hideAddConfirm();
+        })
+        .catch((error) => {
+          alert(error);
+        });
   };
 
   deleteClickedHandler = () => {
@@ -132,7 +141,7 @@ class InputForm extends Component {
   };
 
   componentDidMount() {
-    let url = `http://192.168.100.228:8001/api/coach/`;
+    let url = "http://34.65.176.55:8081/api/coach/";
     const token = localStorage.getItem("token");
 
     Axios.get(
@@ -141,11 +150,6 @@ class InputForm extends Component {
       {
         headers: {
           Authorization: token,
-        },
-      },
-      {
-        params: {
-          page: 1,
         },
       }
     ).then((response) => {
