@@ -5,6 +5,7 @@ import { Modal, Form, Icon } from "semantic-ui-react";
 import "./ModalAthletes.css";
 import axios from "axios";
 import close_icon from "../../../assets/close.svg";
+import ModalAdded from "../../Modals/ModalAdded";
 
 class ModalAthletes extends Component {
   state = {
@@ -17,6 +18,7 @@ class ModalAthletes extends Component {
     locationvalid: true,
     heightvalid: true,
     weightvalid: true,
+    clubvalid: true,
     sports: [],
     name: "",
     email: "",
@@ -26,10 +28,12 @@ class ModalAthletes extends Component {
     age: "",
     height: "",
     weight: "",
+    clubs: [],
+    club: "",
   };
   optionsGender = [
-    { key: "m", text: "Male", value: "male" },
-    { key: "f", text: "Female", value: "female" },
+    { key: "m", text: "Male", value: "Male" },
+    { key: "f", text: "Female", value: "Female" },
   ];
   NameHandler = (data) => {
     if (/^[a-zA-Z ]+$/.test(data.target.value)) {
@@ -62,37 +66,45 @@ class ModalAthletes extends Component {
     }
   };
 
-  PsportHandler = (data) => {
+  PsportHandler = (data, { value }) => {
     if (/^[a-zA-Z ]+$/.test(data.target.value)) {
       this.setState({ psportvalid: true });
-      this.setState({ psport: data.target.value });
+      this.setState({ psport: value });
     } else {
       this.setState({ psportvalid: false });
     }
   };
 
-  SsportHandler = (data) => {
+  SsportHandler = (data, { value }) => {
     if (/^[a-zA-Z ]+$/.test(data.target.value)) {
       this.setState({ ssportvalid: true });
-      this.setState({ ssport: data.target.value });
+      this.setState({ ssport: value });
     } else {
       this.setState({ ssportvalid: false });
     }
   };
 
-  GenderHandler = (data) => {
+  GenderHandler = (data, { value }) => {
     if (/^[a-zA-Z]+$/.test(data.target.value)) {
       this.setState({ gendervalid: true });
-      this.setState({ gender: data.target.value });
+
+      this.setState({ gender: value });
     } else {
       this.setState({ gendervalid: false });
     }
   };
-
+  ClubHandler = (data, { value }) => {
+    if (/^[a-zA-Z ]+$/.test(data.target.value)) {
+      this.setState({ clubvalid: true });
+      this.setState({ club: value });
+    } else {
+      this.setState({ clubvalid: false });
+    }
+  };
   HeightHandler = (data) => {
     if (
       /[1-2][0-90-9]+$/.test(data.target.value) &&
-      data.target.value.length < 4
+      data.target.value.length === 3
     ) {
       this.setState({ heightvalid: true });
       this.setState({ height: data.target.value });
@@ -102,10 +114,7 @@ class ModalAthletes extends Component {
   };
 
   WeightHandler = (data) => {
-    if (
-      /[1-3][0-90-9]+$/.test(data.target.value) &&
-      data.target.value.length < 4
-    ) {
+    if (/[1-9][0-90-9]+$/.test(data.target.value) && data.target.value < 400) {
       this.setState({ weightvalid: true });
       this.setState({ weight: data.target.value });
     } else {
@@ -114,7 +123,7 @@ class ModalAthletes extends Component {
   };
 
   componentDidMount() {
-    let url = "http://192.168.100.228:8001/api/sports/";
+    let url = "http://34.65.176.55:8081/api/sports/";
     const token = localStorage.getItem("token");
     axios.get(url, { headers: { Authorization: token } }).then((response) => {
       let sport =
@@ -131,6 +140,25 @@ class ModalAthletes extends Component {
       this.setState({ sports: sport });
       console.log(this.state.sports, "asfuysaf");
     });
+    {
+      let url = "http://34.65.176.55:8081/api/club/clubs/";
+      const token = localStorage.getItem("token");
+      axios.get(url, { headers: { Authorization: token } }).then((response) => {
+        let club =
+          response &&
+          response.data &&
+          response.data.map((item, index) => {
+            return {
+              key: item.id,
+              text: item.name,
+              value: item.name,
+            };
+          });
+        console.log(response.data, "aaaaa");
+        this.setState({ clubs: club });
+        console.log(this.state.clubs, "sport");
+      });
+    }
   }
   addClickedHandler = () => {
     if (
@@ -147,7 +175,7 @@ class ModalAthletes extends Component {
     ) {
       const token = localStorage.getItem("token");
       axios.post(
-        "http://192.168.100.228:8001/api/athlete/",
+        "http://34.65.176.55:8081/api/athlete/",
         {
           name: this.state.name,
           email: this.state.email,
@@ -212,6 +240,17 @@ class ModalAthletes extends Component {
         close={this.props.handleCloseModal}
         className="modal-athletes"
       >
+        <ModalAdded
+          hideAddConfirm={this.state.showAdd}
+          hideModal={this.hideModal}
+          name={"Event Added"}
+          description={
+            "Athlete" + this.state.name + "was added on" + this.state.club
+          }
+          NameAthlete={this.state.name}
+          ClubAthlete={this.state.club}
+        />
+
         <Modal.Content>
           <Form>
             <div>
@@ -284,8 +323,10 @@ class ModalAthletes extends Component {
                 <p>Personal Information </p>
                 <Form.Group widths="equal">
                   <Form.Select
+                    id="gender"
                     fluid
                     label="Gender"
+                    value={this.state.gender}
                     placeholder="Input placeholder"
                     options={this.optionsGender}
                     error={
@@ -316,7 +357,7 @@ class ModalAthletes extends Component {
                     error={
                       this.state.heightvalid
                         ? null
-                        : "The field can not be empty and must contain only digits.The maximum value is 299"
+                        : "The field can not be empty and must contain minimum 3 digits.The maximum value is 299"
                     }
                     onChange={this.HeightHandler}
                   />
@@ -333,9 +374,11 @@ class ModalAthletes extends Component {
                   />
                 </Form.Group>
                 <Form.Select
+                  options={this.state.clubs || []}
                   className="input-description"
                   label="Assign to a club"
                   placeholder="Input placeholder"
+                  onChange={this.ClubHandler}
                 />
                 <h3>Avatar Image</h3>
                 <Dropzone onDrop={(files) => console.log(files)}>

@@ -18,6 +18,7 @@ class ModalEvents extends Component {
     bodyvalid: true,
     timevalid: true,
     datevalid: true,
+    clubvalid: true,
     title: "",
     body: "",
     date: "",
@@ -27,8 +28,17 @@ class ModalEvents extends Component {
     img: "",
     address: "",
     invite: [],
+    clubs: [],
+    club: "",
   };
-
+  ClubHandler = (data, { value }) => {
+    if (/^[a-zA-Z ]+$/.test(data.target.value)) {
+      this.setState({ clubvalid: true });
+      this.setState({ club: value });
+    } else {
+      this.setState({ clubvalid: false });
+    }
+  };
   handleChange = (address) => {
     this.setState({ address });
   };
@@ -94,7 +104,7 @@ class ModalEvents extends Component {
       const token = localStorage.getItem("token");
 
       if (this.props.NameModalEvents === "Edit Event") {
-        const url = `http://192.168.100.228:8001/api/event/put/${this.props.eventselected.id}/`;
+        const url = `http://34.65.176.55:8081/api/event/put/${this.props.eventselected.id}/`;
         axios
           .put(
             url,
@@ -106,6 +116,7 @@ class ModalEvents extends Component {
               description: this.state.body,
               time: this.state.time,
               location: this.state.address,
+              club: this.state.club,
             },
             {
               headers: {
@@ -136,7 +147,7 @@ class ModalEvents extends Component {
         moment(this.state.time).format("HHMMSS");
         console.log(this.state.log, "time");
         axios.post(
-          "http://192.168.100.228:8001/api/event/create/",
+          "http://34.65.176.55:8081/api/event/create/",
           {
             club: "Running",
             img: this.state.img,
@@ -145,6 +156,7 @@ class ModalEvents extends Component {
             description: this.state.body,
             time: this.state.time,
             location: this.state.address,
+            club: this.state.club,
           },
           {
             headers: {
@@ -197,6 +209,25 @@ class ModalEvents extends Component {
         time: nextProps.eventselected.time,
       });
     }
+  }
+  componentDidMount() {
+    let url = "http://34.65.176.55:8081/api/club/clubs/";
+    const token = localStorage.getItem("token");
+    axios.get(url, { headers: { Authorization: token } }).then((response) => {
+      let club =
+        response &&
+        response.data &&
+        response.data.map((item, index) => {
+          return {
+            key: item.id,
+            text: item.name,
+            value: item.name,
+          };
+        });
+      console.log(response.data, "aaaaa");
+      this.setState({ clubs: club });
+      console.log(this.state.clubs, "asfuysaf");
+    });
   }
 
   render() {
@@ -315,6 +346,13 @@ class ModalEvents extends Component {
                   this.state.bodyvalid ? null : "The field can not be empty "
                 }
                 onChange={this.BodyHandler}
+              />
+              <Form.Select
+                options={this.state.clubs || []}
+                className="input-description"
+                label="Assign to a club"
+                placeholder="Input placeholder"
+                onChange={this.ClubHandler}
               />
 
               <div className="invite-optional">

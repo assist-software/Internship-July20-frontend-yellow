@@ -147,6 +147,7 @@
   margin-top: 5px;
   float: right;
   margin-right: 0px;
+  margin-left: 400px;
 }
 .event-button-edit:focus {
   border-radius: 8px;
