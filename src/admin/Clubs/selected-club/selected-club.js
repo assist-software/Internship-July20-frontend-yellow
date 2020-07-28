@@ -232,6 +232,7 @@ class SelectedClub extends Component {
                 console.log(this.clubid, "asfs");
                 return (
                   <PersonClubThumbnail
+                    key=""
                     name={
                       member.id_User.first_name + " " + member.id_User.last_name
                     }
@@ -257,7 +258,6 @@ class SelectedClub extends Component {
         </div>
         <div className="pagination-numbers">
           <Pagination
-            defaultActivePage={1}
             activePage={this.state.page}
             totalPages={this.state.numberPages}
             onPageChange={this.setNumPage}
