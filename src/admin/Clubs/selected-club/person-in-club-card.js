@@ -23,7 +23,7 @@ const PersonClubThumbnail = (props) => {
           <Card.Meta className="meta-custom">
             {props.gender} -{props.age} YEARS
           </Card.Meta>
-          <Card.Description Content>
+          <Card.Description content>
             <div className="grid-sports">
               <label className="card-first-line-label">Primary sport</label>
               <label className="card-first-line-label">Secondary sport</label>

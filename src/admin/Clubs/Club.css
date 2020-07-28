@@ -49,6 +49,7 @@
 .grid-container {
   display: flex;
   flex-wrap: wrap;
+  grid-template-columns: auto auto auto;
 }
 
 .grid-item {
