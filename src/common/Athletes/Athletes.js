@@ -128,7 +128,7 @@ class Athletes extends Component {
           hideAddConfirm={this.state.showAdd}
           hideModal={this.hideModal}
           name={"Athlete Added"}
-          description={"Athlete {this.name} was added on {this.clubName}"}
+          description={"Athlete" + this.name + "was added on" + this.clubName}
         />
         <div className="persons-atheltes">
           {this.state.athletes &&

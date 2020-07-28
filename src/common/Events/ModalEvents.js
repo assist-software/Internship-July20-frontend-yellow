@@ -104,12 +104,16 @@ class ModalEvents extends Component {
       const token = localStorage.getItem("token");
 
       if (this.props.NameModalEvents === "Edit Event") {
+        moment(this.state.data).format("yyyy-mm-dd");
+        console.log(this.state.log, "date");
+        moment(this.state.time).format("HHMMSS");
+        console.log(this.state.log, "time");
+        console.log(this.state.club, "real club");
         const url = `http://34.65.176.55:8081/api/event/put/${this.props.eventselected.id}/`;
         axios
           .put(
             url,
             {
-              club: "Running",
               img: this.state.img,
               name: this.state.title,
               date: this.state.date,
@@ -134,9 +138,10 @@ class ModalEvents extends Component {
               participants: "",
               img: "",
               address: "",
+              club: "",
             });
 
-            this.hideModal();
+            this.props.hideAddConfirm();
           })
           .catch((error) => {
             alert(error);
@@ -149,7 +154,6 @@ class ModalEvents extends Component {
         axios.post(
           "http://34.65.176.55:8081/api/event/create/",
           {
-            club: "Running",
             img: this.state.img,
             name: this.state.title,
             date: this.state.date,
@@ -200,13 +204,14 @@ class ModalEvents extends Component {
       console.log("this", this.props.eventselected);
       console.log("next", nextProps.eventselected);
       moment(this.state.data).format("dd-mm-yyyy");
-
+      console.log(this.state.club, "real ");
       this.setState({
         title: nextProps.eventselected.name,
-        location: nextProps.eventselected.location,
-        body: nextProps.eventselected.desciption,
+        location: nextProps.eventselected.address,
+        body: nextProps.eventselected.description,
         date: nextProps.eventselected.date,
         time: nextProps.eventselected.time,
+        club: nextProps.eventselected.club,
       });
     }
   }
