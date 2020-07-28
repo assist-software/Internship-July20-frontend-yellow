@@ -1,7 +1,7 @@
 .modal-events {
   position: absolute;
 
-  height: 1000px;
+  min-height: 1050px;
   background: #ffffff;
   border: 1px solid #8e9296;
   box-sizing: border-box;
@@ -62,8 +62,9 @@
   border: 1px solid #cad2e2;
 }
 .button-add-events {
-  margin-left: 240px;
+  float: right;
   display: flex;
+  margin-top: 60px;
 }
 .button-add-event:hover {
   border-radius: 8px;
@@ -226,8 +227,10 @@
   cursor: pointer;
 }
 .buttons-features {
-  display: flex;
-  margin-top: 30px;
+  width: 100px;
+  margin-left: 0px;
+  display: inline-flex;
+  margin-top: 60px;
 }
 .button-delete-event {
   cursor: pointer;

@@ -33,7 +33,7 @@
   border-radius: 5px;
   border: solid 1px;
   flex-direction: row;
-  height: 46px;
+  height: 40px;
   font-size: 14px;
   font-style: inherit;
   font-weight: 600;
@@ -42,7 +42,11 @@
   background-color: white;
   cursor: pointer;
 }
-
+.search-bar-events {
+  left: 15px;
+  width: 330px;
+  height: 40px;
+}
 .but:hover {
   background-color: black;
   color: white;
@@ -72,11 +76,10 @@
   text-align: center;
   color: #44dabd;
   padding: 5px;
-  margin-top: 16px;
   border-radius: 8px;
-  width: 177px;
-  height: 46px;
-  margin-left: 430px;
+  width: 150px;
+  height: 40px;
+  margin-left: 520px;
   margin-top: 20px;
   cursor: pointer;
 }

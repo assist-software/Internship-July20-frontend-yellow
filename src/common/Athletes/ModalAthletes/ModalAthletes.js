@@ -94,7 +94,7 @@ class ModalAthletes extends Component {
     }
   };
   ClubHandler = (data, { value }) => {
-    if (/^[a-zA-Z ]+$/.test(data.target.value)) {
+    if (value !== "") {
       this.setState({ clubvalid: true });
       this.setState({ club: value });
     } else {
@@ -121,7 +121,12 @@ class ModalAthletes extends Component {
       this.setState({ weightvalid: false });
     }
   };
-
+  AthleteIsAdded = () => {
+    this.props.addAthlete(this.state.name);
+  };
+  AddInClub = () => {
+    this.props.inClub(this.state.club);
+  };
   componentDidMount() {
     let url = "http://34.65.176.55:8081/api/sports/";
     const token = localStorage.getItem("token");
@@ -174,36 +179,37 @@ class ModalAthletes extends Component {
       this.state.weight.length > 0
     ) {
       const token = localStorage.getItem("token");
-      axios.post(
-        "http://34.65.176.55:8081/api/athlete/",
-        {
-          name: this.state.name,
-          email: this.state.email,
-          primary_sport: this.state.psport,
-          secondary_sport: this.state.ssport,
-          gender: this.state.gender,
-          age: this.state.age,
-          height: this.state.height,
-          weight: this.state.weight,
-        },
-        {
-          headers: {
-            Authorization: token,
+      axios
+        .post(
+          "http://34.65.176.55:8081/api/athlete/",
+          {
+            name: this.state.name,
+            email: this.state.email,
+            primary_sport: this.state.psport,
+            secondary_sport: this.state.ssport,
+            gender: this.state.gender,
+            age: this.state.age,
+            height: this.state.height,
+            weight: this.state.weight,
           },
-        }
-      );
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        )
+        .then((response) => {
+          this.AthleteIsAdded();
+          this.AddInClub();
+        })
+        .catch((error) => {
+          alert(error);
+        });
 
-      this.setState({
-        img: "",
-        name: "",
-        gender: "",
-        age: "",
-        psport: "",
-        ssport: "",
-      });
       this.props.hideAddConfirm();
     }
   };
+
   cancelClickedHandler = () => {
     {
       this.setState({ img: "" });
@@ -231,6 +237,11 @@ class ModalAthletes extends Component {
   deleteClickedHandler = () => {
     this.props.hideDeleteConfirm();
   };
+  nameHandle = (nameReceived) => {
+    this.props.nameSet(nameReceived);
+    this.setState({ nameAdded: nameReceived });
+    this.showConfirmation();
+  };
 
   render() {
     return (
@@ -240,17 +251,6 @@ class ModalAthletes extends Component {
         close={this.props.handleCloseModal}
         className="modal-athletes"
       >
-        <ModalAdded
-          hideAddConfirm={this.state.showAdd}
-          hideModal={this.hideModal}
-          name={"Event Added"}
-          description={
-            "Athlete" + this.state.name + "was added on" + this.state.club
-          }
-          NameAthlete={this.state.name}
-          ClubAthlete={this.state.club}
-        />
-
         <Modal.Content>
           <Form>
             <div>

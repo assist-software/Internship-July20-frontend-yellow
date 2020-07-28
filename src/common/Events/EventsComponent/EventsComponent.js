@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import { Card, Image, Icon } from "semantic-ui-react";
 import "./EventsComponent.css";
 import GroupAvatars from "../../Avatar";
-
+import logo from "./Logo.png";
+import { logDOM } from "@testing-library/react";
 class EventsComponent extends Component {
   render() {
     return (
       <div className="card-events">
         <Card fluid style={({ width: "540px" }, { height: "270px" })}>
-          <Image className="events-image" src={this.props.img2} />
+          <Image className="events-image" src={logo} />
 
           <div className="events-text">
             <div className="events-text2">

@@ -6,12 +6,34 @@ import { Bar } from "react-chartjs-2";
 import axios from "axios";
 import { Image, Icon, Card, Checkbox } from "semantic-ui-react";
 import ShowPersonEvent from "./ShowPersonEvent/ShowPersonEvent";
+import ModalAdded from "../../Modals/ModalAdded";
+import ModalDeleted from "../../Modals/ModalDeleted";
 
 class SelectedEvents extends Component {
   state = {
     show: false,
+    showAdd: false,
+    showDelete: false,
     displaycheck: false,
     eventselected: [],
+    EventAdded: "",
+  };
+  EventIsAdded = (response) => {
+    this.setState({ EventAdded: response });
+  };
+  hideModal = () => {
+    this.setState({
+      show: false,
+      showDelete: false,
+      showAdd: false,
+    });
+  };
+
+  hideAddConfirm = () => {
+    this.setState({
+      show: false,
+      showAdd: true,
+    });
   };
 
   handleOpenModal = () => {
@@ -169,8 +191,27 @@ class SelectedEvents extends Component {
             handleOpenModal={this.state.show}
             handleCloseModal={this.handleCloseModal}
             IdEvent={this.props.location.state.eventid}
+            hideAddConfirm={this.hideAddConfirm}
             eventselected={this.state.eventselected}
+            EventAdded={this.EventIsAdded}
             editForm={true}
+          />
+          <ModalAdded
+            hideAddConfirm={this.state.showAdd}
+            hideModal={this.hideModal}
+            name={"Event Modified"}
+            description={`Event "${this.state.EventAdded}" was modified with succes!`}
+          />
+          <ModalDeleted
+            hideAddConfirm={this.state.showDelete}
+            hideModal={this.hideModal}
+            setName={this.nameHandle}
+            title={"Delete Event"}
+            name={this.state.nameDeleted}
+            ConfirmDelete={this.deleteItem}
+            description={
+              "If you delete this event, all data associated with this event will permanently deleted."
+            }
           />
         </div>
       )

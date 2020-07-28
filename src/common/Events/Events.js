@@ -20,9 +20,15 @@ class Events extends Component {
     page: 1,
     search: "",
     time: 1,
+    EventAdded: "",
+    InClub: "",
   };
-  handleChangeInput = (event) => {
-    this.setState({ searchterm: event.target.value });
+
+  EventIsAdded = (response) => {
+    this.setState({ EventAdded: response });
+  };
+  AddedInClub = (response) => {
+    this.setState({ InClub: response });
   };
   handleonGoingButton = () => {
     this.setState({ ongoing: true });
@@ -83,6 +89,7 @@ class Events extends Component {
     });
   };
   presshandlePast = () => {
+    console.log(this.state.time, "bb");
     this.setState({ time: 3 });
     console.log(this.state.time, "aa");
     let url = `http://34.65.176.55:8081/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
@@ -142,12 +149,11 @@ class Events extends Component {
           <h2>Events</h2>
           <div className="grid-events">
             <Input
-              className="search-bar"
+              iconPosition="left"
+              className="search-bar-events"
               icon={{
                 name: "search",
-                circular: true,
                 link: true,
-                onClick: this.searchHandler,
               }}
               onChange={this.hadleInput}
               placeholder="Search..."
@@ -176,6 +182,8 @@ class Events extends Component {
           showModal={this.state.show}
           hideModal={this.hideModal}
           hideAddConfirm={this.hideAddConfirm}
+          EventAdded={this.EventIsAdded}
+          InClub={this.AddedInClub}
         />
 
         <ModalDeleted
@@ -186,9 +194,7 @@ class Events extends Component {
           hideAddConfirm={this.state.showAdd}
           hideModal={this.hideModal}
           name={"Event Added"}
-          description={
-            "Athlete" + this.props.name + "was added on" + this.props.clubName
-          }
+          description={`Athlete  "${this.state.EventAdded}" was added on "${this.state.InClub}"`}
         />
 
         <div className="events-component">
