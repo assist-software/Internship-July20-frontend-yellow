@@ -62,8 +62,8 @@
   border: 1px solid #cad2e2;
 }
 .button-add-events {
-  float: right;
-  margin-top: 20px;
+  margin-left: 140px;
+  display: flex;
 }
 .button-add-event:hover {
   border-radius: 8px;
@@ -224,4 +224,37 @@
   margin-top: 15px;
   top: 5px;
   cursor: pointer;
+}
+.buttons-features {
+  display: flex;
+  margin-top: 30px;
+}
+.button-delete-event {
+  cursor: pointer;
+  margin: 5px;
+  margin-left: 0px;
+  width: 90px;
+  height: 40px;
+  background: white;
+  border-radius: 8px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #44dabd;
+  border: none;
+}
+.button-delete-event:hover {
+  border-radius: 8px;
+  transform: translate(0.2);
+}
+.button-delete-event:focus {
+  outline: 0;
+  border-radius: 8px;
+}
+.button-delete-event:active {
+  transform: translateY(1px);
+  box-shadow: 0 5px rgb(238, 235, 235);
 }

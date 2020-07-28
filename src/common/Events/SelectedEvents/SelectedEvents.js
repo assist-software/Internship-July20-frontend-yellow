@@ -9,24 +9,6 @@ import ShowPersonEvent from "./ShowPersonEvent/ShowPersonEvent";
 
 class SelectedEvents extends Component {
   state = {
-    barChartData: {
-      labels: ["Africa", "Asia", "Europe"],
-      datasets: [
-        {
-          label: "Population (millions)",
-          backgroundColor: [
-            "#3e95cd",
-            "#8e5ea2",
-            "#3cba9f",
-            "#e8c3b9",
-            "#c45850",
-          ],
-          data: [2478, 5267, 734, 784, 433],
-        },
-      ],
-    },
-  };
-  state = {
     show: false,
     displaycheck: false,
     eventselected: [],
@@ -54,7 +36,7 @@ class SelectedEvents extends Component {
   };
 
   componentDidMount() {
-    let url = `http://192.168.100.228:8001/api/event/detail/${this.props.location.state.eventid}/`;
+    let url = `http://34.65.176.55:8081/api/event/detail/${this.props.location.state.eventid}/`;
     const token = localStorage.getItem("token");
     axios
       .get(url, {
@@ -63,12 +45,9 @@ class SelectedEvents extends Component {
       .then((response) => {
         console.log(response.data, "aaaaa");
         this.setState({ eventselected: response.data });
-        const selectevent = this.state.eventselected[0];
-        console.log(this.selectevent, "asfasfasfasf");
       });
   }
   render() {
-    console.log(this.state.eventselected.name, "asfasfasfasf");
     return (
       console.log(this.selectevent, "asfasfasfasf"),
       (
@@ -76,10 +55,11 @@ class SelectedEvents extends Component {
           <div className="page-top">
             <div className="label-event">
               <h3>{"Events > "}</h3>
-              <h4> {this.state.eventselected.name}</h4>
+              <h2> {this.state.eventselected.name}</h2>
             </div>
+
             <div className="div-event-button-edit">
-              <h2>{this.state.eventselected.name}</h2>
+              <h2> {this.state.eventselected.name}</h2>
               <button
                 className="event-button-edit"
                 onClick={this.handleOpenModal}
@@ -106,10 +86,8 @@ class SelectedEvents extends Component {
               <Image src={ImageEvent} wrapped ui={false} />
               <Card.Content className="card-content-event">
                 <div className="first-paragraph">
-                  <h3>{this.props.location.state.eventid}</h3>
-                  <p>
-                    this.props.SecondParagraphsdvdbdbdvcsbfbdsybusybfubsdbcusbcusbdvgykusdvbusuidvbousivvbisudvbusdibvnsoubsdvinoduvidbohjnmklkjashugftgvbhnjmk,lsxhbdfvvghujikoijuhygtfrdesdrftgyhujikolxkoasjihucygdrtfyguh
-                  </p>
+                  <h3>{this.state.eventselected.desciption}</h3>
+                  <p>{this.state.eventselected.desciption}</p>
                 </div>
               </Card.Content>
             </Card>
@@ -134,14 +112,17 @@ class SelectedEvents extends Component {
               ) : null}
             </div>
             <div className="show-person-parent">
-              <ShowPersonEvent checkboxdisplay={this.state.displaycheck} />
-              <ShowPersonEvent checkboxdisplay={this.state.displaycheck} />
-              <ShowPersonEvent checkboxdisplay={this.state.displaycheck} />
-              <ShowPersonEvent checkboxdisplay={this.state.displaycheck} />
-              <ShowPersonEvent checkboxdisplay={this.state.displaycheck} />
-              <ShowPersonEvent checkboxdisplay={this.state.displaycheck} />
-              <ShowPersonEvent checkboxdisplay={this.state.displaycheck} />
+              {this.state.eventselected.participants_detail &&
+                this.state.eventselected.participants_detail.map(
+                  (sevent, index) => (
+                    <ShowPersonEvent
+                      checkboxdisplay={this.state.displaycheck}
+                      name={sevent.first_name + " " + sevent.first_name}
+                    />
+                  )
+                )}
             </div>
+
             <div>
               {this.state.displaycheck ? (
                 <div>
@@ -188,6 +169,8 @@ class SelectedEvents extends Component {
             handleOpenModal={this.state.show}
             handleCloseModal={this.handleCloseModal}
             IdEvent={this.props.location.state.eventid}
+            eventselected={this.state.eventselected}
+            editForm={true}
           />
         </div>
       )

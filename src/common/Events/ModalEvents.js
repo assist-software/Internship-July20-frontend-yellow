@@ -1,22 +1,12 @@
 import React, { Component } from "react";
 import Dropzone from "react-dropzone";
-import { FileDrop } from "react-file-drop";
-import { useDropzone } from "react-dropzone";
-import {
-  Modal,
-  Form,
-  Icon,
-  Input,
-  FormGroup,
-  TextArea,
-} from "semantic-ui-react";
+import { Modal, Form, Icon, TextArea } from "semantic-ui-react";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
 import * as moment from "moment";
 import "./ModalEvents.css";
-import Button from "../Button";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import close_icon from "../../assets/close.svg";
@@ -103,29 +93,67 @@ class ModalEvents extends Component {
     ) {
       const token = localStorage.getItem("token");
 
-      moment(this.state.data).format("yyyy-mm-dd");
-      console.log(this.state.log, "date");
-      moment(this.state.time).format("HHMMSS");
-      console.log(this.state.log, "time");
-      axios.post(
-        "http://192.168.100.228:8001/api/event/create/",
-        {
-          club: "Running",
-          img: this.state.img,
-          name: this.state.title,
-          date: this.state.date,
-          description: this.state.body,
-          time: this.state.time,
-          location: this.state.address,
-          eventedit: [],
-        },
-        {
-          headers: {
-            Authorization: token,
+      if (this.props.NameModalEvents === "Edit Event") {
+        const url = `http://34.65.176.55:8081/api/event/put/${this.props.eventselected.id}/`;
+        axios
+          .put(
+            url,
+            {
+              club: "Running",
+              img: this.state.img,
+              name: this.state.title,
+              date: this.state.date,
+              description: this.state.body,
+              time: this.state.time,
+              location: this.state.address,
+            },
+            {
+              headers: {
+                Authorization: token,
+              },
+            }
+          )
+          .then((response) => {
+            this.setState({
+              title: "",
+              body: "",
+              date: "",
+              time: "",
+              location: "",
+              participants: "",
+              img: "",
+              address: "",
+            });
+
+            this.hideModal();
+          })
+          .catch((error) => {
+            alert(error);
+          });
+      } else {
+        moment(this.state.data).format("yyyy-mm-dd");
+        console.log(this.state.log, "date");
+        moment(this.state.time).format("HHMMSS");
+        console.log(this.state.log, "time");
+        axios.post(
+          "http://192.168.100.228:8001/api/event/create/",
+          {
+            club: "Running",
+            img: this.state.img,
+            name: this.state.title,
+            date: this.state.date,
+            description: this.state.body,
+            time: this.state.time,
+            location: this.state.address,
           },
-        }
-      );
-      this.props.hideAddConfirm();
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        this.props.hideAddConfirm();
+      }
     }
   };
   cancelClickedHandler = () => {
@@ -143,23 +171,35 @@ class ModalEvents extends Component {
     members.push("");
     this.setState({ invite: members });
   };
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevProps.time !== this.s.time) {
-  //     this.setState({ time: prevProps.time });
+  Edit = () => {
+    return (
+      <button className="button-delete-event" onClick={this.hideDeleteConfirm}>
+        {" "}
+        Detele
+      </button>
+    );
+  };
 
-  //     let url = `http://192.168.100.228:8001/api/event/create/&${this.props.IdEvent}/`;
-  //     const token = localStorage.getItem("token");
-  //     axios.get(url, { headers: { Authorization: token } }).then((response) => {
-  //       this.setState({ events: response.data.events });
-  //       this.setState({ numberpages: response.data.page_number });
-  //     });
-  //   }
-  // }
+  UNSAFE_componentWillReceiveProps(nextProps, nextState) {
+    if (
+      this.props.eventselected !== nextProps.eventselected &&
+      nextProps.eventselected !== null
+    ) {
+      console.log("this", this.props.eventselected);
+      console.log("next", nextProps.eventselected);
+      moment(this.state.data).format("dd-mm-yyyy");
+
+      this.setState({
+        title: nextProps.eventselected.name,
+        location: nextProps.eventselected.location,
+        body: nextProps.eventselected.desciption,
+        date: nextProps.eventselected.date,
+        time: nextProps.eventselected.time,
+      });
+    }
+  }
 
   render() {
-    {
-      console.log(this.reciveData, "coco");
-    }
     return (
       <Modal
         className="modal-events"
@@ -185,7 +225,7 @@ class ModalEvents extends Component {
             <div className="form-events">
               <Form.Input
                 label="Name"
-                value={this.props.name}
+                defaultValue={this.state.title}
                 placeholder="Input placeholder"
                 error={
                   this.state.titlevalid
@@ -200,11 +240,7 @@ class ModalEvents extends Component {
                   type="date"
                   value={this.props.date}
                   value={this.state.date}
-                  dateformat="yyyy/MM/dd"
                   placeholder="Input placeholder"
-                  filterDate={(date) =>
-                    date.getDay() !== 6 && date.getDay() !== 0
-                  }
                   error={
                     this.state.datevalid ? null : "The field can not be empty "
                   }
@@ -217,7 +253,7 @@ class ModalEvents extends Component {
                   type="time"
                   step="1"
                   placeholder="Input placeholder"
-                  value={this.state.time}
+                  defaultValue={this.state.time}
                   onChange={(ev) => {
                     this.setState({ time: ev.target.value });
                   }}
@@ -225,7 +261,6 @@ class ModalEvents extends Component {
               </Form.Group>
 
               <PlacesAutocomplete
-                value={this.state.address}
                 onChange={this.handleChange}
                 onSelect={this.handleSelect}
               >
@@ -237,6 +272,7 @@ class ModalEvents extends Component {
                 }) => (
                   <div>
                     <Form.Input
+                      defaultValue={this.state.location}
                       {...getInputProps({
                         placeholder: "Input placeholder",
                         className: "location-search-input",
@@ -273,6 +309,7 @@ class ModalEvents extends Component {
                 control={TextArea}
                 style={{ height: "130px" }}
                 label="Description"
+                defaultValue={this.state.body}
                 placeholder="Input placeholder"
                 error={
                   this.state.bodyvalid ? null : "The field can not be empty "
@@ -318,21 +355,27 @@ class ModalEvents extends Component {
               </Dropzone>
               <div className="bottom-events-modal">
                 <hr></hr>
-
-                <div className="button-add-events">
-                  <button
-                    className="button-close-event"
-                    onClick={this.props.handleCloseModal}
-                    inverted
-                  >
-                    Close
-                  </button>
-                  <button
-                    className="button-add-event"
-                    onClick={this.addClickedHandler}
-                  >
-                    ADD
-                  </button>
+                <div className="buttons-features">
+                  <div>
+                    {this.props.NameModalEvents === "Edit Event" ? (
+                      <this.Edit />
+                    ) : null}
+                  </div>
+                  <div className="button-add-events">
+                    <button
+                      className="button-close-event"
+                      onClick={this.props.handleCloseModal}
+                      inverted
+                    >
+                      Close
+                    </button>
+                    <button
+                      className="button-add-event"
+                      onClick={this.addClickedHandler}
+                    >
+                      ADD
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

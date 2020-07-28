@@ -1,14 +1,10 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { Card, Image, Icon } from "semantic-ui-react";
 import "./EventsComponent.css";
-import Logo from "./logo.png";
 import GroupAvatars from "../../Avatar";
-import { render } from "@testing-library/react";
 
 class EventsComponent extends Component {
   render() {
-    console.log(this.props.img2, this.props.date, "lalalaaa");
     return (
       <div className="card-events">
         <Card fluid style={({ width: "540px" }, { height: "270px" })}>
@@ -17,7 +13,10 @@ class EventsComponent extends Component {
           <div className="events-text">
             <div className="events-text2">
               <h3>{this.props.title}</h3>
-              <p>{this.props.body}</p>
+              <div className="body-events-text">
+                <p>{this.props.body}</p>
+              </div>
+
               <div className="events-card-details">
                 <div className="events-calendar">
                   <Icon name="calendar alternate outline" />

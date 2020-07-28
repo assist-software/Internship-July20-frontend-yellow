@@ -19,7 +19,7 @@ const PersonClubThumbnail = (props) => {
             src="https://react.semantic-ui.com/images/avatar/large/jenny.jpg"
             circular
           />
-          <Card.Header>{props.name}</Card.Header>
+          <Card.Header className="header-name">{props.name}</Card.Header>
           <Card.Meta className="meta-custom">
             {props.gender} -{props.age} YEARS
           </Card.Meta>

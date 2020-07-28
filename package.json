@@ -11,6 +11,8 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "chart.js": "^2.9.3",
+    "fuctbase64": "^1.4.0",
+    "image-to-base64": "^2.1.1",
     "material-table": "^1.65.0",
     "moment": "^2.27.0",
     "popper.js": "^1.16.1",

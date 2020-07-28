@@ -16,7 +16,6 @@ class Athletes extends Component {
     showAdd: false,
     athletes: [],
     page: 1,
-    athletes_page: [],
   };
 
   handleOpenModal = () => {
@@ -60,29 +59,6 @@ class Athletes extends Component {
     });
   }
 
-  setNumPage = (event, { activePage }) => {
-    const token = localStorage.getItem("token");
-    this.setState({ page: activePage });
-    let url = "http://192.168.100.228:8001/api/athlete/";
-    axios
-      .get(
-        url,
-
-        {
-          headers: {
-            Authorization: token,
-          },
-        },
-        {
-          params: {
-            page: this.state.page,
-          },
-        }
-      )
-      .then((response) => {
-        this.setState({ athletes_page: response.data.athletes });
-      });
-  };
   render() {
     return (
       <div className="athletes-page">
@@ -148,18 +124,6 @@ class Athletes extends Component {
             activePage={this.state.page}
           />
         </div>
-        <ModalDeleted
-          hideAddConfirm={this.state.showDelete}
-          hideModal={this.hideModal}
-        />
-        <ModalAdded
-          hideAddConfirm={this.state.showAdd}
-          hideModal={this.hideModal}
-          name={"Athlete Added"}
-          description={
-            "Athlete {props.NameAthlete} was added on {props.ClubName}."
-          }
-        />
       </div>
     );
   }

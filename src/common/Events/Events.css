@@ -4,6 +4,7 @@
   background: #f9f9f9;
   width: 1320px;
   margin-right: auto;
+  min-height: 100%;
 }
 .content-area {
   width: 1050px;
@@ -39,14 +40,9 @@
   line-height: 16px;
   color: #8e9296;
   background-color: white;
+  cursor: pointer;
 }
 
-.but :active {
-  background-color: black;
-  color: white;
-  border-radius: 5px;
-  outline: 0;
-}
 .but:hover {
   background-color: black;
   color: white;
@@ -58,7 +54,12 @@
   color: white;
   border-radius: 5px;
 }
-
+.but:active {
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  outline: 0;
+}
 .events-component {
   flex-wrap: wrap;
   display: flex;
@@ -77,7 +78,21 @@
   height: 46px;
   margin-left: 430px;
   margin-top: 20px;
+  cursor: pointer;
 }
+.but-new:hover {
+  border-radius: 8px;
+  transform: translate(0.2);
+}
+.but-new:focus {
+  outline: 0;
+  border-radius: 8px;
+}
+.but-new:active {
+  transform: translateY(1px);
+  box-shadow: 0 5px rgb(238, 235, 235);
+}
+
 .input-events-new {
   height: 46px;
   margin-left: 15px;
@@ -104,13 +119,13 @@ a.style-card-events-link:hover {
   color: black;
 }
 
-@media (min-width: 1300px) {
+@media (min-width: 1301px) {
   .ContentArea {
     width: 1320px;
   }
 }
-@media (min-width: 1250px) and (max-width: 1300px) {
+@media (min-width: 1250px) and (max-width: 1301px) {
   .ContentArea {
-    width: 1130px;
+    width: 1100px;
   }
 }

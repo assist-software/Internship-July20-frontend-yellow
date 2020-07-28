@@ -29,7 +29,12 @@
   margin-top: 20px !important;
   margin-bottom: 5px;
 }
-.events-text p {
+.body-events-text {
+  height: 60px;
+  width: 240px;
+  overflow: hidden;
+}
+.body-events-text p {
   margin-left: 10px;
   word-wrap: break-word;
   margin-top: 0px;
