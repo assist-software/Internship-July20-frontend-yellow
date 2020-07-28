@@ -53,7 +53,6 @@ class Login extends Component {
         },
         (error) => {
           this.setState({ succes: false });
-          console.log(error);
         }
       );
   };

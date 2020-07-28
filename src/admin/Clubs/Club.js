@@ -27,7 +27,6 @@ class Club extends Component {
   };
 
   hideAddConfirm = () => {
-    console.log("in");
     this.getClub();
     this.setState({
       show: false,
@@ -37,7 +36,6 @@ class Club extends Component {
 
   searchStringHandler = (e) => {
     this.setState({ searchString: e.target.value });
-    this.getClub();
   };
 
   getClub = () => {
@@ -51,8 +49,13 @@ class Club extends Component {
         },
       })
       .then((response) => {
-        console.log(response.data.number);
-        this.setState({ clubs: response.data.clubs });
+        this.setState(
+          {
+            clubs: response.data.clubs,
+            noOfMembers: response.data.numbers,
+          },
+          function () {}
+        );
       });
   };
 
@@ -62,6 +65,12 @@ class Club extends Component {
 
   componentDidMount() {
     this.getClub();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.searchString !== this.state.searchString) {
+      this.getClub();
+    }
   }
 
   render() {
@@ -125,7 +134,7 @@ class Club extends Component {
                         club.id_Owner.first_name + " " + club.id_Owner.last_name
                       }
                       className="grid-item"
-                      number={club}
+                      number={this.state.noOfMembers[index]}
                       id={index}
                     />
                   </Link>

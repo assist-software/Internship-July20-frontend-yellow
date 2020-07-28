@@ -4,6 +4,7 @@
   height: 100%;
   left: 216px;
   width: 85%;
+  overflow-y: auto;
 }
 
 .icon-header {
@@ -70,8 +71,21 @@
 }
 
 .persons-grid {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto auto;
   flex-wrap: wrap;
+}
+
+@media screen and (max-width: 745px) {
+  .persons-grid {
+    grid-template-columns: auto auto;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .persons-grid {
+    grid-template-columns: auto;
+  }
 }
 
 .card-first-line-label {
