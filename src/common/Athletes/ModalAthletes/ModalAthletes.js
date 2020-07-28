@@ -114,7 +114,7 @@ class ModalAthletes extends Component {
   };
 
   componentDidMount() {
-    let url = "http://34.65.176.55:8081/api/sports/";
+    let url = "http://192.168.100.228:8001/api/sports/";
     const token = localStorage.getItem("token");
     axios.get(url, { headers: { Authorization: token } }).then((response) => {
       let sport =
@@ -147,7 +147,7 @@ class ModalAthletes extends Component {
     ) {
       const token = localStorage.getItem("token");
       axios.post(
-        "http://34.65.176.55:8081/api/athlete/",
+        "http://192.168.100.228:8001/api/athlete/",
         {
           name: this.state.name,
           email: this.state.email,

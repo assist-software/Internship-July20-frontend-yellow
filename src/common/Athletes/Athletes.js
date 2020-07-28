@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Athletes.css";
 import InputSearch from "../InputSearch";
 import axios from "axios";
-import { Icon, Pagination } from "semantic-ui-react";
+import { Icon, Pagination, Input } from "semantic-ui-react";
 import PersonClubThumbnail from "../../admin/Clubs/selected-club/person-in-club-card";
 import ModalAthletes from "./ModalAthletes/ModalAthletes";
 import ModalAdded from "../Modals/ModalAdded";
@@ -17,8 +17,20 @@ class Athletes extends Component {
     athletes: [],
     page: 1,
     numberpages: 0,
+    search: "",
   };
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.search !== this.state.search) {
+      this.setState({ search: prevProps.search });
 
+      let url = `http://192.168.100.228:8001/api/athlete/?page=1&search=${this.state.search}&limit=10/`;
+      const token = localStorage.getItem("token");
+      axios.get(url, { headers: { Authorization: token } }).then((response) => {
+        this.setState({ athletes: response.data.athletes });
+        this.setState({ numberpages: response.data.page_number });
+      });
+    }
+  }
   handleOpenModal = () => {
     this.setState({ show: true });
   };
@@ -55,13 +67,13 @@ class Athletes extends Component {
     let url = `http://192.168.100.228:8001/api/athlete/?page=1&limit=10`;
     const token = localStorage.getItem("token");
     axios.get(url, { headers: { Authorization: token } }).then((response) => {
-      this.setState({ athletes: response.data });
+      this.setState({ athletes: response.data.athletes });
       this.setState({ numberpages: response.data.page_number });
     });
   }
   setNumPage = (event, { activePage }) => {
     this.setState({ page: activePage });
-    let url = `http://192.168.100.228:8001/api/athlete/?page=${activePage}&time=${this.state.time}&limit=10/`;
+    let url = `http://192.168.100.228:8001/api/athlete/?page=${activePage}&limit=10/`;
     const token = localStorage.getItem("token");
     axios
       .get(url, {
@@ -70,9 +82,12 @@ class Athletes extends Component {
         },
       })
       .then((response) => {
-        this.setState({ athletess: response.data });
+        this.setState({ athletes: response.data.athletes });
         this.setState({ numberpages: response.data.page_number });
       });
+  };
+  hadleInput = (date) => {
+    this.setState({ search: date.target.value });
   };
   render() {
     return (
@@ -80,7 +95,17 @@ class Athletes extends Component {
         <div className="bottom-content-athletes">
           <h2>Athletes</h2>
           <div className="grid-athletes">
-            <InputSearch />
+            <Input
+              className="search-bar"
+              icon={{
+                name: "search",
+                circular: true,
+                link: true,
+                onClick: this.searchHandler,
+              }}
+              onChange={this.hadleInput}
+              placeholder="Search..."
+            />
             <button className="but-new-athletes" onClick={this.handleOpenModal}>
               ADD NEW
             </button>
