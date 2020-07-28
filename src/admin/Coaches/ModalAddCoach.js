@@ -119,6 +119,7 @@ class ModalAddCoach extends Component {
 
   showConfirmation = () => {
     this.props.hideAddConfirm();
+    this.props.coachesHandler();
   };
 
   hideAddConfirm = () => {

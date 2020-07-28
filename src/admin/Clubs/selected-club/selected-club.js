@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 import { Grid, GridRow, Pagination, Input } from "semantic-ui-react";
 import { GridColumn } from "semantic-ui-react";
-import InputSearch from "../../../common/InputSearch";
 import "./selected-club.css";
 import PersonClubThumbnail from "./person-in-club-card";
 import header_icon from "../../../assets/edit.svg";
@@ -18,6 +17,11 @@ class SelectedClub extends Component {
     showDelete: false,
     showAdd: false,
     members: [],
+    clubDetails: "",
+    owner: "",
+    page: 1,
+    numberPages: 1,
+    searchString: "",
   };
   showModal = () => {
     this.setState({ show: true });
@@ -41,11 +45,13 @@ class SelectedClub extends Component {
   id = parseInt(this.id_array[2]) + 1;
 
   requestsClickHandler = () => {
-    let url = `http://34.65.176.55:8081/api/club/${this.id}/requested`;
-    this.membersHandler(url);
+    let url = `http://34.65.176.55:8081/api/club/${this.id}/requested/?page=1&search`;
+    //let url = `http://192.168.100.228:8001/api/club/${this.id}/requested/?page=1&search&`;
+    this.requestedMembersHandler();
   };
 
-  membersHandler = (url) => {
+  requestedMembersHandler = () => {
+    let url = `http://34.65.176.55:8081/api/club/${this.id}/requested/?page=1&search=${this.state.searchString}`;
     const token = localStorage.getItem("token");
     Axios.get(
       url,
@@ -57,18 +63,57 @@ class SelectedClub extends Component {
       }
     )
       .then((response) => {
-        console.log(response.data, "response");
-        this.setState({ members: response.data.Members });
+        console.log("responsepage", response.data);
+        this.setState({
+          members: response.data.Members,
+          numberPages: response.data.page_number,
+        });
       })
       .catch((error) => {
         alert(error);
       });
   };
 
+  membersHandler = () => {
+    let url = `http://34.65.176.55:8081/api/club/${this.id}/?page=1&search=${this.state.searchString}`;
+    const token = localStorage.getItem("token");
+    Axios.get(
+      url,
+
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    )
+      .then((response) => {
+        console.log("responsepage", response.data);
+        this.setState({
+          members: response.data.Members,
+          clubDetails: response.data.Club_details,
+          owner: response.data.Club_details.id_Owner,
+          numberPages: response.data.page_number,
+        });
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
+
+  membersClickHandler = () => {
+    this.membersHandler();
+  };
+
   componentDidMount() {
-    let url = `http://34.65.176.55:8081/api/club/${this.id}/`;
-    this.membersHandler(url);
+    //let url = `http://34.65.176.55:8081/api/club/${this.id}/`;
+    let url = `http://192.168.100.228:8001/api/club/${this.id}/?page=1&search&`;
+    this.membersHandler();
   }
+
+  searchStringHandler = (e) => {
+    this.setState({ searchString: e.target.value });
+    this.membersHandler();
+  };
 
   hideDeleteConfirm = () => {
     this.setState({
@@ -76,12 +121,31 @@ class SelectedClub extends Component {
       showDelete: true,
     });
   };
+
+  setNumPage = (event, { activePage }) => {
+    const token = localStorage.getItem("token");
+    this.setState({ page: activePage });
+    let url = `http://34.65.176.55:8081/api/club/${this.id}/?page=${this.activePage}&search=${this.state.searchString}`;
+    Axios.get(url, {
+      headers: {
+        Authorization: token,
+      },
+    }).then((response) => {
+      console.log("responsepage", response.data);
+      this.setState({
+        members: response.data.Members,
+        clubDetails: response.data.Club_details,
+        owner: response.data.Club_details.id_Owner,
+        numberPages: response.data.page_number,
+      });
+    });
+  };
+
   render() {
-    console.log(this.props);
     return (
       <div className="selected-club-main">
         <div className="header-selected-club">
-          <h2>Biking Club</h2>
+          <h2>{this.state.clubDetails.name}</h2>
           <img
             src={header_icon}
             className="icon-header"
@@ -90,7 +154,9 @@ class SelectedClub extends Component {
         </div>
         <label className="header-details">Coach</label>
         <br />
-        <label className="header-details">Coach name</label>
+        <label className="header-details-name">
+          {this.state.owner.first_name + " " + this.state.owner.last_name}
+        </label>
         <div>
           <div className="selector-buttons">
             <button className="button-club" onClick={this.membersClickHandler}>
@@ -116,7 +182,12 @@ class SelectedClub extends Component {
                   placeholder="Search..."
                 />
               </GridColumn>
-              <GridColumn floated="left" align="left" computer="8" tablet="16">
+              <GridColumn
+                floated="right"
+                align="right"
+                computer="8"
+                tablet="16"
+              >
                 <button className="button">Add new</button>
               </GridColumn>
             </GridRow>
@@ -166,7 +237,12 @@ class SelectedClub extends Component {
           </div>
         </div>
         <div className="pagination-numbers">
-          <Pagination activePage="1" totalPages="5" />
+          <Pagination
+            defaultActivePage={1}
+            activePage={this.state.page}
+            totalPages={this.state.numberPages}
+            onPageChange={this.setNumPage}
+          />
         </div>
       </div>
     );

@@ -27,6 +27,8 @@ class Club extends Component {
   };
 
   hideAddConfirm = () => {
+    console.log("in");
+    this.getClub();
     this.setState({
       show: false,
       showAdd: true,
@@ -40,6 +42,7 @@ class Club extends Component {
 
   getClub = () => {
     let url = `http://34.65.176.55:8081/api/club/?search=${this.state.searchString}`;
+    //let url = `http://192.168.100.228:8001/api/club/?search=${this.state.searchString}`;
     const token = localStorage.getItem("token");
     axios
       .get(url, {
@@ -48,8 +51,8 @@ class Club extends Component {
         },
       })
       .then((response) => {
-        console.log(response.data);
-        this.setState({ clubs: response.data });
+        console.log(response.data.number);
+        this.setState({ clubs: response.data.clubs });
       });
   };
 

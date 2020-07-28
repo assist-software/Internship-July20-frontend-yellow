@@ -25,8 +25,26 @@
 
 .header-details {
   margin-left: 16px;
-  font-family: "Times New Roman", Times, serif;
+  color: #8e9296;
+  font-family: "Inter", sans-serif;
   text-transform: uppercase;
+}
+
+.header-details-name {
+  width: 250px;
+  height: 24px;
+  margin-left: 16px;
+  /* inter/paragraph */
+
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 24px;
+  /* identical to box height, or 171% */
+
+  display: flex;
+  align-items: center;
 }
 
 .person-club-card {

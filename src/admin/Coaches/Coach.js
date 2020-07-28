@@ -19,6 +19,11 @@ class Coach extends Component {
     searchOk: false,
   };
 
+  constructor(props) {
+    super(props);
+    this.childTable = React.createRef();
+  }
+
   nameHandle = (nameReceived) => {
     this.setState({ name: nameReceived });
   };
@@ -44,6 +49,10 @@ class Coach extends Component {
 
   searchHandler = () => {
     this.setState({ searchOk: true });
+  };
+
+  handlerCoachesChild = () => {
+    this.childTable.current.coachesHandler();
   };
 
   render() {
@@ -76,6 +85,7 @@ class Coach extends Component {
           showModal={this.state.show}
           hideModal={this.hideModal}
           hideAddConfirm={this.hideAddConfirm}
+          coachesHandler={this.handlerCoachesChild}
           name={"Add Coach"}
           action={"Add"}
           editForm={false}
@@ -90,6 +100,7 @@ class Coach extends Component {
         />
         <div className="table-coach">
           <CoachTable
+            ref={this.childTable}
             searchString={this.state.searchString}
             searchPressed={this.state.searchOk}
           />
