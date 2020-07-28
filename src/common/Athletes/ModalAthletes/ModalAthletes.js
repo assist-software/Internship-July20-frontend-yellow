@@ -1,16 +1,7 @@
 import React, { Component } from "react";
 import Dropzone from "react-dropzone";
-import { FileDrop } from "react-file-drop";
-import { useDropzone } from "react-dropzone";
-import {
-  Header,
-  Image,
-  Modal,
-  Form,
-  Icon,
-  Input,
-  FormGroup,
-} from "semantic-ui-react";
+
+import { Modal, Form, Icon } from "semantic-ui-react";
 import "./ModalAthletes.css";
 import axios from "axios";
 import close_icon from "../../../assets/close.svg";
@@ -23,9 +14,7 @@ class ModalAthletes extends Component {
     ssportvalid: true,
     gendervalid: true,
     agevalid: true,
-    heightvalid: false,
-    wightvalid: false,
-    locationvalid: false,
+    locationvalid: true,
     heightvalid: true,
     weightvalid: true,
     sports: [],
@@ -125,7 +114,7 @@ class ModalAthletes extends Component {
   };
 
   componentDidMount() {
-    let url = "http://192.168.100.228:8001/api/sports/";
+    let url = "http://34.65.176.55:8081/api/sports/";
     const token = localStorage.getItem("token");
     axios.get(url, { headers: { Authorization: token } }).then((response) => {
       let sport =
@@ -133,14 +122,14 @@ class ModalAthletes extends Component {
         response.data &&
         response.data.map((item, index) => {
           return {
-            key: index,
+            key: item.id,
             text: item.description,
             value: item.description,
           };
         });
-      console.log(sport, "aaaaa");
+      console.log(response.data, "aaaaa");
       this.setState({ sports: sport });
-      console.log(response.data, "asfuysaf");
+      console.log(this.state.sports, "asfuysaf");
     });
   }
   addClickedHandler = () => {
@@ -158,7 +147,7 @@ class ModalAthletes extends Component {
     ) {
       const token = localStorage.getItem("token");
       axios.post(
-        "http://192.168.100.228:8001/api/athlete/",
+        "http://34.65.176.55:8081/api/athlete/",
         {
           name: this.state.name,
           email: this.state.email,
@@ -176,15 +165,15 @@ class ModalAthletes extends Component {
         }
       );
 
-      {
-        this.setState({ img: "" });
-        this.setState({ name: "" });
-        this.setState({ gender: "" });
-        this.setState({ age: "" });
-        this.setState({ psport: "" });
-        this.setState({ ssport: "" });
-        this.props.hideAddConfirm();
-      }
+      this.setState({
+        img: "",
+        name: "",
+        gender: "",
+        age: "",
+        psport: "",
+        ssport: "",
+      });
+      this.props.hideAddConfirm();
     }
   };
   cancelClickedHandler = () => {
@@ -347,7 +336,6 @@ class ModalAthletes extends Component {
                   className="input-description"
                   label="Assign to a club"
                   placeholder="Input placeholder"
-                  required="true"
                 />
                 <h3>Avatar Image</h3>
                 <Dropzone onDrop={(files) => console.log(files)}>

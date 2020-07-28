@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import EventsComponent from "./EventsComponent/EventsComponent";
 import "./Events.css";
-import InputSearch from "../InputSearch";
-import { Pagination, Icon, Input } from "semantic-ui-react";
+import { Pagination, Input } from "semantic-ui-react";
 import ModalEvents from "./ModalEvents";
 import ModalAdded from "../Modals/ModalAdded";
 import ModalDeleted from "../Modals/ModalDeleted";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import SelectedEvents from "./SelectedEvents/SelectedEvents";
 
 class Events extends Component {
   state = {
@@ -32,21 +30,17 @@ class Events extends Component {
   showModal = () => {
     this.setState({ show: true });
   };
+
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.time !== this.state.time) {
       this.setState({ time: prevProps.time });
-      if (prevProps.search !== this.state.search) {
-        this.setState({ search: prevProps.search });
 
-        let url = `http://192.168.100.228:8001/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
-        const token = localStorage.getItem("token");
-        axios
-          .get(url, { headers: { Authorization: token } })
-          .then((response) => {
-            this.setState({ events: response.data.events });
-            this.setState({ numberpages: response.data.page_number });
-          });
-      }
+      let url = `http://34.65.176.55:8081/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
+      const token = localStorage.getItem("token");
+      axios.get(url, { headers: { Authorization: token } }).then((response) => {
+        this.setState({ events: response.data.events });
+        this.setState({ numberpages: response.data.page_number });
+      });
     }
   }
   hideModal = () => {
@@ -88,7 +82,7 @@ class Events extends Component {
     this.setState({ time: 2 });
   };
   componentDidMount() {
-    let url = `http://192.168.100.228:8001/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
+    let url = `http://34.65.176.55:8081/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
     const token = localStorage.getItem("token");
     axios.get(url, { headers: { Authorization: token } }).then((response) => {
       this.setState({ events: response.data.events });
@@ -98,7 +92,7 @@ class Events extends Component {
 
   setNumPage = (event, { activePage }) => {
     this.setState({ page: activePage });
-    let url = `http://192.168.100.228:8001/api/event/all/events/?page=${activePage}&time=${this.state.time}&limit=10/`;
+    let url = `http://34.65.176.55:8081/api/event/all/events/?page=${activePage}&time=${this.state.time}&limit=10/`;
     const token = localStorage.getItem("token");
     axios
       .get(url, {
@@ -115,15 +109,6 @@ class Events extends Component {
     this.setState({ search: date.target.value });
   };
   render() {
-    let SearchEvents = this.state.events.filter((event) => {
-      if (event.title)
-        return (
-          event.title
-            .toLowerCase()
-            .indexOf(this.state.searchterm.toLowerCase()) !== -1
-        );
-    });
-
     return (
       <div className="ContentArea">
         <div className="content-area">
@@ -146,7 +131,7 @@ class Events extends Component {
           </div>
           <div className="buttons-events">
             <button className="but" active onClick={this.presshandleOngoing}>
-              Ongoing({this.state.events.length})
+              Ongoing
             </button>
             <button className="but" onClick={this.presshandleFuture}>
               Future
@@ -178,7 +163,7 @@ class Events extends Component {
         />
 
         <div className="events-component">
-          {SearchEvents &&
+          {this.state.events &&
             this.state.events.map((event, index) => (
               <Link
                 to={{
@@ -190,7 +175,7 @@ class Events extends Component {
                 <EventsComponent
                   cardId={event.id}
                   title={event.name}
-                  body={event.description}
+                  body={event.desciption}
                   time={event.time}
                   date={event.date}
                   location={event.location}

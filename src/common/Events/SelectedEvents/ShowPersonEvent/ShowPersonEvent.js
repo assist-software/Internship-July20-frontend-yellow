@@ -29,7 +29,7 @@ class ShowPersonEvent extends Component {
                     ) : null}
                   </div>
                 </div>
-                <h2>Harold Howard</h2>
+                <h2>{this.props.name}</h2>
                 <h3>Female 28 years</h3>
               </div>
             </Card.Content>
