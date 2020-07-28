@@ -45,7 +45,6 @@ export default class CoachTable extends Component {
     this.setState({
       show: true,
     });
-    this.addCoach.current.autoComplete();
   };
 
   hideModal = () => {
@@ -101,8 +100,7 @@ export default class CoachTable extends Component {
 
   handleSort = (clickedColumn) => () => {
     const { column, coaches_page, direction } = this.state;
-    console.log(coaches_page, "coaches");
-    console.log(clickedColumn, "column");
+
     if (column !== clickedColumn) {
       this.setState({
         column: clickedColumn,
@@ -141,7 +139,6 @@ export default class CoachTable extends Component {
       this.setState({ coaches_page: response.data.coaches });
 
       this.setState({ numberPages: response.data.page_number });
-      console.log(response.data);
     });
   };
 
@@ -164,15 +161,15 @@ export default class CoachTable extends Component {
 
   render() {
     const { column, direction } = this.state;
-    const coachesOnTable = this.state.coaches_page;
+
     return (
       <div>
         <Table sortable fixed>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell
-                sorted={column === "firstName" ? direction : null}
-                onClick={this.handleSort("firstName")}
+                sorted={column === "first_name last_name" ? direction : null}
+                onClick={this.handleSort("first_name last_name")}
               >
                 First and Last Name
               </Table.HeaderCell>
@@ -192,30 +189,32 @@ export default class CoachTable extends Component {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {coachesOnTable.map((coaches, index) => (
-              <Table.Row key={coaches.first_name}>
-                <Table.Cell>
-                  <Checkbox className="table-checkbox" />
-                  {coaches.first_name + " " + coaches.last_name}
-                </Table.Cell>
-                <Table.Cell>{coaches.email}</Table.Cell>
-                <Table.Cell>{coaches.club}</Table.Cell>
-                <Table.Cell>
-                  <img
-                    alt=""
-                    src={edit_icon}
-                    className="table-icons"
-                    onClick={(e) => this.editHandler(e, index)}
-                  />
-                  <img
-                    alt=""
-                    onClick={(e) => this.hideDeleteConfirm(e, index)}
-                    src={trash_icon}
-                    id={index}
-                  />
-                </Table.Cell>
-              </Table.Row>
-            ))}
+            {this.state.coaches_page.map((coaches, index) => {
+              return (
+                <Table.Row key={index}>
+                  <Table.Cell>
+                    <Checkbox className="table-checkbox" />
+                    {coaches.first_name + " " + coaches.last_name}
+                  </Table.Cell>
+                  <Table.Cell>{coaches.email}</Table.Cell>
+                  <Table.Cell>{coaches.club}</Table.Cell>
+                  <Table.Cell>
+                    <img
+                      alt=""
+                      src={edit_icon}
+                      className="table-icons"
+                      onClick={(e) => this.editHandler(e, index)}
+                    />
+                    <img
+                      alt=""
+                      onClick={(e) => this.hideDeleteConfirm(e, index)}
+                      src={trash_icon}
+                      id={index}
+                    />
+                  </Table.Cell>
+                </Table.Row>
+              );
+            })}
           </Table.Body>
         </Table>
         <Pagination
