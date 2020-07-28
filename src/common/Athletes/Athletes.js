@@ -18,6 +18,8 @@ class Athletes extends Component {
     page: 1,
     numberpages: 0,
     search: "",
+    addAthlete: "",
+    inClub: "",
   };
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.search !== this.state.search) {
@@ -89,6 +91,12 @@ class Athletes extends Component {
   hadleInput = (date) => {
     this.setState({ search: date.target.value });
   };
+  AthleteIsAdded = (response) => {
+    this.setState({ addAthlete: response });
+  };
+  AddInClub = (response) => {
+    this.setState({ inClub: response });
+  };
   render() {
     return (
       <div className="athletes-page">
@@ -96,12 +104,12 @@ class Athletes extends Component {
           <h2>Athletes</h2>
           <div className="grid-athletes">
             <Input
-              className="search-bar"
+              iconPosition="left"
+              className="search-bar-athletes"
               icon={{
                 name: "search",
-                circular: true,
+
                 link: true,
-                onClick: this.searchHandler,
               }}
               onChange={this.hadleInput}
               placeholder="Search..."
@@ -118,6 +126,8 @@ class Athletes extends Component {
           showModal={this.state.show}
           hideModal={this.hideModal}
           hideAddConfirm={this.hideAddConfirm}
+          addAthlete={this.AthleteIsAdded}
+          inClub={this.AddInClub}
         />
 
         <ModalDeleted
@@ -128,7 +138,7 @@ class Athletes extends Component {
           hideAddConfirm={this.state.showAdd}
           hideModal={this.hideModal}
           name={"Athlete Added"}
-          description={"Athlete" + this.name + "was added on" + this.clubName}
+          description={`Athlete ${this.state.addAthlete} was added on ${this.state.inClub}`}
         />
         <div className="persons-atheltes">
           {this.state.athletes &&

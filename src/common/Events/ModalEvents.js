@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 import Dropzone from "react-dropzone";
 import { Modal, Form, Icon, TextArea } from "semantic-ui-react";
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from "react-places-autocomplete";
 import * as moment from "moment";
 import "./ModalEvents.css";
 import "react-datepicker/dist/react-datepicker.css";
@@ -13,12 +9,15 @@ import close_icon from "../../assets/close.svg";
 
 class ModalEvents extends Component {
   state = {
+    show: false,
+    showdelete: false,
     clicked: false,
     titlevalid: true,
     bodyvalid: true,
     timevalid: true,
     datevalid: true,
     clubvalid: true,
+    locationvalid: true,
     title: "",
     body: "",
     date: "",
@@ -31,6 +30,14 @@ class ModalEvents extends Component {
     clubs: [],
     club: "",
   };
+
+  EventIsAdedd = () => {
+    this.props.EventAdded(this.state.title);
+  };
+  AddedInClub = () => {
+    this.props.InClub(this.state.club);
+  };
+
   ClubHandler = (data, { value }) => {
     if (/^[a-zA-Z ]+$/.test(data.target.value)) {
       this.setState({ clubvalid: true });
@@ -38,16 +45,6 @@ class ModalEvents extends Component {
     } else {
       this.setState({ clubvalid: false });
     }
-  };
-  handleChange = (address) => {
-    this.setState({ address });
-  };
-
-  handleSelect = (address) => {
-    geocodeByAddress(address)
-      .then((results) => getLatLng(results[0]))
-      .then((latLng) => console.log("Success", latLng))
-      .catch((error) => console.error("Error", error));
   };
 
   TitleHandler = (data) => {
@@ -76,7 +73,10 @@ class ModalEvents extends Component {
     this.setState({ time: data.target.value });
   };
   LocationHandler = (data) => {
-    this.setState({ location: data.target.value });
+    if (data.target.value.length !== 0) {
+      this.setState({ location: data.target.value });
+      this.setState({ locationvalid: true });
+    } else this.setState({ locationvalid: false });
   };
   ParticipantsHandler = (data) => {
     this.setState({ participants: data.target.value });
@@ -105,10 +105,7 @@ class ModalEvents extends Component {
 
       if (this.props.NameModalEvents === "Edit Event") {
         moment(this.state.data).format("yyyy-mm-dd");
-        console.log(this.state.log, "date");
         moment(this.state.time).format("HHMMSS");
-        console.log(this.state.log, "time");
-        console.log(this.state.club, "real club");
         const url = `http://34.65.176.55:8081/api/event/put/${this.props.eventselected.id}/`;
         axios
           .put(
@@ -119,7 +116,7 @@ class ModalEvents extends Component {
               date: this.state.date,
               description: this.state.body,
               time: this.state.time,
-              location: this.state.address,
+              location: this.state.location,
               club: this.state.club,
             },
             {
@@ -130,7 +127,6 @@ class ModalEvents extends Component {
           )
           .then((response) => {
             this.setState({
-              title: "",
               body: "",
               date: "",
               time: "",
@@ -140,9 +136,10 @@ class ModalEvents extends Component {
               address: "",
               club: "",
             });
-
+            this.EventIsAdedd();
             this.props.hideAddConfirm();
           })
+
           .catch((error) => {
             alert(error);
           });
@@ -151,24 +148,32 @@ class ModalEvents extends Component {
         console.log(this.state.log, "date");
         moment(this.state.time).format("HHMMSS");
         console.log(this.state.log, "time");
-        axios.post(
-          "http://34.65.176.55:8081/api/event/create/",
-          {
-            img: this.state.img,
-            name: this.state.title,
-            date: this.state.date,
-            description: this.state.body,
-            time: this.state.time,
-            location: this.state.address,
-            club: this.state.club,
-          },
-          {
-            headers: {
-              Authorization: token,
+        axios
+          .post(
+            "http://34.65.176.55:8081/api/event/create/",
+            {
+              img: this.state.img,
+              name: this.state.title,
+              date: this.state.date,
+              description: this.state.body,
+              time: this.state.time,
+              location: this.state.location,
+              club: this.state.club,
             },
-          }
-        );
-        this.props.hideAddConfirm();
+            {
+              headers: {
+                Authorization: token,
+              },
+            }
+          )
+          .then((response) => {
+            this.EventIsAdedd();
+            this.AddedInClub();
+            this.props.hideAddConfirm();
+          })
+          .catch((error) => {
+            alert(error);
+          });
       }
     }
   };
@@ -207,7 +212,7 @@ class ModalEvents extends Component {
       console.log(this.state.club, "real ");
       this.setState({
         title: nextProps.eventselected.name,
-        location: nextProps.eventselected.address,
+        location: nextProps.eventselected.location,
         body: nextProps.eventselected.description,
         date: nextProps.eventselected.date,
         time: nextProps.eventselected.time,
@@ -235,6 +240,29 @@ class ModalEvents extends Component {
     });
   }
 
+  deleteEvent = () => {
+    const url = `http://34.65.176.55:8081/api/event/delete/${this.props.eventselected.id}/`;
+    axios
+      .delete(url, {
+        headers: {
+          Authorization: this.token,
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        this.hideModal();
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
+  hideDeleteConfirm = () => {
+    this.setState({
+      show: false,
+      showDelete: true,
+    });
+    this.deleteEvent();
+  };
   render() {
     return (
       <Modal
@@ -296,50 +324,18 @@ class ModalEvents extends Component {
                 />
               </Form.Group>
 
-              <PlacesAutocomplete
-                onChange={this.handleChange}
-                onSelect={this.handleSelect}
-              >
-                {({
-                  getInputProps,
-                  suggestions,
-                  getSuggestionItemProps,
-                  loading,
-                }) => (
-                  <div>
-                    <Form.Input
-                      defaultValue={this.state.location}
-                      {...getInputProps({
-                        placeholder: "Input placeholder",
-                        className: "location-search-input",
-                        label: "Location",
-                      })}
-                    />
-                    <div className="autocomplete-dropdown-container">
-                      {loading && <div>Loading...</div>}
-                      {suggestions.map((suggestion) => {
-                        const className = suggestion.active
-                          ? "suggestion-item--active"
-                          : "suggestion-item";
-                        // inline style for demonstration purpose
-                        const style = suggestion.active
-                          ? { backgroundColor: "#fafafa", cursor: "pointer" }
-                          : { backgroundColor: "#ffffff", cursor: "pointer" };
-                        return (
-                          <div
-                            {...getSuggestionItemProps(suggestion, {
-                              className,
-                              style,
-                            })}
-                          >
-                            <span>{suggestion.description}</span>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-              </PlacesAutocomplete>
+              <Form.Input
+                defaultValue={this.state.location}
+                placeholder="Input placeholder"
+                className="location-search-input"
+                label="Location"
+                error={
+                  this.state.locationvalid
+                    ? null
+                    : "The field can not be empty or contain some special characters"
+                }
+                onChange={this.LocationHandler}
+              />
 
               <Form.Field
                 control={TextArea}
@@ -353,6 +349,7 @@ class ModalEvents extends Component {
                 onChange={this.BodyHandler}
               />
               <Form.Select
+                required
                 options={this.state.clubs || []}
                 className="input-description"
                 label="Assign to a club"
@@ -398,27 +395,26 @@ class ModalEvents extends Component {
               </Dropzone>
               <div className="bottom-events-modal">
                 <hr></hr>
+
                 <div className="buttons-features">
-                  <div>
-                    {this.props.NameModalEvents === "Edit Event" ? (
-                      <this.Edit />
-                    ) : null}
-                  </div>
-                  <div className="button-add-events">
-                    <button
-                      className="button-close-event"
-                      onClick={this.props.handleCloseModal}
-                      inverted
-                    >
-                      Close
-                    </button>
-                    <button
-                      className="button-add-event"
-                      onClick={this.addClickedHandler}
-                    >
-                      ADD
-                    </button>
-                  </div>
+                  {this.props.NameModalEvents === "Edit Event" ? (
+                    <this.Edit />
+                  ) : null}
+                </div>
+                <div className="button-add-events">
+                  <button
+                    className="button-close-event"
+                    onClick={this.props.handleCloseModal}
+                    inverted
+                  >
+                    Close
+                  </button>
+                  <button
+                    className="button-add-event"
+                    onClick={this.addClickedHandler}
+                  >
+                    ADD
+                  </button>
                 </div>
               </div>
             </div>

@@ -1,6 +1,5 @@
 .cards-event {
   position: absolute;
-  height: 200vh;
   width: 86%;
   left: 216px;
   align-self: flex-end;
@@ -37,6 +36,8 @@
   font-weight: normal;
   font-size: 22px;
   line-height: 32px;
+  height: 60px;
+  overflow: hidden;
 }
 .second-paragraph {
   position: absolute;
@@ -87,12 +88,10 @@
   font-weight: normal;
   font-size: 24px;
   line-height: 32px;
-  /* identical to box height, or 133% */
-
   display: flex;
   align-items: center;
-
   color: #000000;
+  width: 350px;
 }
 
 .event-bar p {
@@ -131,7 +130,7 @@
 }
 
 .event-button-edit {
-  width: 170px;
+  width: 300px;
   height: 40px;
   background: #1a1a1a;
   border-radius: 8px;
