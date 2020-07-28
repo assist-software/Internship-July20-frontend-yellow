@@ -35,7 +35,7 @@ class Events extends Component {
     if (prevProps.time !== this.state.time) {
       this.setState({ time: prevProps.time });
 
-      let url = `http://34.65.176.55:8081/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
+      let url = `http://192.168.100.228:8001/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
       const token = localStorage.getItem("token");
       axios.get(url, { headers: { Authorization: token } }).then((response) => {
         this.setState({ events: response.data.events });
@@ -82,7 +82,7 @@ class Events extends Component {
     this.setState({ time: 2 });
   };
   componentDidMount() {
-    let url = `http://34.65.176.55:8081/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
+    let url = `http://192.168.100.228:8001/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
     const token = localStorage.getItem("token");
     axios.get(url, { headers: { Authorization: token } }).then((response) => {
       this.setState({ events: response.data.events });
@@ -92,7 +92,7 @@ class Events extends Component {
 
   setNumPage = (event, { activePage }) => {
     this.setState({ page: activePage });
-    let url = `http://34.65.176.55:8081/api/event/all/events/?page=${activePage}&time=${this.state.time}&limit=10/`;
+    let url = `http://192.168.100.228:8001/api/event/all/events/?page=${activePage}&time=${this.state.time}&limit=10/`;
     const token = localStorage.getItem("token");
     axios
       .get(url, {

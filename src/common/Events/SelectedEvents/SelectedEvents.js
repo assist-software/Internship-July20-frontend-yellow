@@ -36,7 +36,7 @@ class SelectedEvents extends Component {
   };
 
   componentDidMount() {
-    let url = `http://34.65.176.55:8081/api/event/detail/${this.props.location.state.eventid}/`;
+    let url = `http://192.168.100.228:8001/api/event/detail/${this.props.location.state.eventid}/`;
     const token = localStorage.getItem("token");
     axios
       .get(url, {
@@ -86,8 +86,8 @@ class SelectedEvents extends Component {
               <Image src={ImageEvent} wrapped ui={false} />
               <Card.Content className="card-content-event">
                 <div className="first-paragraph">
-                  <h3>{this.state.eventselected.desciption}</h3>
-                  <p>{this.state.eventselected.desciption}</p>
+                  <h3>{this.state.eventselected.description}</h3>
+                  <p>{this.state.eventselected.description}</p>
                 </div>
               </Card.Content>
             </Card>
