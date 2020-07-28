@@ -31,18 +31,18 @@ class Events extends Component {
     this.setState({ show: true });
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.time !== this.state.time) {
-      this.setState({ time: prevProps.time });
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevProps.search !== this.state.search) {
+  //     this.setState({ search: prevProps.search });
 
-      let url = `http://192.168.100.228:8001/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
-      const token = localStorage.getItem("token");
-      axios.get(url, { headers: { Authorization: token } }).then((response) => {
-        this.setState({ events: response.data.events });
-        this.setState({ numberpages: response.data.page_number });
-      });
-    }
-  }
+  //     let url = `http://192.168.100.228:8001/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
+  //     const token = localStorage.getItem("token");
+  //     axios.get(url, { headers: { Authorization: token } }).then((response) => {
+  //       this.setState({ events: response.data.events });
+  //       this.setState({ numberpages: response.data.page_number });
+  //     });
+  //   }
+  // }
   hideModal = () => {
     this.setState({
       show: false,
@@ -74,15 +74,36 @@ class Events extends Component {
   };
   presshandleOngoing = () => {
     this.setState({ time: 1 });
+
+    let url = `http://34.65.176.55:8081/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
+    const token = localStorage.getItem("token");
+    axios.get(url, { headers: { Authorization: token } }).then((response) => {
+      this.setState({ events: response.data.events });
+      this.setState({ numberpages: response.data.page_number });
+    });
   };
   presshandlePast = () => {
     this.setState({ time: 3 });
+    console.log(this.state.time, "aa");
+    let url = `http://34.65.176.55:8081/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
+    const token = localStorage.getItem("token");
+    axios.get(url, { headers: { Authorization: token } }).then((response) => {
+      this.setState({ events: response.data.events });
+      this.setState({ numberpages: response.data.page_number });
+    });
   };
   presshandleFuture = () => {
     this.setState({ time: 2 });
+
+    let url = `http://34.65.176.55:8081/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
+    const token = localStorage.getItem("token");
+    axios.get(url, { headers: { Authorization: token } }).then((response) => {
+      this.setState({ events: response.data.events });
+      this.setState({ numberpages: response.data.page_number });
+    });
   };
   componentDidMount() {
-    let url = `http://192.168.100.228:8001/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
+    let url = `http://34.65.176.55:8081/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
     const token = localStorage.getItem("token");
     axios.get(url, { headers: { Authorization: token } }).then((response) => {
       this.setState({ events: response.data.events });
@@ -92,7 +113,7 @@ class Events extends Component {
 
   setNumPage = (event, { activePage }) => {
     this.setState({ page: activePage });
-    let url = `http://192.168.100.228:8001/api/event/all/events/?page=${activePage}&time=${this.state.time}&limit=10/`;
+    let url = `http://34.65.176.55:8081/api/event/all/events/?page=${activePage}&time=${this.state.time}&limit=10/`;
     const token = localStorage.getItem("token");
     axios
       .get(url, {
@@ -107,6 +128,12 @@ class Events extends Component {
   };
   hadleInput = (date) => {
     this.setState({ search: date.target.value });
+    let url = `http://34.65.176.55:8081/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
+    const token = localStorage.getItem("token");
+    axios.get(url, { headers: { Authorization: token } }).then((response) => {
+      this.setState({ events: response.data.events });
+      this.setState({ numberpages: response.data.page_number });
+    });
   };
   render() {
     return (
@@ -159,7 +186,9 @@ class Events extends Component {
           hideAddConfirm={this.state.showAdd}
           hideModal={this.hideModal}
           name={"Event Added"}
-          description={"Athlete {this.name} was added on {this.clubName}"}
+          description={
+            "Athlete" + this.props.name + "was added on" + this.props.clubName
+          }
         />
 
         <div className="events-component">
@@ -175,7 +204,7 @@ class Events extends Component {
                 <EventsComponent
                   cardId={event.id}
                   title={event.name}
-                  body={event.desciption}
+                  body={event.description}
                   time={event.time}
                   date={event.date}
                   location={event.location}

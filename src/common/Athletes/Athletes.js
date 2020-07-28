@@ -23,7 +23,7 @@ class Athletes extends Component {
     if (prevProps.search !== this.state.search) {
       this.setState({ search: prevProps.search });
 
-      let url = `http://192.168.100.228:8001/api/athlete/?page=1&search=${this.state.search}&limit=10/`;
+      let url = `http://34.65.176.55:8081/api/athlete/?page=1&search=${this.state.search}&limit=10/`;
       const token = localStorage.getItem("token");
       axios.get(url, { headers: { Authorization: token } }).then((response) => {
         this.setState({ athletes: response.data.athletes });
@@ -64,7 +64,7 @@ class Athletes extends Component {
     });
   };
   componentDidMount() {
-    let url = `http://192.168.100.228:8001/api/athlete/?page=1&limit=10`;
+    let url = `http://34.65.176.55:8081/api/athlete/?page=1&limit=10`;
     const token = localStorage.getItem("token");
     axios.get(url, { headers: { Authorization: token } }).then((response) => {
       this.setState({ athletes: response.data.athletes });
@@ -73,7 +73,7 @@ class Athletes extends Component {
   }
   setNumPage = (event, { activePage }) => {
     this.setState({ page: activePage });
-    let url = `http://192.168.100.228:8001/api/athlete/?page=${activePage}&limit=10/`;
+    let url = `http://34.65.176.55:8081/api/athlete/?page=${activePage}&limit=10/`;
     const token = localStorage.getItem("token");
     axios
       .get(url, {

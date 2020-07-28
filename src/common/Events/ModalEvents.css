@@ -1,7 +1,7 @@
 .modal-events {
   position: absolute;
 
-  height: 900px;
+  height: 1000px;
   background: #ffffff;
   border: 1px solid #8e9296;
   box-sizing: border-box;
@@ -62,7 +62,7 @@
   border: 1px solid #cad2e2;
 }
 .button-add-events {
-  margin-left: 140px;
+  margin-left: 240px;
   display: flex;
 }
 .button-add-event:hover {
