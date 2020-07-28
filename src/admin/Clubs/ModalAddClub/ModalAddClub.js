@@ -100,6 +100,7 @@ class InputForm extends Component {
 
   addClickedHandler = () => {
     const token = localStorage.getItem("token");
+
     if (
       this.state.nameValidation &&
       !!this.state.name &&
@@ -143,7 +144,7 @@ class InputForm extends Component {
   componentDidMount() {
     let url = "http://34.65.176.55:8081/api/coach/";
     const token = localStorage.getItem("token");
-
+    if (this.role == 1) this.setState({ coachValidation: true, coach: "SFA" });
     Axios.get(
       url,
 
@@ -192,30 +193,34 @@ class InputForm extends Component {
                   placeholder="Input placeholder"
                   width="16"
                 />
-                <label>Assign a Coach</label>
-                <br />
                 {this.role == 0 ? (
                   <div>
-                    <Form.Input
-                      list="Coach"
-                      placeholder="Input placeholder"
-                      fluid
-                      onChange={this.coachHandler}
-                      error={
-                        this.state.coachValidation
-                          ? null
-                          : "The field can not be empty or contain special characters"
-                      }
-                    />
-                    <datalist id="Coach">
-                      {this.state.coachesList.map((coac) => {
-                        return (
-                          <option
-                            value={coac.first_name + " " + coac.last_name}
-                          />
-                        );
-                      })}
-                    </datalist>
+                    <label>Assign a Coach</label>
+                    <br />
+
+                    <div>
+                      <Form.Input
+                        list="Coach"
+                        placeholder="Input placeholder"
+                        fluid
+                        onChange={this.coachHandler}
+                        error={
+                          this.state.coachValidation
+                            ? null
+                            : "The field can not be empty or contain special characters"
+                        }
+                      />
+                      <datalist id="Coach">
+                        {this.state.coachesList.map((coac) => {
+                          return (
+                            <option
+                              key=""
+                              value={coac.first_name + " " + coac.last_name}
+                            />
+                          );
+                        })}
+                      </datalist>
+                    </div>
                   </div>
                 ) : null}
 

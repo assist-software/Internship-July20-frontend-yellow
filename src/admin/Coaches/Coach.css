@@ -30,26 +30,3 @@
   text-transform: capitalize;
   color: #000000;
 }
-
-.MuiTableCell-head {
-  color: white !important;
-  font-weight: 500;
-  line-height: 1.5rem;
-  background-color: black !important;
-}
-
-span.MuiButtonBase-root.MuiTableSortLabel-root.MuiTableSortLabel-active {
-  color: white !important;
-}
-
-span.MuiButtonBase-root.MuiTableSortLabel-root:hover {
-  color: white !important;
-}
-
-svg.MuiSvgIcon-root.MuiTableSortLabel-icon.MuiTableSortLabel-iconDirectionAsc {
-  color: white !important;
-}
-
-svg.MuiSvgIcon-root.MuiTableSortLabel-icon.MuiTableSortLabel-iconDirectionDesc {
-  color: white !important;
-}
