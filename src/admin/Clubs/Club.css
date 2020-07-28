@@ -76,3 +76,38 @@ a.linkStyle :hover {
   transform: scale(1.05);
   color: black;
 }
+
+.coach-p {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+  display: flex;
+  margin-top: 30px;
+  margin-bottom: 0px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8e9296;
+}
+
+.coach-name-p {
+  width: 250px;
+  height: 24px;
+  left: 0px;
+  top: 94px;
+
+  /* inter/paragraph */
+
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 24px;
+  /* identical to box height, or 171% */
+
+  display: flex;
+  align-items: center;
+
+  color: #000000;
+}

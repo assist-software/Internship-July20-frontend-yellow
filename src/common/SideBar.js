@@ -24,6 +24,7 @@ class SideBar extends Component {
   };
 
   role = localStorage.getItem("role");
+  name = localStorage.getItem("name");
 
   pressedHandlerClubs = () => {
     this.setState({
@@ -70,8 +71,10 @@ class SideBar extends Component {
       <div className="sidebar">
         <div className="sidebar-user">
           <Image src={avatar} className="sidebar-icon" />
-          <p className="sidebar-user-name">Connie Web</p>
-          <p className="sidebar-user-role">Administrator</p>
+          <p className="sidebar-user-name">{this.name}</p>
+          <p className="sidebar-user-role">
+            {this.role == 0 ? "Administrator" : "Coach"}
+          </p>
         </div>
         <div className="button-zone">
           <div></div>

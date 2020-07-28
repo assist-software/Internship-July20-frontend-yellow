@@ -3,7 +3,6 @@ import "./login.css";
 import { Image, Grid, GridColumn, GridRow } from "semantic-ui-react";
 import ImageLogin from "./Rectangle_28.png";
 import axios from "axios";
-import { Redirect, useHistory } from "react-router-dom";
 
 class Login extends Component {
   state = {
@@ -48,6 +47,7 @@ class Login extends Component {
         (response) => {
           window.localStorage.setItem("token", response.data.token);
           window.localStorage.setItem("role", response.data.role);
+          window.localStorage.setItem("name", response.data.name);
           this.setState({ succes: true });
           window.location.reload();
         },

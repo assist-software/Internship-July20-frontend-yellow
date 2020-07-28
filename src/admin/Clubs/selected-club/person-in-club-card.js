@@ -39,7 +39,15 @@ const PersonClubThumbnail = (props) => {
           </Card.Description>
         </Card.Content>
       </Card>
-      <PersonThumbnail showModal={show} hideModal={hideModal} />
+      <PersonThumbnail
+        showModal={show}
+        hideModal={hideModal}
+        name={props.name}
+        age={props.age}
+        gender={props.gender}
+        primary_sport={props.primary_sport}
+        secondary_sport={props.secondary_sport}
+      />
     </div>
   );
 };
