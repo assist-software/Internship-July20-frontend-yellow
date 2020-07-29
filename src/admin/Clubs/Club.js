@@ -75,9 +75,9 @@ class Club extends Component {
                 <GridColumn floated="left" align="left" computer="8" tablet="8">
                   <Input
                     className="search-bar"
+                    iconPosition="left"
                     icon={{
                       name: "search",
-                      circular: true,
                       link: true,
                       onClick: this.searchHandler,
                     }}

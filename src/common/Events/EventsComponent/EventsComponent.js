@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Card, Image, Icon } from "semantic-ui-react";
 import "./EventsComponent.css";
 import GroupAvatars from "../../Avatar";
-import logo from "./Logo.png";
+import logo from "./logo.png";
 import { logDOM } from "@testing-library/react";
 class EventsComponent extends Component {
   render() {
