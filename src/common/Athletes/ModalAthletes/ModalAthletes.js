@@ -104,7 +104,8 @@ class ModalAthletes extends Component {
   HeightHandler = (data) => {
     if (
       /[1-2][0-90-9]+$/.test(data.target.value) &&
-      data.target.value.length === 3
+      data.target.value.length === 3 &&
+      data.target.value > 0
     ) {
       this.setState({ heightvalid: true });
       this.setState({ height: data.target.value });
@@ -114,7 +115,11 @@ class ModalAthletes extends Component {
   };
 
   WeightHandler = (data) => {
-    if (/[1-9][0-90-9]+$/.test(data.target.value) && data.target.value < 400) {
+    if (
+      /[1-9][0-90-9]+$/.test(data.target.value) &&
+      data.target.value < 400 &&
+      data.target.value > 0
+    ) {
       this.setState({ weightvalid: true });
       this.setState({ weight: data.target.value });
     } else {
