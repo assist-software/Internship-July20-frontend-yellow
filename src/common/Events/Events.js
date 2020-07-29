@@ -24,31 +24,34 @@ class Events extends Component {
     InClub: "",
   };
 
+  CallPoint = () => {
+    let url = `http://34.65.176.55:8081/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
+    const token = localStorage.getItem("token");
+    axios.get(url, { headers: { Authorization: token } }).then((response) => {
+      this.setState({ events: response.data.events });
+      this.setState({ numberpages: response.data.page_number });
+    });
+  };
+
   EventIsAdded = (response) => {
     this.setState({ EventAdded: response });
   };
+
   AddedInClub = (response) => {
     this.setState({ InClub: response });
   };
-  handleonGoingButton = () => {
-    this.setState({ ongoing: true });
-  };
+
   showModal = () => {
     this.setState({ show: true });
   };
 
   // componentDidUpdate(prevProps, prevState) {
-  //   if (prevProps.search !== this.state.search) {
-  //     this.setState({ search: prevProps.search });
-
-  //     let url = `http://192.168.100.228:8001/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
-  //     const token = localStorage.getItem("token");
-  //     axios.get(url, { headers: { Authorization: token } }).then((response) => {
-  //       this.setState({ events: response.data.events });
-  //       this.setState({ numberpages: response.data.page_number });
-  //     });
+  //   if (prevProps.time !== this.state.time) {
+  //     this.setState({ time: prevProps.time });
+  //     this.CallPoint();
   //   }
   // }
+
   hideModal = () => {
     this.setState({
       show: false,
@@ -78,37 +81,40 @@ class Events extends Component {
   handleCloseModal = () => {
     this.setState({ show: false });
   };
+
   presshandleOngoing = () => {
-    this.setState({ time: 1 });
-
-    let url = `http://34.65.176.55:8081/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
-    const token = localStorage.getItem("token");
-    axios.get(url, { headers: { Authorization: token } }).then((response) => {
-      this.setState({ events: response.data.events });
-      this.setState({ numberpages: response.data.page_number });
-    });
+    this.setState(
+      {
+        time: 1,
+      },
+      () => {
+        this.CallPoint();
+      }
+    );
   };
+
   presshandlePast = () => {
-    console.log(this.state.time, "bb");
-    this.setState({ time: 3 });
-    console.log(this.state.time, "aa");
-    let url = `http://34.65.176.55:8081/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
-    const token = localStorage.getItem("token");
-    axios.get(url, { headers: { Authorization: token } }).then((response) => {
-      this.setState({ events: response.data.events });
-      this.setState({ numberpages: response.data.page_number });
-    });
+    this.setState(
+      {
+        time: 3,
+      },
+      () => {
+        this.CallPoint();
+      }
+    );
   };
-  presshandleFuture = () => {
-    this.setState({ time: 2 });
 
-    let url = `http://34.65.176.55:8081/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
-    const token = localStorage.getItem("token");
-    axios.get(url, { headers: { Authorization: token } }).then((response) => {
-      this.setState({ events: response.data.events });
-      this.setState({ numberpages: response.data.page_number });
-    });
+  presshandleFuture = () => {
+    this.setState(
+      {
+        time: 2,
+      },
+      () => {
+        this.CallPoint();
+      }
+    );
   };
+
   componentDidMount() {
     let url = `http://34.65.176.55:8081/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
     const token = localStorage.getItem("token");
@@ -134,13 +140,14 @@ class Events extends Component {
       });
   };
   hadleInput = (date) => {
-    this.setState({ search: date.target.value });
-    let url = `http://34.65.176.55:8081/api/event/all/events/?page=1&search=${this.state.search}&time=${this.state.time}&limit=10/`;
-    const token = localStorage.getItem("token");
-    axios.get(url, { headers: { Authorization: token } }).then((response) => {
-      this.setState({ events: response.data.events });
-      this.setState({ numberpages: response.data.page_number });
-    });
+    this.setState(
+      {
+        search: date.target.value,
+      },
+      () => {
+        this.CallPoint();
+      }
+    );
   };
   render() {
     return (
@@ -194,7 +201,7 @@ class Events extends Component {
           hideAddConfirm={this.state.showAdd}
           hideModal={this.hideModal}
           name={"Event Added"}
-          description={`Athlete  "${this.state.EventAdded}" was added on "${this.state.InClub}"`}
+          description={`Event "${this.state.EventAdded}" was added on "${this.state.InClub}"`}
         />
 
         <div className="events-component">
